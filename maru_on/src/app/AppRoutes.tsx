@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { RootState } from "./store";
+//import { useSelector } from "react-redux";
+//import type { RootState } from "./store";
 import type { ReactNode } from "react";
 import RootPage from "@/pages/RootPage";
 import MainPage from "@/pages/MainPage";
