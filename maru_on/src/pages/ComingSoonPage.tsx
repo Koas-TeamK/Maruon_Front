@@ -4,7 +4,7 @@ import MobileShell from "@/components/MobileShell";
 export default function ComingSoonPage() {
     const comingSoon = "/img/comingSoon.jpg";
     return (
-        <MobileShell>
+        <MobileShell allowInnerScroll>
             <img
                 src={comingSoon}
                 alt="Coming Soon"
