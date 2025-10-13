@@ -2,10 +2,10 @@ import MobileShell from "@/components/MobileShell"
 //import { EllipsisOutlined } from '@ant-design/icons';
 
 export default function ComingSoonPage() {
-    const wechatSrc = "/logo/wechat.png";
-    const lineSrc = "/logo/line.png";
-    const linkedinSrc = "/logo/linkedin.png";
-    const facebookSrc = "/logo/facebook.png";
+    //const wechatSrc = "/logo/wechat.png";
+    //const lineSrc = "/logo/line.png";
+    //const linkedinSrc = "/logo/linkedin.png";
+    //const facebookSrc = "/logo/facebook.png";
     const comingSoon = "/img/comingSoon.jpg";
 
     return (
