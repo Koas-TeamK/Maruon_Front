@@ -36,7 +36,7 @@ export default function ComingSoonPage() {
                     />
                 </main>
 
-                {/* 하단 탭 */}
+                {/* 하단 탭 
                 <nav
                     className="
                         absolute z-50
@@ -51,7 +51,7 @@ export default function ComingSoonPage() {
                         <img src={facebookSrc} className="w-[50px] h-[50px] block" alt="Facebook" />
                     </div>
                 </nav>
-
+*/}
             </div>
         </MobileShell>
     )
