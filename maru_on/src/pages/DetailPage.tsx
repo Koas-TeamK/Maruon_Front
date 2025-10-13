@@ -16,11 +16,11 @@ export default function DetailPage() {
     // 세션 정의
     const sections = useMemo(
         () => [
-            { key: "s1", content: <Section1 />, bg: "bg-gray-100" },
-            { key: "s2", content: <Section2 />, bg: "bg-gray-200" },
-            { key: "s3", content: <Section3 />, bg: "bg-gray-300" },
-            { key: "s4", content: <Section4 />, bg: "bg-gray-400" },
-            { key: "s5", content: <Section5 />, bg: "bg-gray-500 text-white" },
+            { key: "s1", label: "소개", content: <Section1 />, bg: "bg-gray-100" },
+            { key: "s2", label: "이미지", content: <Section2 />, bg: "bg-gray-200" },
+            { key: "s3", label: "기능", content: <Section3 />, bg: "bg-gray-300" },
+            { key: "s4", label: "후기·SNS", content: <Section4 />, bg: "bg-gray-400" },
+            { key: "s5", label: "문의", content: <Section5 />, bg: "bg-gray-500 text-white" },
         ],
         []
     );
@@ -113,12 +113,11 @@ export default function DetailPage() {
             {/* 오버레이 구조: 헤더는 투명, 컨텐츠는 100dvh 유지 */}
             <div className="relative w-full h-dvh overflow-hidden bg-[#0b0b0f] touch-none">
                 {/* 투명 헤더(오버레이) */}
-                <header className="fixed inset-x-0 top-0 h-14 z-[100] bg-transparent flex items-center justify-end px-4 pointer-events-none">
-                    {/* 내부 요소만 클릭 가능 */}
+                <header className="fixed inset-x-0 top-0 h-16 z-[100] bg-transparent flex items-center justify-end px-4 pointer-events-none">
                     <img
                         src={whiteLogo}
                         alt="MARUON"
-                        className="h-8 w-auto drop-shadow pointer-events-auto"
+                        className="h-14 w-auto drop-shadow pointer-events-auto"
                     />
                 </header>
 
@@ -146,7 +145,7 @@ export default function DetailPage() {
                 </div>
 
                 {/* 하단 고정 SNS 탭 */}
-                <nav className="fixed z-[90] right-4 md:right-3 bottom-[max(1rem,env(safe-area-inset-bottom))]">
+                <nav className="fixed z-[90] right-4 md:right-1 bottom-[max(1rem,env(safe-area-inset-bottom))]">
                     <div className="flex flex-col items-end gap-3">
                         <img src={wechatSrc} className="w-[50px] h-[50px]" alt="WeChat" />
                         <img src={lineSrc} className="w-[50px] h-[50px]" alt="LINE" />
@@ -155,21 +154,49 @@ export default function DetailPage() {
                     </div>
                 </nav>
 
-                {/* 하단 페이지 인디케이터 */}
-                <div className="fixed left-1/2 -translate-x-1/2 bottom-[calc(env(safe-area-inset-bottom)+0.5rem)] z-[95]">
-                    <div className="flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur">
-                        {sections.map((s, i) => (
-                            <button
-                                key={s.key}
-                                onClick={() => goTo(i)}
-                                aria-label={`Go to ${s.key}`}
-                                className={`h-2.5 rounded-full transition-all ${i === index ? "w-6 bg-white" : "w-2.5 bg-white/50 hover:bg-white/80"
-                                    }`}
-                            />
-                        ))}
+                {/* 하단 페이지 인디케이터 — 미니멀 원형점 */}
+                {/* 하단 페이지 인디케이터 — 미니멀 원형점, 버튼 대신 span 사용 */}
+                <div className="fixed left-1/2 -translate-x-1/2 bottom-[max(0.8rem,calc(env(safe-area-inset-bottom)+0.4rem))] z-[95] pointer-events-none">
+                    <div className="flex items-center gap-3 pointer-events-auto">
+                        {sections.map((s, i) => {
+                            const active = i === index;
+                            return (
+                                <span
+                                    key={s.key}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => goTo(i)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" || e.key === " ") {
+                                            e.preventDefault();
+                                            goTo(i);
+                                        }
+                                    }}
+                                    aria-label={`Go to ${s.label ?? s.key}`}
+                                    aria-current={active ? "page" : undefined}
+                                    className="relative p-2 inline-grid place-items-center cursor-pointer select-none
+                     outline-none focus-visible:scale-105 transition-transform
+                     bg-transparent"
+                                >
+                                    {/* 코어 점 */}
+                                    <span
+                                        className={`block rounded-full transition-all ${active ? "w-2.5 h-2.5 bg-white" : "w-2.5 h-2.5 bg-white/50"
+                                            }`}
+                                    />
+                                    {/* 활성 링 */}
+                                    <span
+                                        className={`pointer-events-none absolute inset-0 grid place-items-center transition-all ${active ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                                            }`}
+                                    >
+                                        <span className="block w-5 h-5 rounded-full ring-1 ring-white/90" />
+                                    </span>
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
+                {/* E 인디케이터 */}
             </div>
-        </MobileShell>
+        </MobileShell >
     );
 }
