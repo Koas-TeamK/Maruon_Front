@@ -1,5 +1,5 @@
 import MobileShell from "@/components/MobileShell"
-import { EllipsisOutlined } from '@ant-design/icons';
+//import { EllipsisOutlined } from '@ant-design/icons';
 
 export default function ComingSoonPage() {
     const wechatSrc = "/logo/wechat.png";
