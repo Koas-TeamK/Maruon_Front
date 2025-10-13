@@ -7,11 +7,6 @@ import Section4 from "@/components/Detail/Section4";
 import Section5 from "@/components/Detail/Section5";
 
 export default function DetailPage() {
-    const wechatSrc = "/logo/wechat.png";
-    const lineSrc = "/logo/line.png";
-    const linkedinSrc = "/logo/linkedin.png";
-    const facebookSrc = "/logo/facebook.png";
-    const whiteLogo = "/logo/maruon_mono_white.png"; // 권장(검은 배경 위 시인성)
 
     // 세션 정의
     const sections = useMemo(
@@ -110,16 +105,7 @@ export default function DetailPage() {
 
     return (
         <MobileShell>
-            {/* 오버레이 구조: 헤더는 투명, 컨텐츠는 100dvh 유지 */}
             <div className="relative w-full h-dvh overflow-hidden bg-[#0b0b0f] touch-none">
-                {/* 투명 헤더(오버레이) */}
-                <header className="fixed inset-x-0 top-0 h-16 z-[100] bg-transparent flex items-center justify-end px-4 pointer-events-none">
-                    <img
-                        src={whiteLogo}
-                        alt="MARUON"
-                        className="h-14 w-auto drop-shadow pointer-events-auto"
-                    />
-                </header>
 
                 {/* 슬라이딩 트랙: 100dvh 기준 */}
                 <div
@@ -136,7 +122,6 @@ export default function DetailPage() {
                             className={`w-full ${s.bg}`}
                             style={{ height: "100dvh" }}
                         >
-                            {/* 섹션 내용은 자유 배치. 헤더 아래도 그대로 비침 */}
                             <div className="w-full h-full grid place-items-center">
                                 {s.content}
                             </div>
@@ -144,18 +129,8 @@ export default function DetailPage() {
                     ))}
                 </div>
 
-                {/* 하단 고정 SNS 탭 */}
-                <nav className="fixed z-[90] right-4 md:right-1 bottom-[max(1rem,env(safe-area-inset-bottom))]">
-                    <div className="flex flex-col items-end gap-3">
-                        <img src={wechatSrc} className="w-[50px] h-[50px]" alt="WeChat" />
-                        <img src={lineSrc} className="w-[50px] h-[50px]" alt="LINE" />
-                        <img src={linkedinSrc} className="w-[50px] h-[50px]" alt="LinkedIn" />
-                        <img src={facebookSrc} className="w-[50px] h-[50px]" alt="Facebook" />
-                    </div>
-                </nav>
 
                 {/* 하단 페이지 인디케이터 — 미니멀 원형점 */}
-                {/* 하단 페이지 인디케이터 — 미니멀 원형점, 버튼 대신 span 사용 */}
                 <div className="fixed left-1/2 -translate-x-1/2 bottom-[max(0.8rem,calc(env(safe-area-inset-bottom)+0.4rem))] z-[95] pointer-events-none">
                     <div className="flex items-center gap-3 pointer-events-auto">
                         {sections.map((s, i) => {
@@ -196,6 +171,7 @@ export default function DetailPage() {
                     </div>
                 </div>
                 {/* E 인디케이터 */}
+
             </div>
         </MobileShell >
     );
