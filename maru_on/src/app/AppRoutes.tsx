@@ -18,8 +18,8 @@ export default function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route element={<AppLayout />}>
-                    <Route path="/" element={<ComingSoonPage />} />
-                    <Route path="/main" element={<Protected><DetailPage /></Protected>} />
+                    <Route path="/comingSoon" element={<ComingSoonPage />} />
+                    <Route path="/" element={<Protected><DetailPage /></Protected>} />
                     <Route path="/randing" element={<Protected><RandingPage /></Protected>} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Route>
