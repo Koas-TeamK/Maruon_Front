@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import MobileShell from "@/components/MobileShell";
 import Section1 from "@/components/Detail/Section1";
 import Section2 from "@/components/Detail/Section2";
 import Section3 from "@/components/Detail/Section3";
@@ -104,75 +103,73 @@ export default function DetailPage() {
     }, [index, goTo]);
 
     return (
-        <MobileShell>
-            <div className="relative w-full h-dvh overflow-hidden bg-[#0b0b0f] touch-none">
+        <div className="relative w-full h-dvh overflow-hidden bg-[#0b0b0f] touch-none">
 
-                {/* 슬라이딩 트랙: 100dvh 기준 */}
-                <div
-                    ref={slidingRef}
-                    className="relative w-full z-0 transition-transform duration-700 ease-in-out"
-                    style={{
-                        height: "100dvh",
-                        transform: `translateY(-${index * 100}%)`,
-                    }}
-                >
-                    {sections.map((s) => (
-                        <section
-                            key={s.key}
-                            className={`w-full ${s.bg}`}
-                            style={{ height: "100dvh" }}
-                        >
-                            <div className="w-full h-full grid place-items-center">
-                                {s.content}
-                            </div>
-                        </section>
-                    ))}
-                </div>
+            {/* 슬라이딩 트랙: 100dvh 기준 */}
+            <div
+                ref={slidingRef}
+                className="relative w-full z-0 transition-transform duration-700 ease-in-out"
+                style={{
+                    height: "100dvh",
+                    transform: `translateY(-${index * 100}%)`,
+                }}
+            >
+                {sections.map((s) => (
+                    <section
+                        key={s.key}
+                        className={`w-full ${s.bg}`}
+                        style={{ height: "100dvh" }}
+                    >
+                        <div className="w-full h-full grid place-items-center">
+                            {s.content}
+                        </div>
+                    </section>
+                ))}
+            </div>
 
 
-                {/* 하단 페이지 인디케이터 — 미니멀 원형점 */}
-                <div className="fixed left-1/2 -translate-x-1/2 bottom-[max(0.8rem,calc(env(safe-area-inset-bottom)+0.4rem))] z-[95] pointer-events-none">
-                    <div className="flex items-center gap-3 pointer-events-auto">
-                        {sections.map((s, i) => {
-                            const active = i === index;
-                            return (
-                                <span
-                                    key={s.key}
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => goTo(i)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter" || e.key === " ") {
-                                            e.preventDefault();
-                                            goTo(i);
-                                        }
-                                    }}
-                                    aria-label={`Go to ${s.label ?? s.key}`}
-                                    aria-current={active ? "page" : undefined}
-                                    className="relative p-2 inline-grid place-items-center cursor-pointer select-none
+            {/* 하단 페이지 인디케이터 — 미니멀 원형점 */}
+            <div className="fixed left-1/2 -translate-x-1/2 bottom-[max(0.8rem,calc(env(safe-area-inset-bottom)+0.4rem))] z-[95] pointer-events-none">
+                <div className="flex items-center gap-3 pointer-events-auto">
+                    {sections.map((s, i) => {
+                        const active = i === index;
+                        return (
+                            <span
+                                key={s.key}
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => goTo(i)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        goTo(i);
+                                    }
+                                }}
+                                aria-label={`Go to ${s.label ?? s.key}`}
+                                aria-current={active ? "page" : undefined}
+                                className="relative p-2 inline-grid place-items-center cursor-pointer select-none
                      outline-none focus-visible:scale-105 transition-transform
                      bg-transparent"
+                            >
+                                {/* 코어 점 */}
+                                <span
+                                    className={`block rounded-full transition-all ${active ? "w-2.5 h-2.5 bg-white" : "w-2.5 h-2.5 bg-white/50"
+                                        }`}
+                                />
+                                {/* 활성 링 */}
+                                <span
+                                    className={`pointer-events-none absolute inset-0 grid place-items-center transition-all ${active ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                                        }`}
                                 >
-                                    {/* 코어 점 */}
-                                    <span
-                                        className={`block rounded-full transition-all ${active ? "w-2.5 h-2.5 bg-white" : "w-2.5 h-2.5 bg-white/50"
-                                            }`}
-                                    />
-                                    {/* 활성 링 */}
-                                    <span
-                                        className={`pointer-events-none absolute inset-0 grid place-items-center transition-all ${active ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                                            }`}
-                                    >
-                                        <span className="block w-5 h-5 rounded-full ring-1 ring-white/90" />
-                                    </span>
+                                    <span className="block w-5 h-5 rounded-full ring-1 ring-white/90" />
                                 </span>
-                            );
-                        })}
-                    </div>
+                            </span>
+                        );
+                    })}
                 </div>
-                {/* E 인디케이터 */}
-
             </div>
-        </MobileShell >
+            {/* E 인디케이터 */}
+
+        </div>
     );
 }
