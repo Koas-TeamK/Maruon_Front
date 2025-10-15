@@ -3,6 +3,7 @@ import PosterPopup from "@/components/PosterPopup"
 export default function VideoPage() {
     return (
         <div className="relative h-screen">
+            <PosterPopup />
             {/* 배경 이미지 */}
             <div className="absolute inset-0 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
             {/* 어둡게 오버레이 */}
@@ -10,7 +11,6 @@ export default function VideoPage() {
 
             {/* 콘텐츠 그리드 */}
             <div className="relative grid grid-rows-[2fr_1fr_3fr] gap-4 h-full p-4">
-                <PosterPopup />
 
                 {/* 상단 섹션 */}
                 <section className="flex items-center justify-center">
@@ -40,7 +40,7 @@ export default function VideoPage() {
 
                 {/* 하단 섹션 */}
                 <section className="flex items-start justify-center">
-                    <div className="relative w-full max-w-6xl aspect-video">
+                    <div className="relative w-full max-w-4xl aspect-video">
                         <iframe
                             className="absolute inset-0 w-full h-full"
                             src="https://www.youtube.com/embed/7rk_LtB3kV0?si=CyS6rjgDHAzQduvx"
