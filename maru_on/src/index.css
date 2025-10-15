@@ -1,4 +1,17 @@
+/* index.css */
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'GowunDodum';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-gowun {
+  font-family: 'GowunDodum', 'Noto Sans KR', sans-serif !important;
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,7 +22,7 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
-  font-synthesis: none;
+  font-synthesis: weight;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

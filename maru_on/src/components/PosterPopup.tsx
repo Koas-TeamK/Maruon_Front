@@ -40,7 +40,7 @@ export default function PosterPopup() {
                         }}
                     />
                 </div>
-                <div className="flex justify-around">
+                <div className="flex justify-around bg-black">
                     <button
                         onClick={handleHide7Days}
                         className="p-2 w-1/2 cursor-pointer "
