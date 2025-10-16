@@ -4,6 +4,7 @@ export default function VideoPage() {
     return (
         <div className="relative min-h-[100svh]">
             <PosterPopup />
+            <div className="fixed top-0 inset-x-0 h-[env(safe-area-inset-top)] bg-[#403736] z-[9999] pointer-events-none"></div>
             {/* 배경 이미지 */}
             <div className="fixed  inset-0 z-0 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
             {/* 어둡게 오버레이 */}
