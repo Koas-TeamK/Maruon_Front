@@ -10,7 +10,7 @@ export default function VideoPage() {
             <div className="fixed  inset-0 z-0 bg-black/20" />
 
             {/* 콘텐츠 그리드 */}
-            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr] h-full p-4">
+            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr_1fr] h-full p-4">
 
                 {/* 상단 섹션 */}
                 <section className="flex items-center justify-center mt-30 z-10 ">
@@ -24,7 +24,7 @@ export default function VideoPage() {
                 </section>
                 <section className="flex items-center justify-center">
                     <div className="flex flex-col items-center">
-                        <div className="text-3xl sm:text-lg md:text-2xl font-gowun mb-5">
+                        <div className="text-3xl font-gowun mb-5">
                             ‘다시, 생명으로’
                         </div>
                         <div className="text-base sm:text-lg md:text-2xl font-gowun ">
@@ -44,6 +44,16 @@ export default function VideoPage() {
                             src="https://www.youtube.com/embed/7rk_LtB3kV0?si=CyS6rjgDHAzQduvx"
                             title="YouTube video player"
                             allowFullScreen
+                        />
+                    </div>
+                </section>
+
+                <section className="flex items-center justify-center mt-30 z-10 ">
+                    <div className="flex flex-col items-center">
+                        <img
+                            src="/logo/b-logo.png"
+                            alt="MARUON"
+                            className="w-20"
                         />
                     </div>
                 </section>
