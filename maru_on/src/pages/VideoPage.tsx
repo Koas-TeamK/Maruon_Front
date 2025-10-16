@@ -13,7 +13,7 @@ export default function VideoPage() {
             {/* 콘텐츠 그리드 */}
             <div className="relative z-10 grid grid-rows-[2fr_1fr_2fr] p-4">
                 {/* 세션1 */}
-                <section className="flex items-center justify-center mt-30 z-10 ">
+                <section className="flex items-center justify-center mt-10 z-10 ">
                     <div className="flex flex-col items-center">
                         <img
                             src="/logo/maruon-logo-gold.png"
