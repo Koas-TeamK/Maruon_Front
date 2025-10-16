@@ -2,7 +2,7 @@ import PosterPopup from "@/components/PosterPopup"
 
 export default function VideoPage() {
     return (
-        <div className="relative min-h-[100svh]">
+        <div className="relative min-h-[100svh] overflow-hidden md:h-auto md:min-h-screen md:overflow-y-auto">
             <PosterPopup />
             <div className="fixed top-0 inset-x-0 h-[env(safe-area-inset-top)] bg-[#403736] z-[9999] pointer-events-none"></div>
             {/* 배경 이미지 */}
