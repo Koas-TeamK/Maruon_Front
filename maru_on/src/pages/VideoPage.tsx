@@ -6,12 +6,12 @@ export default function VideoPage() {
             <PosterPopup />
             <div className="fixed top-0 inset-x-0 h-[env(safe-area-inset-top)] bg-[#403736] z-[9999] pointer-events-none"></div>
             {/* 배경 이미지 */}
-            <div className="fixed  inset-0 z-0 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
+            <div className="fixed  inset-0 z-0 bg-[url('/img/background.png')] bg-[length:auto_390px] bg-repeat" />
             {/* 어둡게 오버레이 */}
             <div className="fixed  inset-0 z-0" />
 
             {/* 콘텐츠 그리드 */}
-            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr] mt-20 p-4">
+            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr] mt-15 p-4">
                 {/* 세션1 */}
                 <section className="flex items-center justify-center z-10 ">
                     <div className="flex flex-col items-center">
