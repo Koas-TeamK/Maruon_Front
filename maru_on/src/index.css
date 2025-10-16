@@ -28,10 +28,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
+html {
+  background-color: #403736;
+}
+
 body {
-  background-color: #000000 !important;
-  /* 💥 노치 대응 */
   margin: 0;
   padding: 0;
   width: 100%;
