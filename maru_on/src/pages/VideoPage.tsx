@@ -8,12 +8,11 @@ export default function VideoPage() {
             {/* 배경 이미지 */}
             <div className="fixed  inset-0 z-0 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
             {/* 어둡게 오버레이 */}
-            <div className="fixed  inset-0 z-0 bg-black/20" />
+            <div className="fixed  inset-0 z-0" />
 
             {/* 콘텐츠 그리드 */}
-            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr_1fr] h-full p-4">
-
-                {/* 상단 섹션 */}
+            <div className="relative z-10 grid grid-rows-[2fr_1fr_2fr] p-4">
+                {/* 세션1 */}
                 <section className="flex items-center justify-center mt-30 z-10 ">
                     <div className="flex flex-col items-center">
                         <img
@@ -23,6 +22,7 @@ export default function VideoPage() {
                         />
                     </div>
                 </section>
+                {/* 세션2 */}
                 <section className="flex items-center justify-center">
                     <div className="flex flex-col items-center">
                         <div className="text-3xl font-gowun mb-5">
@@ -37,8 +37,8 @@ export default function VideoPage() {
                     </div>
                 </section>
 
-                {/* 하단 섹션 */}
-                <section className="flex items-start justify-center">
+                {/* 세션3 */}
+                <section className="flex items-center flex-col justify-center">
                     <div className="relative w-full max-w-4xl aspect-video">
                         <iframe
                             className="absolute inset-0 w-full h-full"
@@ -47,10 +47,7 @@ export default function VideoPage() {
                             allowFullScreen
                         />
                     </div>
-                </section>
-
-                <section className="flex items-center justify-center mt-30 z-10 ">
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center mt-20">
                         <img
                             src="/logo/b-logo.png"
                             alt="MARUON"
