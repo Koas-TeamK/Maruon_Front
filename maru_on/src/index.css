@@ -33,6 +33,8 @@ body {
   background-color: #000000 !important;
   /* 💥 노치 대응 */
   margin: 0;
+  position: fixed;
+  inset: 0;
   padding: 0;
   width: 100%;
   height: 100%;

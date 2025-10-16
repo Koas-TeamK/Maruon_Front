@@ -5,15 +5,15 @@ export default function VideoPage() {
         <div className="relative h-screen">
             <PosterPopup />
             {/* 배경 이미지 */}
-            <div className="absolute inset-0 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
+            <div className="absolute inset-0 -z-10 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
             {/* 어둡게 오버레이 */}
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 -z-10 bg-black/20" />
 
             {/* 콘텐츠 그리드 */}
             <div className="relative grid grid-rows-[1fr_1fr_2fr] h-full p-4">
 
                 {/* 상단 섹션 */}
-                <section className="flex items-center justify-center mt-10">
+                <section className="flex items-center justify-center mt-20">
                     <div className="flex flex-col items-center">
                         <img
                             src="/logo/maruon-logo-gold.png"
