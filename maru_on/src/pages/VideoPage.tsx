@@ -2,7 +2,7 @@ import PosterPopup from "@/components/PosterPopup"
 
 export default function VideoPage() {
     return (
-        <div className="relative h-screen">
+        <div className="relative min-h-[100svh]">
             <PosterPopup />
             {/* 배경 이미지 */}
             <div className="absolute inset-0 -z-10 bg-[url('/img/background.png')] bg-[length:auto_500px] bg-repeat" />
@@ -13,7 +13,7 @@ export default function VideoPage() {
             <div className="relative grid grid-rows-[1fr_1fr_2fr] h-full p-4">
 
                 {/* 상단 섹션 */}
-                <section className="flex items-center justify-center mt-20">
+                <section className="flex items-center justify-center mt-30">
                     <div className="flex flex-col items-center">
                         <img
                             src="/logo/maruon-logo-gold.png"
