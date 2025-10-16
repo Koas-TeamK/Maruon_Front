@@ -6,12 +6,12 @@ export default function VideoPage() {
             <PosterPopup />
             <div className="fixed top-0 inset-x-0 h-[env(safe-area-inset-top)] bg-[#403736] z-[9999] pointer-events-none"></div>
             {/* 배경 이미지 */}
-            <div className="fixed  inset-0 z-0 bg-[url('/img/background2.png')] bg-[length:360px_844px] bg-repeat" />
+            <div className="fixed  inset-0 z-0 bg-[url('/img/background3.png')] bg-[length:290px_844px] bg-repeat" />
             {/* 어둡게 오버레이 */}
             <div className="fixed  inset-0 z-0" />
 
             {/* 콘텐츠 그리드 */}
-            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr] mt-15 p-4">
+            <div className="relative z-10 grid grid-rows-[1fr_1fr_2fr] mt-10 p-4">
                 {/* 세션1 */}
                 <section className="flex items-center justify-center z-10 ">
                     <div className="flex flex-col items-center">
@@ -25,7 +25,7 @@ export default function VideoPage() {
                 {/* 세션2 */}
                 <section className="flex items-center justify-center">
                     <div className="flex flex-col items-center">
-                        <div className="text-3xl font-gowun mb-5">
+                        <div className="text-4xl font-gowun mb-5">
                             ‘다시, 생명으로’
                         </div>
                         <div className="text-base sm:text-lg md:text-2xl font-gowun ">
@@ -47,7 +47,7 @@ export default function VideoPage() {
                             allowFullScreen
                         />
                     </div>
-                    <div className="flex flex-col items-center mt-20">
+                    <div className="flex flex-col items-center mt-15">
                         <img
                             src="/logo/b-logo.png"
                             alt="MARUON"
