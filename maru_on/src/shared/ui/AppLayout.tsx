@@ -4,18 +4,18 @@ import Footer from "@/components/layout/Footer";
 import SnsTab from "@/components/SnsTab";
 
 export default function AppLayout() {
-
     return (
-        <>
-            {/* 전체 페이지를 덮는 오버레이/공통 UI */}
+        <div className="w-screen h-screen bg-white">
             <Header />
-            {/* 페이지별 콘텐츠만 교체 */}
-            <div className="relative w-full min-h-dvh bg-[#0b0b0f]">
+
+            {/* 헤더 높이 + 노치 영역만큼 상단 여백 */}
+            {/* SnsTab(고정 하단 버튼류) 높이까지 하단 여백 */}
+            <main className="pt-[calc(env(safe-area-inset-top)+4rem)]">
                 <Outlet />
-            </div>
+            </main>
+
             <Footer />
-            {/* 하단 SNS 토글 탭(공통) */}
             <SnsTab />
-        </>
+        </div>
     );
 }

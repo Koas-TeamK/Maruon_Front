@@ -104,7 +104,6 @@ export default function DetailPage() {
 
     return (
         <div className="relative w-full h-dvh overflow-hidden bg-[#0b0b0f] touch-none">
-
             {/* 슬라이딩 트랙: 100dvh 기준 */}
             <div
                 ref={slidingRef}
@@ -126,8 +125,6 @@ export default function DetailPage() {
                     </section>
                 ))}
             </div>
-
-
             {/* 하단 페이지 인디케이터 — 미니멀 원형점 */}
             <div className="fixed left-1/2 -translate-x-1/2 bottom-[max(0.8rem,calc(env(safe-area-inset-bottom)+0.4rem))] z-[95] pointer-events-none">
                 <div className="flex items-center gap-3 pointer-events-auto">
@@ -169,7 +166,6 @@ export default function DetailPage() {
                 </div>
             </div>
             {/* E 인디케이터 */}
-
         </div>
     );
 }

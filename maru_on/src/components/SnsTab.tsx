@@ -29,7 +29,7 @@ export default function SnsFab() {
     }, [open, dispatch]);
 
     return (
-        <nav aria-label="Contact quick panel" className="fixed z-[90] right-0 bottom-16">
+        <nav aria-label="Contact quick panel" className="fixed z-[90] right-0 bottom-30">
             <div ref={wrapRef} className="relative">
                 {/* 아이콘: 세로로 위로 */}
                 <div
@@ -47,8 +47,10 @@ export default function SnsFab() {
                         .map(({ src, alt }) => (
                             <a key={alt} href="#" title={alt} tabIndex={open ? 0 : -1} className="inline-block">
                                 <img src={src} alt={alt}
-                                    className="object-contain drop-shadow hover:scale-105 active:scale-80 
-                                    transition-transform !rounded-none w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 
+                                    className="
+                                    w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 
+                                    object-contain transition-transform hover:scale-105 active:scale-80
+                                    filter [filter:drop-shadow(0_0_10px_#fff)]
                                     " />
                             </a>
                         ))}
@@ -59,8 +61,8 @@ export default function SnsFab() {
                     aria-expanded={open}
                     aria-label={open ? "닫기" : "연락하기 열기"}
                     onClick={() => dispatch(toggleSns())}
-                    className="group bg-white/95 backdrop-blur shadow-2xl px-5 py-4 text-right border border-black/5
-                     hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-shadow focus:outline-none focus:ring-2 focus:ring-black/10
+                    className="group bg-white/95  px-5 py-4 text-right
+                     hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)] focus:outline-none focus:ring-2 focus:ring-black/10
                      !rounded-none"
                     style={{ borderRadius: 0 }}
                 >

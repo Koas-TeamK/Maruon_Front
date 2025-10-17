@@ -7,11 +7,11 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-4 h-[clamp(56px,8vh,96px)]">
+        <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between p-3 ">
             <img
-                src="/logo/maruon_mono_white.png"
+                src="/logo/maruon-logo-black.png"
                 alt="MARUON"
-                className="h-[clamp(40px,3vw,90px)] w-auto max-h-full drop-shadow"
+                className="w-12 h-auto max-h-full"
             />
 
             <button
@@ -20,7 +20,7 @@ export default function Header() {
                 onClick={() => setMenuOpen(true)}
                 className="p-2 hover:opacity-80 active:opacity-60"
             >
-                <Bars3Icon className="w-8 h-8" />
+                <Bars3Icon className="w-8 h-8 fill-black" />
             </button>
 
             <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
