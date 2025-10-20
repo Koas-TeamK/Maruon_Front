@@ -9,35 +9,25 @@ type VerifyBad = { ok: false; reason: string; message?: string };
 export default function MaruonSerialPage() {
     const API_BASE = (import.meta.env.VITE_API_BASE as string)?.replace(/\/$/, "") || "";
     const { name, serial, token } = useMemo(() => parseNameSerialToken(), []);
-    const [result, setResult] = useState<VerifyOk | VerifyBad | null>(null);
-    const [loading, setLoading] = useState(false);
     const [serialNum, setSerialNum] = useState(null);
     const { i18n } = useTranslation("common");
 
     // QR check (GET)
     useEffect(() => {
         if (!name || !serial || !token) {
-            setResult({ ok: false, reason: "missing_params", message: "name/serial/token 누락" });
             return;
         }
         const run = async () => {
-            setLoading(true);
             try {
                 const qs = new URLSearchParams({ name, serial, token }).toString();
                 const url = `${API_BASE}/api/qr/check?${qs}`;
                 const res = await fetch(url, { method: "GET", headers: { Accept: "application/json" } });
                 if (!res.ok) {
-                    const text = await res.text().catch(() => "");
-                    setResult({ ok: false, reason: `http_${res.status}`, message: text || "요청 실패" });
                     return;
                 }
                 const json = await res.json();
-                setResult(json);
                 setSerialNum(json.serial);
             } catch {
-                setResult({ ok: false, reason: "network_error", message: "네트워크 오류" });
-            } finally {
-                setLoading(false);
             }
         };
         run();
