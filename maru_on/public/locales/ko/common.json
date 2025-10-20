@@ -1,0 +1,11 @@
+{
+    "catalog": {
+        "section": "카탈로그 섹션"
+    },
+    "apec": {
+        "section": "에이펙 섹션"
+    },
+    "purchase": {
+        "section": "구매 섹션"
+    }
+}

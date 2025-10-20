@@ -1,4 +1,5 @@
 // src/main.tsx
+import "./shared/lib/i18n";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import AppRoutes from "@/app/AppRoutes";

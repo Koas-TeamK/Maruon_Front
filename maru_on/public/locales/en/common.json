@@ -1,0 +1,11 @@
+{
+    "catalog": {
+        "section": "Catalog Section"
+    },
+    "apec": {
+        "section": "Apec Section"
+    },
+    "purchase": {
+        "section": "Purchase Section"
+    }
+}
