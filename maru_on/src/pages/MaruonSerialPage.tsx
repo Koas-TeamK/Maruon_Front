@@ -1,15 +1,20 @@
 // src/pages/MaruonSerialPage.tsx
 import { useEffect, useMemo, useState } from "react";
 import { parseNameSerialToken } from "@/shared/lib/qr";
+import { Trans, useTranslation } from "react-i18next";
 
 type VerifyOk = { ok: true; name: string; serial: string; message?: string };
 type VerifyBad = { ok: false; reason: string; message?: string };
 
 export default function MaruonSerialPage() {
+    const API_BASE = (import.meta.env.VITE_API_BASE as string)?.replace(/\/$/, "") || "";
     const { name, serial, token } = useMemo(() => parseNameSerialToken(), []);
     const [result, setResult] = useState<VerifyOk | VerifyBad | null>(null);
     const [loading, setLoading] = useState(false);
+    const [serialNum, setSerialNum] = useState(null);
+    const { i18n } = useTranslation("common");
 
+    // QR check (GET)
     useEffect(() => {
         if (!name || !serial || !token) {
             setResult({ ok: false, reason: "missing_params", message: "name/serial/token 누락" });
@@ -18,22 +23,18 @@ export default function MaruonSerialPage() {
         const run = async () => {
             setLoading(true);
             try {
-                // 같은 도메인에서 프록시되는 경우: /api/qr/check
-                // 다른 도메인이면: VITE_API_BASE 같은 환경변수 사용
-                const qs = new URLSearchParams({
-                    name,
-                    serial,
-                    token,
-                }).toString();
-
-                const res = await fetch(`/api/qr/check?${qs}`, {
-                    method: "GET",
-                    headers: { "Accept": "application/json" },
-                });
-
+                const qs = new URLSearchParams({ name, serial, token }).toString();
+                const url = `${API_BASE}/api/qr/check?${qs}`;
+                const res = await fetch(url, { method: "GET", headers: { Accept: "application/json" } });
+                if (!res.ok) {
+                    const text = await res.text().catch(() => "");
+                    setResult({ ok: false, reason: `http_${res.status}`, message: text || "요청 실패" });
+                    return;
+                }
                 const json = await res.json();
                 setResult(json);
-            } catch (e) {
+                setSerialNum(json.serial);
+            } catch {
                 setResult({ ok: false, reason: "network_error", message: "네트워크 오류" });
             } finally {
                 setLoading(false);
@@ -42,57 +43,70 @@ export default function MaruonSerialPage() {
         run();
     }, [name, serial, token]);
 
+    //숫자 표시
+    function formatSerialLocalized(
+        v: string | number | null | undefined,
+        locale: string
+    ) {
+        if (v == null) return "—";
+        const digits = String(v).replace(/[^\d]/g, "");
+        if (!digits) return "—";
+        const n = parseInt(digits, 10);
+        if (Number.isNaN(n)) return "—";
+        return new Intl.NumberFormat(locale).format(n);
+    }
+
     return (
-        <div className="min-h-[100svh] bg-[#0b0b0f] text-white">
-            <div className="fixed top-0 inset-x-0 h-[env(safe-area-inset-top)] bg-[#0b0b0f]" />
-            <div className="mx-auto max-w-[520px] px-6 pt-10 pb-24">
-                <h1 className="text-2xl font-semibold mb-6">Ownership</h1>
+        <div className="relative min-h-[90svh] md:h-[120svh]">
+            {/* 배경 레이어 컨테이너 */}
+            <div className="pointer-events-none absolute inset-0 z-0">
+                {/* 패턴 배경 */}
+                <div className="absolute inset-0 z-0 bg-[url('/img/background.png')] bg-[length:290px_844px] bg-repeat" />
+                {/* 장식 배경*/}
+                <div className="absolute inset-0 z-5 bg-[url('/img/background-log.png')] 
+                    bg-no-repeat bg-top
+                    bg-[length:280px_auto]
+                    md:bg-[length:320px_auto] 
+                    lg:bg-[length:360px_auto]"
+                />
+                <div className="absolute inset-0 z-5 bg-[url('/img/maruonChair.png')] 
+                    bg-no-repeat bg-bottom
+                    bg-[length:300px_auto]
+                    md:bg-[length:340px_auto] 
+                    lg:bg-[length:380px_auto]"
+                />
 
-                <section className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-6">
-                    <div>
-                        <p className="text-white/60 text-sm">{name || "Item"}</p>
-                        <h2 className="mt-2 text-6xl md:text-7xl font-bold tracking-widest tabular-nums">
-                            #{serial || "----"}
-                        </h2>
-                        <p className="mt-2 text-white/80 text-sm">
-                            {loading
-                                ? "확인 중…"
-                                : !result
-                                    ? ""
-                                    : result.ok
-                                        ? result.message || "정품 확인 완료"
-                                        : result.message || reasonToKorean(result.reason)}
-                        </p>
-                    </div>
 
-                    <div className="flex gap-3">
-                        <button
-                            className="px-4 py-2 rounded-xl bg-white text-black font-medium disabled:opacity-50"
-                            onClick={() => navigator.clipboard.writeText(serial)}
-                            disabled={!serial}
-                        >
-                            시리얼 복사
-                        </button>
-                        <button
-                            className="px-4 py-2 rounded-xl border border-white/30"
-                            onClick={() => navigator.clipboard.writeText(window.location.href)}
-                        >
-                            링크 복사
-                        </button>
+                {/* 앞 레이어: 로고 + 문구 */}
+                <div className="relative z-10 flex flex-col items-center px-6 pt-10">
+                    {/* 로고*/}
+                    <img
+                        src="/logo/maruon-gold.png"
+                        alt="Maruon"
+                        className="w-40 md:w-52 lg:w-60"
+                    />
+                    {/* 문구*/}
+                    <div className="mt-15 text-center md:text-lg text-[#eed49d] [text-wrap:balance] break-keep  leading-10">
+                        <Trans
+                            i18nKey="edition.registeredLine"
+                            ns="common"
+                            components={{
+                                num: (
+                                    <span
+                                        className="text-4xl md:text-6xl leading-none tracking-[0.02em]
+                             text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
+                             [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
+                             [font-family:'Cinzel',serif]"
+                                    >
+                                        {formatSerialLocalized(serialNum, i18n.language)}
+                                    </span>
+                                ),
+                            }}
+                        />
                     </div>
-                </section>
+                </div>
+
             </div>
         </div>
     );
-}
-
-function reasonToKorean(r?: string) {
-    switch (r) {
-        case "missing_params": return "필수 파라미터가 없습니다.";
-        case "bad_signature": return "토큰 서명이 유효하지 않습니다.";
-        case "serial_mismatch": return "시리얼이 일치하지 않습니다.";
-        case "expired": return "토큰이 만료되었습니다.";
-        case "network_error": return "네트워크 오류가 발생했습니다.";
-        default: return "확인할 수 없습니다.";
-    }
 }

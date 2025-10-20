@@ -7,5 +7,8 @@
     },
     "purchase": {
         "section": "Purchase Section"
+    },
+    "edition": {
+        "registeredLine": "Registered as<br/> Edition No.<num/>"
     }
 }
