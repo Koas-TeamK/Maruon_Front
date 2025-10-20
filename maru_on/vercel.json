@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/api/qr/:path*",
-            "destination": "http://13.211.211.70:8080/api/qr/:path*"
+            "destination": "http://13.211.211.70:8080/:path*"
         }
     ]
 }
