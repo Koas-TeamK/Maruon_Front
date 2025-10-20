@@ -3,9 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import { parseNameSerialToken } from "@/shared/lib/qr";
 import { Trans, useTranslation } from "react-i18next";
 
-type VerifyOk = { ok: true; name: string; serial: string; message?: string };
-type VerifyBad = { ok: false; reason: string; message?: string };
-
 export default function MaruonSerialPage() {
     const API_BASE = (import.meta.env.VITE_API_BASE as string)?.replace(/\/$/, "") || "";
     const { name, serial, token } = useMemo(() => parseNameSerialToken(), []);
