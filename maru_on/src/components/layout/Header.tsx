@@ -22,7 +22,7 @@ export default function Header() {
     };
 
     return (
-        <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between p-3">
+        <header className="fixed inset-x-0 top-0 z-[100] bg-white flex items-center justify-between p-3">
             <img
                 src="/logo/maruon-logo.png"
                 alt="MARUON"

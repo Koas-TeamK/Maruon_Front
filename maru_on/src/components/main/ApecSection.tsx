@@ -1,75 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+// ApecSection.tsx
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-
-type HoverGoButtonProps = {
-    href: string;
-    children: ReactNode;
-    delay?: number;
-    target?: "_self" | "_blank";
-    className?: string;
-};
-
-function HoverGoButton({
-    href,
-    children,
-    delay = 600,
-    target = "_blank",
-    className = "",
-}: HoverGoButtonProps) {
-    const timerRef = useRef<number | null>(null);
-    const go = () => window.open(href, target, "noopener,noreferrer");
-
-    const start = () => {
-        if (timerRef.current) return;
-        timerRef.current = window.setTimeout(go, delay);
-    };
-    const stop = () => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-            timerRef.current = null;
-        }
-    };
-
-    useEffect(() => {
-        return () => stop();
-    }, []);
-
-    return (
-        <button
-            type="button"
-            onMouseEnter={start}
-            onMouseLeave={stop}
-            onFocus={start}
-            onBlur={stop}
-            onClick={go}
-            title="호버하면 이동합니다"
-            aria-label="APEC 2025 바로가기"
-            className={
-                "group inline-flex items-center gap-2 rounded-2xl px-5 py-3 " +
-                "bg-white/90 backdrop-blur text-gray-900 font-semibold shadow " +
-                "hover:shadow-lg active:scale-[0.98] transition-all " +
-                className
-            }
-        >
-            <span className="underline-offset-4 group-hover:underline">
-                {children}
-            </span>
-            <svg
-                className="size-4 translate-x-0 group-hover:translate-x-0.5 transition-transform"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-            >
-                <path d="M7 17L17 7" />
-                <path d="M8 7h9v9" />
-            </svg>
-        </button>
-    );
-}
 
 export default function ApecSection() {
     const HREF = "https://apec2025.kr/kor/?menuno=85";
@@ -78,37 +9,45 @@ export default function ApecSection() {
     const [revealed, setRevealed] = useState(false);
     const hideTimer = useRef<number | null>(null);
 
-    const show = () => {
+    const clearHideTimer = () => {
         if (hideTimer.current) {
             clearTimeout(hideTimer.current);
             hideTimer.current = null;
         }
+    };
+
+    const show = useCallback(() => {
+        clearHideTimer();
         setRevealed(true);
-    };
-    const hide = () => setRevealed(false);
-
-    const onTouch = () => {
-        show();
-        if (hideTimer.current) clearTimeout(hideTimer.current);
-        hideTimer.current = window.setTimeout(() => setRevealed(false), 2500);
-    };
-
-    useEffect(() => {
-        return () => {
-            if (hideTimer.current) clearTimeout(hideTimer.current);
-        };
     }, []);
+
+    const hide = useCallback(() => setRevealed(false), []);
+
+    // 모바일: 첫 터치 시 보이게, 2.5초 뒤 자동 숨김
+    const onTouch = useCallback(() => {
+        show();
+        clearHideTimer();
+        hideTimer.current = window.setTimeout(() => setRevealed(false), 2500);
+    }, [show]);
+
+    const openSite = useCallback(() => {
+        window.open(HREF, "_blank", "noopener,noreferrer");
+        setRevealed(false);
+    }, []);
+
+    useEffect(() => () => clearHideTimer(), []);
 
     return (
         <section className="w-full">
             <div
-                className="group relative w-full aspect-[9/5] md:aspect-[21/9]"
+                className="group relative w-full aspect-[9/5] md:aspect-[21/9] overflow-hidden"
                 onMouseEnter={show}
                 onMouseLeave={hide}
                 onFocus={show}
                 onBlur={hide}
                 onTouchStart={onTouch}
             >
+                {/* 배경 */}
                 <img
                     src="/img/koas-apec.png"
                     alt="APEC 관련 비주얼"
@@ -116,26 +55,51 @@ export default function ApecSection() {
                     loading="lazy"
                     decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
                 <div
-                    className={
-                        "absolute left-4 right-4 bottom-4 z-10 " +
-                        "flex flex-col sm:flex-row items-start sm:items-center gap-3 " +
-                        (revealed
-                            ? "opacity-100 translate-y-0 pointer-events-auto"
-                            : "opacity-0 translate-y-1 pointer-events-none") +
-                        " transition-all duration-300"
-                    }
-                >
-                    <HoverGoButton href={HREF} delay={600} target="_blank">
-                        {t("apec.button")}
-                    </HoverGoButton>
+                    className={[
+                        "absolute inset-0 transition-colors duration-200 pointer-events-none",
+                        revealed ? "bg-black/45" : "bg-transparent",
+                        "md:bg-transparent md:group-hover:bg-black/45",
+                    ].join(" ")}
+                />
 
-                    <p className="text-white/90 text-sm sm:text-base select-none">
-                        {t("apec.goSite")}
-                    </p>
-                </div>
+                <button
+                    type="button"
+                    aria-label={t("apec.showButton", "APEC 버튼 표시")}
+                    className={[
+                        "md:hidden absolute inset-0 z-10 bg-transparent",
+                        revealed ? "pointer-events-none" : "pointer-events-auto",
+                    ].join(" ")}
+                    onClick={show}
+                />
+
+                <button
+                    type="button"
+                    onClick={openSite}
+                    aria-label={t("apec.open", "APEC 사이트 새 창에서 열기")}
+                    className={[
+                        "absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+                        "inline-flex items-center gap-2 px-5 py-2 rounded",
+                        "text-[#eed49d] border border-white/30 bg-white/10 hover:bg-white/15",
+                        "text-sm md:text-base font-medium transition-opacity duration-200 select-none",
+                        // 모바일: show일 때만 보이게
+                        revealed ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+                        // 데스크탑: hover 시에만 보이게
+                        "md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto",
+                    ].join(" ")}
+                >
+                    {t("apec.button")}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path d="M13.172 12 8.222 7.05l1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
+                    </svg>
+                </button>
             </div>
         </section>
     );

@@ -4,7 +4,7 @@ import ProductTile from "./ProductTile";
 export default function PurchaseSection() {
     return (
         <section className="w-full">
-            <div className="flex flex-col md:flex-row gap-0 aspect-[2/3] md:aspect-[5/3]">
+            <div className="flex flex-col md:flex-row gap-0 aspect-[2/3] md:aspect-[5/3] bg-white">
                 <ProductTile
                     className="relative flex-1"
                     imgSrc="/img/high-chair.png"
