@@ -1,3 +1,4 @@
+//AppRoutes.tsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "@/shared/ui/AppLayout";
 import MainPage from "@/pages/MainPage";

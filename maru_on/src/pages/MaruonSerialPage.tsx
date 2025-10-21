@@ -56,7 +56,7 @@ export default function MaruonSerialPage() {
                 <div className="absolute inset-0 z-0 bg-[url('/img/background.png')] bg-[length:290px_844px] bg-repeat" />
                 <div className="absolute inset-0 z-[5] bg-[url('/img/background-log.png')] bg-no-repeat bg-top
                         bg-[length:280px_auto] md:bg-[length:320px_auto] lg:bg-[length:360px_auto]" />
-                <div className="absolute inset-0 z-[5] bg-[url('/img/maruonChair.png')] bg-no-repeat bg-bottom
+                <div className="absolute inset-0 z-[5] bg-[url('/img/high-chair.png')] bg-no-repeat bg-bottom
                         bg-[length:300px_auto] md:bg-[length:340px_auto] lg:bg-[length:380px_auto]" />
             </div>
 
