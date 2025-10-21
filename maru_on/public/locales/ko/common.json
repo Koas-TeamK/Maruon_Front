@@ -1,9 +1,12 @@
 {
     "catalog": {
-        "section": "카탈로그 섹션"
+        "section": "카탈로그 섹션",
+        "open": "카탈로그 열기"
     },
     "apec": {
-        "section": "에이펙 섹션"
+        "section": "에이펙 섹션",
+        "button": "APEC 2025 바로가기",
+        "goSite": "APEC 2025 공식 안내 바로 확인"
     },
     "purchase": {
         "buy": "구매하기",

@@ -12,6 +12,7 @@ export default function MaruonSerialPage() {
         : (import.meta.env.VITE_API_BASE as string) ?? "http://localhost:8080";
 
     const [serialNum, setSerialNum] = useState<string | number | null>(null);
+    const [date, setDate] = useState<string | number | null>(null);
 
     useEffect(() => {
         if (!name || !serial || !token) return;
@@ -27,6 +28,7 @@ export default function MaruonSerialPage() {
                 }
                 const json = await res.json();
                 setSerialNum(json?.serial ?? null);
+                setDate(json?.createDate ?? null);
             } catch (e) {
                 console.warn("[qr/check] network_error", e);
             }
@@ -48,6 +50,7 @@ export default function MaruonSerialPage() {
         : i18n.language.startsWith("en")
             ? "en-US"
             : i18n.language;
+
 
     return (
         <div className="relative min-h-[90svh] md:h-[120svh]">
@@ -81,6 +84,7 @@ export default function MaruonSerialPage() {
                             ),
                         }}
                     />
+                    <p className="mt-5"> 귀하의 제품 도착 예정일은 {date}입니다. </p>
                 </div>
             </div>
         </div>

@@ -1,9 +1,12 @@
 {
     "catalog": {
-        "section": "Catalog Section"
+        "section": "Catalog Section",
+        "open": "View Catalog"
     },
     "apec": {
-        "section": "Apec Section"
+        "section": "Apec Section",
+        "button": "Visit APEC 2025",
+        "goSite": "See official APEC 2025 info"
     },
     "purchase": {
         "buy": "Buy Now",

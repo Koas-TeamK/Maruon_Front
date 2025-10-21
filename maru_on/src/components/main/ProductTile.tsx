@@ -35,7 +35,7 @@ export default function ProductTile({
             {/* 모바일 탭 토글 */}
             <button
                 type="button"
-                className="absolute inset-0 z-10 block md:hidden"
+                className={`absolute inset-0 md:hidden ${open ? "hidden" : "z-10"}`}
                 aria-label={`${title} details`}
                 onClick={() => setOpen(v => !v)}
             />
