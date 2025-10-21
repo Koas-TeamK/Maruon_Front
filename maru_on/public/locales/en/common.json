@@ -6,7 +6,19 @@
         "section": "Apec Section"
     },
     "purchase": {
-        "section": "Purchase Section"
+        "buy": "Buy Now",
+        "middle": {
+            "title": "Maruon Middle Chair",
+            "alt": "Maruon Middle Chair image",
+            "desc": "A balanced seating experience. A refined harmony of solid wood frame and fabric seat.",
+            "price": "$740,000"
+        },
+        "high": {
+            "title": "Maruon High Chair",
+            "alt": "Maruon High Chair image",
+            "desc": "Perfect for bar tables. Solid build with refined details.",
+            "price": "$740,000"
+        }
     },
     "edition": {
         "registeredLine": "Registered as<br/> Edition No.<num/>"

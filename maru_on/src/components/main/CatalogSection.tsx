@@ -1,16 +1,20 @@
-// components/sections/CatalogSection.tsx
-import { useTranslation } from "react-i18next";
+//CatalogSection.tsx
+
+//import { useTranslation } from "react-i18next";
 
 export default function CatalogSection() {
-    const { t, i18n, ready } = useTranslation("common");
-
     return (
-        <div className="bg-black/30 h-50">
-            {/* 로딩 중에도 기본값 출력되게 defaultValue 사용 */}
-            {t("catalog.section")}
-
-            {/* 디버그: 현재 언어 표시(화면엔 안 보임) */}
-            <span className="sr-only">lang: {i18n.language} (ready: {String(ready)})</span>
-        </div>
+        <section className="w-full">
+            {/* 화면폭에 비례해 높이가 정해지는 컨테이너 */}
+            <div className="relative w-full aspect-[9/5] md:aspect-[21/9]">
+                <img
+                    src="/img/catalog.png"
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover block"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </div>
+        </section>
     );
 }

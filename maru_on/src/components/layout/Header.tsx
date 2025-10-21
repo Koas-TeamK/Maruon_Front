@@ -24,7 +24,7 @@ export default function Header() {
     return (
         <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between p-3">
             <img
-                src="/logo/maruon-logo-black.png"
+                src="/logo/maruon-logo.png"
                 alt="MARUON"
                 className="w-12 h-auto max-h-full"
             />
@@ -38,15 +38,15 @@ export default function Header() {
                     onClick={toggleLang}
                     className="relative p-2 hover:opacity-80 active:opacity-60"
                 >
-                    <LanguageIcon className="w-8 h-8 fill-black" />
+                    <LanguageIcon className="w-8 h-8 fill-[#403736]" />
                     {/* 배지(클릭 즉시 현재 언어 표시) */}
                     {langHint && (
                         <span
                             className="absolute top-full left-1/2 -translate-x-1/2 mt-1
-               inline-block pointer-events-none z-50
-               whitespace-nowrap [word-break:keep-all] [writing-mode:horizontal-tb]
-               text-center leading-none rounded-full px-2 py-0.5 text-xs font-medium
-               bg-black/80 text-white shadow"
+                            inline-block pointer-events-none z-50
+                            whitespace-nowrap [word-break:keep-all] [writing-mode:horizontal-tb]
+                            text-center leading-none rounded-full px-2 py-0.5 text-xs font-medium
+                            bg-black/80 text-white shadow"
                         >
                             {langHint}
                         </span>
@@ -60,7 +60,7 @@ export default function Header() {
                     onClick={() => setMenuOpen(true)}
                     className="p-2 hover:opacity-80 active:opacity-60"
                 >
-                    <Bars3Icon className="w-8 h-8 fill-black" />
+                    <Bars3Icon className="w-8 h-8 fill-[#403736]" />
                 </button>
             </div>
 
