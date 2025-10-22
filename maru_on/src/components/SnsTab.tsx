@@ -12,7 +12,7 @@ export default function SnsFab() {
     const wechatSrc = "/sns/wechat-main.png";
     const lineSrc = "/sns/line-main.png";
     const linkedinSrc = "/sns/linkedin-main.png";
-    const facebookSrc = "/sns/facebook-main.png";
+    //const facebookSrc = "/sns/facebook-main.png";
 
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
@@ -41,10 +41,10 @@ export default function SnsFab() {
                       transition-all duration-200`}
                 >
                     {[
-                        { src: wechatSrc, alt: "WeChat", href: "https://line.me/R/ti/p/@761haror" },
+                        { src: wechatSrc, alt: "WeChat", href: "#" },
                         { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
-                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
-                        { src: facebookSrc, alt: "Facebook", href: "https://line.me/R/ti/p/@761haror" }
+                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" }
+                        // { src: facebookSrc, alt: "Facebook", href: "#" }
                     ]
                         .map(({ src, alt, href }) => (
                             <a key={alt} href={href} title={alt} tabIndex={open ? 0 : -1} className="inline-block">

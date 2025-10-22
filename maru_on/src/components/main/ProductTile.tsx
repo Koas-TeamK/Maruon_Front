@@ -1,14 +1,12 @@
 // ProductTile.tsx
 import { useState } from "react";
-import { Trans, useTranslation } from "react-i18next"; // ← Trans 추가
+import { Trans, useTranslation } from "react-i18next";
 
 type ProductTileProps = {
     className?: string;
     imgSrc: string;
     titleKey: string;
     altKey: string;
-    descKey: string;
-    priceKey?: string;
     href: string;
 };
 
@@ -17,16 +15,14 @@ export default function ProductTile({
     imgSrc,
     titleKey,
     altKey,
-    descKey,
-    priceKey,
     href,
 }: ProductTileProps) {
     const { t } = useTranslation("common");
     const [open, setOpen] = useState(false);
 
-    const title = t(titleKey);
+    const titleRaw = t(titleKey); // 예: "MARUON<br/>PREMIUM CHAIR"
     const alt = t(altKey);
-    const priceText = priceKey ? t(priceKey) : undefined;
+    const ariaTitle = titleRaw.replace(/<br\s*\/?>/gi, " ");
 
     return (
         <div className={`group relative w-full h-full overflow-hidden select-none ${className}`}>
@@ -34,9 +30,10 @@ export default function ProductTile({
             <button
                 type="button"
                 className={`absolute inset-0 md:hidden ${open ? "hidden" : "z-10"}`}
-                aria-label={`${title} details`}
-                onClick={() => setOpen(v => !v)}
+                aria-label={`${ariaTitle} details`}
+                onClick={() => setOpen((v) => !v)}
             />
+
             {/* 이미지 */}
             <img
                 src={imgSrc}
@@ -59,13 +56,9 @@ export default function ProductTile({
                 ].join(" ")}
             >
                 <div className="pointer-events-auto space-y-3">
-                    <div className="text-lg md:text-2xl font-semibold">{title}</div>
-
-                    <p className="text-sm md:text-base leading-relaxed">
-                        <Trans i18nKey={descKey} ns="common" components={{ br: <br /> }} />
-                    </p>
-
-                    {priceText && <div className="text-base md:text-lg opacity-90">{priceText}</div>}
+                    <div className="text-base md:text-lg font-semibold">
+                        <Trans ns="common" i18nKey={titleKey} components={{ br: <br /> }} />
+                    </div>
 
                     <div className="mt-2">
                         <a
@@ -84,7 +77,7 @@ export default function ProductTile({
                         className="md:hidden mt-2 text-xs underline opacity-80"
                         onClick={() => setOpen(false)}
                     >
-                        닫기
+                        X
                     </button>
                 </div>
             </div>

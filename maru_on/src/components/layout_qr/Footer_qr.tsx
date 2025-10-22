@@ -5,7 +5,7 @@ export default function Footer_qr() {
     const wechatSrc = "/sns/wechat-gold.png";
     const lineSrc = "/sns/line-gold.png";
     const linkedinSrc = "/sns/linkedin-gold.png";
-    const facebookSrc = "/sns/facebook-gold.png";
+    // const facebookSrc = "/sns/facebook-gold.png";
     return (
         <footer className="w-screen relative z-10 px-4 py-6 bg-[#403736]">
             <div className="flex flex-col mt-2 justify-center items-center text-xs leading-5 sm:mt-4 sm:leading-normal">
@@ -15,10 +15,10 @@ export default function Footer_qr() {
                 </div>
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
                     {[
-                        { src: wechatSrc, alt: "WeChat", href: "https://line.me/R/ti/p/@761haror" },
+                        { src: wechatSrc, alt: "WeChat", href: "#" },
                         { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
-                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
-                        { src: facebookSrc, alt: "Facebook", href: "https://line.me/R/ti/p/@761haror" }
+                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" }
+                        // { src: facebookSrc, alt: "Facebook", href: "#" }
                     ].map((it) => (
                         <a
                             key={it.alt}
