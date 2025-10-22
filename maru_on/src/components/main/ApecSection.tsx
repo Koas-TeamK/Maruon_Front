@@ -6,40 +6,57 @@ export default function ApecSection() {
     const HREF = "https://apec2025.kr/kor/?menuno=85";
     const { t } = useTranslation("common");
 
-    const titleKey = t("apec.button"); //
+    const titleKey = "apec.button";
     const titleRaw = t(titleKey);
     const ariaTitle = titleRaw.replace(/<br\s*\/?>/gi, " ");
 
     const [revealed, setRevealed] = useState(false);
     const hideTimer = useRef<number | null>(null);
 
-    const clearHideTimer = () => {
+    const clearHideTimer = useCallback(() => {
         if (hideTimer.current) {
             clearTimeout(hideTimer.current);
             hideTimer.current = null;
         }
-    };
-
-    const show = useCallback(() => {
-        clearHideTimer();
-        setRevealed(true);
     }, []);
 
-    const hide = useCallback(() => setRevealed(false), []);
-
-    // 모바일: 첫 터치 시 보이게, 2.5초 뒤 자동 숨김
-    const onTouch = useCallback(() => {
-        show();
+    const armAutoHide = useCallback(() => {
         clearHideTimer();
         hideTimer.current = window.setTimeout(() => setRevealed(false), 2500);
-    }, [show]);
+    }, [clearHideTimer]);
 
-    const openSite = useCallback(() => {
+    const show = useCallback(() => {
+        setRevealed(true);
+        armAutoHide();
+    }, [armAutoHide]);
+
+    const hide = useCallback(() => {
+        clearHideTimer();
+        setRevealed(false);
+    }, [clearHideTimer]);
+
+    const toggleReveal = useCallback((e?: React.SyntheticEvent) => {
+        if (e) {
+            // 터치→클릭 중복 방지 + 부모로 버블링 방지
+            e.preventDefault?.();
+            e.stopPropagation?.();
+        }
+        setRevealed(prev => {
+            const next = !prev;
+            clearHideTimer();
+            if (next) armAutoHide();
+            return next;
+        });
+    }, [armAutoHide, clearHideTimer]);
+
+    const openSite = useCallback((e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         window.open(HREF, "_blank", "noopener,noreferrer");
         setRevealed(false);
     }, []);
 
-    useEffect(() => () => clearHideTimer(), []);
+    useEffect(() => () => clearHideTimer(), [clearHideTimer]);
 
     return (
         <section className="w-full">
@@ -49,7 +66,6 @@ export default function ApecSection() {
                 onMouseLeave={hide}
                 onFocus={show}
                 onBlur={hide}
-                onTouchStart={onTouch}
             >
                 {/* 배경 */}
                 <img
@@ -60,6 +76,7 @@ export default function ApecSection() {
                     decoding="async"
                 />
 
+                {/* 어둡게 오버레이 */}
                 <div
                     className={[
                         "absolute inset-0 transition-colors duration-200 pointer-events-none",
@@ -68,17 +85,15 @@ export default function ApecSection() {
                     ].join(" ")}
                 />
 
-                {/* 모바일: 오버레이 표시 트리거 */}
                 <button
                     type="button"
                     aria-label={t("apec.showButton", "APEC 버튼 표시")}
-                    className={[
-                        "md:hidden absolute inset-0 z-10 bg-transparent",
-                        revealed ? "pointer-events-none" : "pointer-events-auto",
-                    ].join(" ")}
-                    onClick={show}
+                    className="md:hidden absolute inset-0 z-10 bg-transparent touch-manipulation"
+                    // 하나만: pointerdown으로 통일 (터치/마우스 모두 커버)
+                    onPointerDown={toggleReveal}
                 />
 
+                {/* CTA 버튼 */}
                 <button
                     type="button"
                     onClick={openSite}

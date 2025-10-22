@@ -5,10 +5,14 @@ import PurchaseSection from "@/components/main/PurchaseSection";
 
 export default function MainPage() {
     return (
-        <main className="grid grid-cols-1 gap-0 [&>*]:m-0 [&>*]:p-0">
-            <CatalogSection />
-            <ApecSection />
-            <PurchaseSection />
+        <main className="flex flex-col gap-0 [&>*]:m-0 [&>*]:p-0">
+            <div className="h-1/2">
+                <CatalogSection />
+                <ApecSection />
+            </div>
+            <div className="h-1/2">
+                <PurchaseSection />
+            </div>
         </main>
     );
 }

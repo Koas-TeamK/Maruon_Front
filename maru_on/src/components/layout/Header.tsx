@@ -26,7 +26,7 @@ export default function Header() {
             <img
                 src="/logo/maruon-white.png"
                 alt="MARUON"
-                className="w-12 h-auto max-h-full drop-shadow-[0_6px_20px_rgba(0,0,0,0.8)]"
+                className="w-11 h-auto max-h-full drop-shadow-[0_6px_20px_rgba(0,0,0,0.8)]"
             />
 
             <div className="relative flex justify-end items-center gap-1">

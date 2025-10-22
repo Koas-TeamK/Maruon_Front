@@ -39,7 +39,7 @@ export default function ProductTile({
                 src={imgSrc}
                 alt={alt}
                 className={[
-                    "absolute inset-0 w-full h-full object-contain block",
+                    "absolute inset-0 w-full h-full object-cover block",
                     "transition-transform duration-300 ease-out will-change-transform",
                     open ? "scale-105" : "scale-100 md:group-hover:scale-105",
                 ].join(" ")}
