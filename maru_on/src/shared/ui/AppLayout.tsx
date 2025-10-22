@@ -1,3 +1,4 @@
+// AppLayout.tsx
 import { Outlet } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -5,13 +6,21 @@ import SnsTab from "@/components/SnsTab";
 
 export default function AppLayout() {
     return (
-        <div className="w-screen h-screen bg-white">
+        <div className="min-h-dvh w-dvw flex flex-col overflow-x-hidden">
+            {/* 헤더가 fixed가 아니라면 shrink-0만 주면 됨 */}
             <Header />
-            <main className="pt-[calc(env(safe-area-inset-top))]">
+
+            {/* 메인: 스크롤은 여기서 담당 */}
+            <main className="flex-1 min-h-0 overflow-y-auto pt-[env(safe-area-inset-top)]">
                 <Outlet />
             </main>
 
-            <Footer />
+            {/* 푸터: 항상 바닥에 노출 */}
+            <footer className="shrink-0 relative z-20">
+                <Footer />
+            </footer>
+
+            {/* 고정 탭이 겹치면 z-index를 푸터보다 낮게 */}
             <SnsTab />
         </div>
     );

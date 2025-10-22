@@ -61,23 +61,19 @@ export default function CatalogSection() {
     return (
         <section className="w-full">
             <div
-                className="group relative w-full aspect-[9/5] md:aspect-[21/9] overflow-hidden"
+                className="
+          group relative w-full h-[50svh] overflow-hidden
+          bg-[url('/img/catalog.png')] bg-cover bg-no-repeat
+          bg-[position:50%_50%] transition-[background-position] duration-500
+          hover:bg-[position:50%_30%] focus:bg-[position:50%_30%]
+        "
                 onMouseEnter={show}
                 onMouseLeave={hide}
                 onFocus={show}
                 onBlur={hide}
                 onTouchStart={onTouch}
             >
-                {/* 배경 */}
-                <img
-                    src="/img/catalog.png"
-                    alt="Catalog background"
-                    className="absolute inset-0 w-full h-full object-cover block"
-                    loading="lazy"
-                    decoding="async"
-                />
-
-                {/* 오버레이 */}
+                {/* 오버레이: 반드시 같은 래퍼 안, 그리고 pointer-events-none */}
                 <div
                     className={[
                         "absolute inset-0 transition-colors duration-200 pointer-events-none",
@@ -86,7 +82,7 @@ export default function CatalogSection() {
                     ].join(" ")}
                 />
 
-                {/* CTA 버튼 */}
+                {/* CTA 버튼: 같은 래퍼 안에서 absolute */}
                 <button
                     type="button"
                     onClick={openPdf}

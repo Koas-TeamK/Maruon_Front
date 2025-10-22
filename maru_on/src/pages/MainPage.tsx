@@ -5,14 +5,10 @@ import PurchaseSection from "@/components/main/PurchaseSection";
 
 export default function MainPage() {
     return (
-        <main className="flex flex-col gap-0 [&>*]:m-0 [&>*]:p-0">
-            <div className="h-1/2">
-                <CatalogSection />
-                <ApecSection />
-            </div>
-            <div className="h-1/2">
-                <PurchaseSection />
-            </div>
+        <main className="flex flex-col [&>*]:m-0 [&>*]:p-0">
+            <section className="h-[50vh]"><CatalogSection /></section>
+            <section className="h-[50vh]"><ApecSection /></section>
+            <section className="h-[50vh]"><PurchaseSection /></section>
         </main>
     );
 }

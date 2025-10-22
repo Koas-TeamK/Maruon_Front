@@ -33,13 +33,13 @@ export default function MaruonSerialPage() {
         })();
     }, [API_BASE, name, serial, token]);
 
-    function formatSerialLocalized(v: string | number | null | undefined, locale: string) {
+    function formatSerialKeepZeros(v: string | number | null | undefined) {
         if (v == null) return "—";
-        const digits = String(v).replace(/[^\d]/g, "");
-        if (!digits) return "—";
-        const n = parseInt(digits, 10);
-        if (Number.isNaN(n)) return "—";
-        return new Intl.NumberFormat(locale).format(n);
+        const s = String(v)
+            // 풀폭 숫자 → ASCII 숫자
+            .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFF10 + 0x30));
+        const m = s.match(/\d+/);
+        return m ? m[0] : "—";
     }
 
     const locale =
@@ -95,7 +95,7 @@ export default function MaruonSerialPage() {
                              [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                              [font-family:'Cinzel',serif]"
                                 >
-                                    {formatSerialLocalized(serialNum, locale)}
+                                    {formatSerialKeepZeros(serialNum)}
                                 </span>
                             ),
                         }}
@@ -116,7 +116,7 @@ export default function MaruonSerialPage() {
 
                     {/* 배송예정일 */}
                     {date && (
-                        <div className="text-center text-[#eed49d] text-xl mt-10 ">
+                        <div className="text-center text-[#eed49d] text-xl mt-5 ">
                             <Trans
                                 i18nKey="edition.date" // "Your product is scheduled to ship on <br /> <date/>."
                                 ns="common"
@@ -124,7 +124,7 @@ export default function MaruonSerialPage() {
                                     br: <br />,
                                     date: (
                                         <span
-                                            className="inline-block text-5xl leading-[2.2] tracking-[0.02em]
+                                            className="inline-block text-4xl leading-[2.2] tracking-[0.02em]
                                             text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
                                             [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                                             [font-family:'Cinzel',serif]"

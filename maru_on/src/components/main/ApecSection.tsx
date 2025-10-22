@@ -6,10 +6,6 @@ export default function ApecSection() {
     const HREF = "https://apec2025.kr/kor/?menuno=85";
     const { t } = useTranslation("common");
 
-    const titleKey = "apec.button";
-    const titleRaw = t(titleKey);
-    const ariaTitle = titleRaw.replace(/<br\s*\/?>/gi, " ");
-
     const [revealed, setRevealed] = useState(false);
     const hideTimer = useRef<number | null>(null);
 
@@ -61,21 +57,17 @@ export default function ApecSection() {
     return (
         <section className="w-full">
             <div
-                className="group relative w-full aspect-[9/5] md:aspect-[21/9] overflow-hidden"
+                className="
+          group relative w-full h-[50svh] overflow-hidden
+          bg-[url('/img/koas-apec.png')] bg-cover bg-no-repeat
+          bg-[position:50%_50%] transition-[background-position] duration-500
+          hover:bg-[position:50%_30%] focus:bg-[position:50%_30%]
+        "
                 onMouseEnter={show}
                 onMouseLeave={hide}
                 onFocus={show}
                 onBlur={hide}
             >
-                {/* 배경 */}
-                <img
-                    src="/img/koas-apec.png"
-                    alt="APEC 관련 비주얼"
-                    className="absolute inset-0 w-full h-full object-cover block"
-                    loading="lazy"
-                    decoding="async"
-                />
-
                 {/* 어둡게 오버레이 */}
                 <div
                     className={[
@@ -85,11 +77,11 @@ export default function ApecSection() {
                     ].join(" ")}
                 />
 
+                {/* 모바일 토글 영역(같은 래퍼 안에서 절대배치) */}
                 <button
                     type="button"
                     aria-label={t("apec.showButton", "APEC 버튼 표시")}
                     className="md:hidden absolute inset-0 z-10 bg-transparent touch-manipulation"
-                    // 하나만: pointerdown으로 통일 (터치/마우스 모두 커버)
                     onPointerDown={toggleReveal}
                 />
 
@@ -97,7 +89,6 @@ export default function ApecSection() {
                 <button
                     type="button"
                     onClick={openSite}
-                    aria-label={`${ariaTitle} ${t("apec.open", "새 창에서 열기")}`}
                     className={[
                         "absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
                         "inline-flex items-center gap-2 px-5 py-2 rounded",
@@ -108,15 +99,9 @@ export default function ApecSection() {
                     ].join(" ")}
                 >
                     <span className="text-sm md:text-base text-center">
-                        <Trans ns="common" i18nKey={titleKey} components={{ br: <br /> }} />
+                        <Trans ns="common" i18nKey="apec.button" components={{ br: <br /> }} />
                     </span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M13.172 12 8.222 7.05l1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
                     </svg>
                 </button>
