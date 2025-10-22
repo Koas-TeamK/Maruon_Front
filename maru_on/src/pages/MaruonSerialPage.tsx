@@ -1,11 +1,10 @@
 // src/pages/MaruonSerialPage.tsx
 import { useEffect, useMemo, useState } from "react";
 import { parseNameSerialToken } from "@/shared/lib/qr";
-import { Trans, useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 
 export default function MaruonSerialPage() {
     const { name, serial, token } = useMemo(() => parseNameSerialToken(), []);
-    const { i18n } = useTranslation("common");
 
     const API_BASE =
         import.meta.env.PROD
@@ -41,11 +40,6 @@ export default function MaruonSerialPage() {
         const m = s.match(/\d+/);
         return m ? m[0] : "—";
     }
-
-    const locale =
-        i18n.language.startsWith("ko") ? "ko-KR"
-            : i18n.language.startsWith("en") ? "en-US"
-                : i18n.language;
 
     return (
         <div className="relative min-h-[100dvh]">
