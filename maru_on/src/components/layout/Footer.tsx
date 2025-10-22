@@ -2,7 +2,7 @@ import KoasLogoUrl from '@/assets/koas-logo.svg';
 
 export default function Footer() {
     return (
-        <footer className="px-4 py-6 text-sm text-black bg-white border-t">
+        <footer className="px-4 py-6 text-sm text-black bg-white border-t-1">
             <div className="flex flex-col mt-4 text-xs leading-5 sm:mt-7 sm:leading-normal">
                 <img src={KoasLogoUrl} alt="KOAS" className="h-16 w-16 inline-block align-middle" />
                 <div className="space-y-2 space-x-4 ">
