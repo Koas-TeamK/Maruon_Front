@@ -22,16 +22,11 @@ export default function MaruonSerialPage() {
                 const qs = new URLSearchParams({ name, serial, token }).toString();
                 const url = `${API_BASE}/api/qr/check?${qs}`;
                 const res = await fetch(url, { headers: { Accept: "application/json" } });
-                if (!res.ok) {
-                    console.warn("[qr/check] http", res.status, await res.text().catch(() => ""));
-                    return;
-                }
+                if (!res.ok) return;
                 const json = await res.json();
                 setSerialNum(json?.serial ?? null);
                 setDate(json?.createDate ?? null);
-            } catch (e) {
-                console.warn("[qr/check] network_error", e);
-            }
+            } catch { }
         })();
     }, [API_BASE, name, serial, token]);
 
@@ -45,69 +40,71 @@ export default function MaruonSerialPage() {
     }
 
     const locale =
-        i18n.language.startsWith("ko")
-            ? "ko-KR"
-            : i18n.language.startsWith("en")
-                ? "en-US"
+        i18n.language.startsWith("ko") ? "ko-KR"
+            : i18n.language.startsWith("en") ? "en-US"
                 : i18n.language;
 
     return (
-        <div className="relative h-[100svh]">
-            {/* 고정 배경 레이어 */}
-            <div className="fixed inset-0">
-                {/* 패턴 (맨 뒤) */}
-                <div className="absolute inset-0 z-0 bg-[url('/img/background.png')] bg-[length:390px_844px] bg-repeat" />
-                {/* 상단 로그 패턴 (뒤) */}
-                <div className="absolute inset-x-0 -top-10 h-full z-0
+        <div className="relative min-h-[100dvh]">
+            {/* 배경: 고정 + 클릭/스크롤 통과 */}
+            <div className="pointer-events-none fixed inset-0 z-0">
+                <div className="absolute inset-0 bg-[url('/img/background.png')] bg-[length:390px_844px] bg-repeat" />
+                <div className="absolute inset-x-0 -top-10 h-full
                         bg-[url('/img/background-log.png')] bg-no-repeat
                         bg-[position:top_center]
                         bg-[length:280px_auto] md:bg-[length:320px_auto] lg:bg-[length:360px_auto]" />
+            </div>
 
-                {/* 로고 / 문구 / 의자 : 앞쪽으로 올림 */}
-                <div className="relative z-10 h-full flex flex-col items-center justify-between
-                        pt-[max(env(safe-area-inset-top),1.5rem)]
-                        pb-[clamp(220px,30vh,360px)]
-                        px-6 pointer-events-none">
-                    {/* 로고 */}
+            {/* 본문: 스크롤 가능(레이아웃 흐름) */}
+            <main
+                className="relative z-10 mx-auto w-full max-w-[640px] px-6
+                   min-h-[100dvh]
+                   pb-[calc(max(env(safe-area-inset-bottom),16px)+160px)] /* 의자 높이만큼 버퍼 */
+      ">
+                {/* 로고 */}
+                <div className="flex justify-center">
                     <img
                         src="/logo/maruon-gold.png"
                         alt="Maruon"
-                        className="w-36 md:w-42 lg:w-56 select-none"
-                        decoding="async"
-                        loading="lazy"
-                    />
-
-                    {/* 문구(가운데). 상호작용 필요하면 auto */}
-                    <div className="pointer-events-auto w-full max-w-[640px] text-center md:text-lg text-[#eed49d]
-                          [text-wrap:balance] break-keep leading-relaxed md:leading-loose mt-10">
-                        <Trans
-                            i18nKey="edition.registeredLine"
-                            ns="common"
-                            components={{
-                                num: (
-                                    <span className="inline-block text-4xl md:text-6xl leading-none tracking-[0.02em]
-                                   text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
-                                   [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
-                                   [font-family:'Cinzel',serif]">
-                                        {formatSerialLocalized(serialNum, locale)}
-                                    </span>
-                                ),
-                            }}
-                        />
-                        {date && <p className="mt-5">귀하의 제품 도착 예정일은 {date}입니다.</p>}
-                    </div>
-
-                    {/* 의자 (하단) */}
-                    <img
-                        src="/img/high-chair.png"
-                        alt=""
-                        className="block mx-auto select-none pointer-events-none
-                       w-[280px] md:w-[300px] lg:w-[340px]"
+                        className="w-32 md:w-40 lg:w-56 select-none"
                         decoding="async"
                         loading="lazy"
                     />
                 </div>
-            </div>
-        </div>
+
+                {/* 문구 */}
+                <section className="mt-8 text-center text-[#eed49d] md:text-lg [text-wrap:balance] break-keep leading-relaxed md:leading-loose">
+                    <Trans
+                        i18nKey="edition.registeredLine"
+                        ns="common"
+                        components={{
+                            num: (
+                                <span className="inline-block text-3xl md:text-6xl leading-none tracking-[0.02em]
+                                 text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
+                                 [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
+                                 [font-family:'Cinzel',serif]">
+                                    {formatSerialLocalized(serialNum, locale)}
+                                </span>
+                            ),
+                        }}
+                    />
+                    {date && <p className="mt-4">귀하의 제품 도착 예정일은 {date}입니다.</p>}
+                </section>
+
+                {/* 의자: sticky → 뷰포트 하단에 붙어있다가 푸터 나오면 자연스럽게 위로 밀림 */}
+                <div className="h-[180px] md:h-[220px] lg:h-[240px] mt-10">
+                    <div className="sticky bottom-[max(env(safe-area-inset-bottom),16px)] flex justify-center">
+                        <img
+                            src="/img/high-chair.png"
+                            alt=""
+                            className="w-[260px] md:w-[300px] lg:w-[340px] select-none pointer-events-none"
+                            decoding="async"
+                            loading="lazy"
+                        />
+                    </div>
+                </div>
+                {/* ↑ 바깥 div의 높이가 의자 이미지 ‘자체 높이’ 역할(레이아웃 공간 확보) */}
+            </main >
+        </div >
     );
 }

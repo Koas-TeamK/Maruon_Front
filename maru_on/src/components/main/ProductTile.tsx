@@ -1,7 +1,6 @@
-//ProductTile.tsx
-
+// ProductTile.tsx
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next"; // ← Trans 추가
 
 type ProductTileProps = {
     className?: string;
@@ -27,7 +26,6 @@ export default function ProductTile({
 
     const title = t(titleKey);
     const alt = t(altKey);
-    const desc = t(descKey);
     const priceText = priceKey ? t(priceKey) : undefined;
 
     return (
@@ -49,6 +47,7 @@ export default function ProductTile({
                     open ? "scale-105" : "scale-100 md:group-hover:scale-105",
                 ].join(" ")}
             />
+
             {/* 오버레이 */}
             <div
                 className={[
@@ -61,7 +60,11 @@ export default function ProductTile({
             >
                 <div className="pointer-events-auto space-y-3">
                     <div className="text-lg md:text-2xl font-semibold">{title}</div>
-                    <p className="text-sm md:text-base leading-relaxed">{desc}</p>
+
+                    <p className="text-sm md:text-base leading-relaxed">
+                        <Trans i18nKey={descKey} ns="common" components={{ br: <br /> }} />
+                    </p>
+
                     {priceText && <div className="text-base md:text-lg opacity-90">{priceText}</div>}
 
                     <div className="mt-2">

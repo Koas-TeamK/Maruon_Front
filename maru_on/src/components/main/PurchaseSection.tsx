@@ -12,7 +12,7 @@ export default function PurchaseSection() {
                     altKey="purchase.high.alt"
                     descKey="purchase.high.desc"
                     priceKey="purchase.high.price"
-                    href="/purchase/high-chair"
+                    href="#"
                 />
                 <ProductTile
                     className="relative flex-1"
@@ -21,7 +21,7 @@ export default function PurchaseSection() {
                     altKey="purchase.middle.alt"
                     descKey="purchase.middle.desc"
                     priceKey="purchase.middle.price"
-                    href="/purchase/middle-chair"
+                    href="#"
                 />
             </div>
         </section>
