@@ -9,10 +9,10 @@ export default function SnsFab() {
     const open = useSelector((s: RootState) => s.ui.snsOpen);
     const wrapRef = useRef<HTMLDivElement>(null);
 
-    const wechatSrc = "/logo/wechat.png";
-    const lineSrc = "/logo/line.png";
-    const linkedinSrc = "/logo/linkedin.png";
-    const facebookSrc = "/logo/facebook.png";
+    const wechatSrc = "/sns/wechat-main.png";
+    const lineSrc = "/sns/line-main.png";
+    const linkedinSrc = "/sns/linkedin-main.png";
+    const facebookSrc = "/sns/facebook-main.png";
 
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
@@ -40,12 +40,14 @@ export default function SnsFab() {
                       ${open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"}
                       transition-all duration-200`}
                 >
-                    {[{ src: wechatSrc, alt: "WeChat" },
-                    { src: lineSrc, alt: "LINE" },
-                    { src: linkedinSrc, alt: "LinkedIn" },
-                    { src: facebookSrc, alt: "Facebook" }]
-                        .map(({ src, alt }) => (
-                            <a key={alt} href="#" title={alt} tabIndex={open ? 0 : -1} className="inline-block">
+                    {[
+                        { src: wechatSrc, alt: "WeChat", href: "https://line.me/R/ti/p/@761haror" },
+                        { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
+                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
+                        { src: facebookSrc, alt: "Facebook", href: "https://line.me/R/ti/p/@761haror" }
+                    ]
+                        .map(({ src, alt, href }) => (
+                            <a key={alt} href={href} title={alt} tabIndex={open ? 0 : -1} className="inline-block">
                                 <img src={src} alt={alt}
                                     className="
                                     w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 

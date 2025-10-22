@@ -4,7 +4,7 @@ import Menu from "@/components/menu/Menu";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function Header() {
+export default function Header_qr() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [langHint, setLangHint] = useState<string | null>(null); // 배지 텍스트
     const { i18n, t } = useTranslation();
@@ -22,13 +22,7 @@ export default function Header() {
     };
 
     return (
-        <header className="fixed inset-x-0 top-0 z-[100] bg-white flex items-center justify-between p-3">
-            <img
-                src="/logo/maruon-logo.png"
-                alt="MARUON"
-                className="w-12 h-auto max-h-full"
-            />
-
+        <header className="fixed inset-x-0 top-0 z-[100] flex items-center justify-end">
             <div className="relative flex justify-end items-center gap-1">
                 {/* 언어 토글 */}
                 <button
@@ -38,7 +32,7 @@ export default function Header() {
                     onClick={toggleLang}
                     className="relative p-2 hover:opacity-80 active:opacity-60"
                 >
-                    <LanguageIcon className="w-8 h-8 fill-[#403736]" />
+                    <LanguageIcon className="w-8 h-8 fill-[#eed49d]" />
                     {/* 배지(클릭 즉시 현재 언어 표시) */}
                     {langHint && (
                         <span
