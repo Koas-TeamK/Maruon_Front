@@ -1,23 +1,23 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-//import { useSelector } from "react-redux";
-//import type { RootState } from "./store";
-import type { ReactNode } from "react";
+//AppRoutes.tsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppLayout from "@/shared/ui/AppLayout";
+import AppLayout_QR from "@/shared/ui/AppLayout_QR";
 import MainPage from "@/pages/MainPage";
-import VideoPage from "@/pages/VideoPage";
-
-function Protected({ children }: { children: ReactNode }) {
-    //const token = useSelector((s: RootState) => s.auth.token);
-    //if (!token) return <Navigate to="/login" replace />;
-    return children;
-}
+import MaruonSerialPage from "@/pages/MaruonSerialPage";
 
 export default function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<VideoPage />} />
-                <Route path="/main" element={<Protected><MainPage /></Protected>} />
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route element={<AppLayout />}>
+                    <Route path="/" element={<MainPage />} />
+                </Route>
+                {/* 오너십(시리얼 노출) 페이지*/}
+                <Route element={<AppLayout_QR />}>
+                    <Route path="/maruon" element={<MaruonSerialPage />} />
+                    <Route path="/maruon/:serial" element={<MaruonSerialPage />} />
+                    <Route path="/maruon/serial=:serial" element={<MaruonSerialPage />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

@@ -1,0 +1,30 @@
+{
+    "catalog": {
+        "section": "Catalog Section",
+        "open": "View Catalog"
+    },
+    "apec": {
+        "section": "Apec Section",
+        "button": "Visit APEC 2025",
+        "goSite": "See official APEC 2025 info"
+    },
+    "purchase": {
+        "buy": "Buy Now",
+        "middle": {
+            "title": "Executive chair Mid Back ",
+            "alt": "Executive chair Mid Back ",
+            "desc": "Ergonomic Knee Tilt (20°)<br /> A gentle synchronized motion between the seat and backrest minimizes knee strain,<br /> offering smooth, enduring comfort for long hours of sitting.",
+            "price": "1,170 USD"
+        },
+        "high": {
+            "title": "Executive chair High Back",
+            "alt": "Executive chair High Back",
+            "desc": "Refined armrests — slim, flowing arm lines<br />upholstered in eco-friendly leather deliver both tactile softness and timeless sophistication.",
+            "price": "1,399 USD"
+        }
+    },
+    "edition": {
+        "registeredLine": "Registered as<br/> Edition No.<num/>",
+        "date": "The scheduled shipping date for your product is <br /> <date/>."
+    }
+}
