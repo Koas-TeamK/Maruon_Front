@@ -41,6 +41,36 @@ export default function MaruonSerialPage() {
         return m ? m[0] : "—";
     }
 
+    // 날짜 포맷
+    function formatDateYMDDots(v: string | number | null | undefined) {
+        if (v == null) return "—";
+        const s = String(v).trim();
+
+        // 1) ISO 또는 타임스탬프 시도
+        let d = new Date(s);
+        if (Number.isFinite(Number(s))) d = new Date(Number(s)); // epoch(ms) 혹은 숫자 문자열
+
+        // 2) Date가 유효하면 사용
+        if (!Number.isNaN(d.getTime())) {
+            const yyyy = d.getFullYear();
+            const mm = String(d.getMonth() + 1).padStart(2, "0");
+            const dd = String(d.getDate()).padStart(2, "0");
+            return `${yyyy}.${mm}.${dd}`;
+        }
+
+        // 3) 문자열에서 yyyy-mm-dd / yyyy/mm/dd / yyyy.mm.dd 패턴 추출
+        const m = s.match(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);
+        if (m) {
+            const yyyy = m[1];
+            const mm = m[2].padStart(2, "0");
+            const dd = m[3].padStart(2, "0");
+            return `${yyyy}.${mm}.${dd}`;
+        }
+
+        // 실패 시 원문 반환
+        return s;
+    }
+
     return (
         <div className="relative min-h-[100dvh]">
             {/* 1) 패턴 배경: 뷰포트 고정 (z-0) */}
@@ -123,7 +153,7 @@ export default function MaruonSerialPage() {
                                             [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                                             [font-family:'Cinzel',serif]"
                                         >
-                                            {String(date)}
+                                            {formatDateYMDDots(date)}
                                         </span>
                                     ),
                                 }}

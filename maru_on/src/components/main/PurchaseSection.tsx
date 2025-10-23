@@ -3,7 +3,7 @@ import ProductTile from "./ProductTile";
 
 export default function PurchaseSection() {
     return (
-        <section className="flex m-0 gap-0 w-full h-full bg-[#a89e95]">
+        <section className="flex m-0 gap-0 w-full h-full bg-[#c8bdb6]">
             <ProductTile
                 className="relative flex-1"
                 imgSrc="/img/high-chair.png"
@@ -13,7 +13,7 @@ export default function PurchaseSection() {
             />
             <ProductTile
                 className="relative flex-1"
-                imgSrc="/img/middle-chair.png"
+                imgSrc="/img/mid-chair.png"
                 titleKey="purchase.middle.title"
                 altKey="purchase.middle.alt"
                 href="#"

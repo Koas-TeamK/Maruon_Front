@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 export default function ApecSection() {
-    const HREF = "https://apec2025.kr/kor/?menuno=85";
+    const HREF = "/leaflet/apec%20leaflet.pdf";
     const { t } = useTranslation("common");
 
     const [revealed, setRevealed] = useState(false);
@@ -67,12 +67,25 @@ export default function ApecSection() {
             onFocus={show}
             onBlur={hide}
         >
-            {/* 어둡게 오버레이 */}
+            {/* BG 이미지 레이어 */}
             <div
                 className={[
-                    "absolute inset-0 transition-colors duration-200 pointer-events-none",
-                    revealed ? "bg-black/45" : "bg-transparent",
-                    "md:bg-transparent md:group-hover:bg-black/45",
+                    "absolute inset-0 pointer-events-none",
+                    "bg-[url('/img/koas-apec-hover.jpg')] bg-cover bg-center bg-no-repeat",
+                    "opacity-0 transition-opacity duration-300",
+                    revealed ? "opacity-100" : "opacity-0",
+                    "md:group-hover:opacity-100",
+                ].join(" ")}
+            />
+
+            {/* 어둡게 레이어 */}
+            <div
+                className={[
+                    "absolute inset-0 pointer-events-none",
+                    "bg-black/60",
+                    "opacity-0 transition-opacity duration-300",
+                    revealed ? "opacity-100" : "opacity-0",
+                    "md:group-hover:opacity-100",
                 ].join(" ")}
             />
 
