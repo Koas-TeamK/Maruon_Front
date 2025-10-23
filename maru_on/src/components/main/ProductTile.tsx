@@ -11,7 +11,7 @@ type ProductTileProps = {
 };
 
 export default function ProductTile({
-    className = "",
+    className,
     imgSrc,
     titleKey,
     altKey,
@@ -39,8 +39,8 @@ export default function ProductTile({
                 src={imgSrc}
                 alt={alt}
                 className={[
-                    "absolute inset-0 w-full h-full object-cover block",
-                    "transition-transform duration-300 ease-out will-change-transform",
+                    "absolute inset-x-0 bottom-0 w-full h-auto object-contain object-bottom border border-blue-500",
+                    "block transition-transform duration-300 ease-out will-change-transform",
                     open ? "scale-105" : "scale-100 md:group-hover:scale-105",
                 ].join(" ")}
             />
