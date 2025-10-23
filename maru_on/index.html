@@ -5,18 +5,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- PWA(아이폰 홈화면)에서 페이지가 상태바/노치 뒤까지 렌더링 가능 -->
+  <!-- iOS PWA: 전체화면 허용 -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- 상태바 투명(내용이 비치도록): black-translucent / 그냥 검정: black -->
+  <!-- iOS PWA 상태바: 투명(내용이 비치도록) -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#403736">
+
+  <!-- 상단 UI 색(브라우저 탭 모드에서 사용, iOS 15+/Android) -->
+  <meta name="theme-color" content="#403736" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#403736" media="(prefers-color-scheme: dark)">
 
   <link rel="icon" href="/logo/logo-card.jpg">
-  <!-- PWA(아이폰 홈화면)에서 페이지가 상태바/노치 뒤까지 렌더링 가능 -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- 상태바 투명(내용이 비치도록): black-translucent / 그냥 검정: black -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#403736">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
   <title>Maruon</title>
