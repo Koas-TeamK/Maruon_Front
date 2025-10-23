@@ -127,7 +127,7 @@ export default function MaruonSerialPage() {
                 </section>
 
                 {/* 의자: sticky → 하단 고정, 푸터 영역에서 자연스럽게 밀림 */}
-                <div className="h-[300px] md:h-[220px] lg:h-[240px] mt-10 mb-20">
+                <div className="h-[300px] md:h-[220px] lg:h-[240px] mb-20">
                     <div className="sticky bottom-[max(env(safe-area-inset-bottom),16px)] flex justify-center">
                         <img
                             src="/img/high-chair.png"
@@ -140,7 +140,7 @@ export default function MaruonSerialPage() {
 
                     {/* 배송예정일 */}
                     {date && (
-                        <div className="text-center text-[#eed49d] text-xl mt-5 ">
+                        <div className="text-center text-[#eed49d] text-xl mt-10 ">
                             <Trans
                                 i18nKey="edition.date" // "Your product is scheduled to ship on <br /> <date/>."
                                 ns="common"

@@ -15,7 +15,7 @@ export default function MainPage() {
                 <ApecSection />
             </section>
 
-            <section className="h-[50svh] overflow-hidden [&_*]:m-0">
+            <section className="h-[35svh] overflow-hidden [&_*]:m-0">
                 <PurchaseSection />
             </section>
         </main>
