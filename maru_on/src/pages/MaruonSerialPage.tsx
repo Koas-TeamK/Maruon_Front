@@ -1,11 +1,11 @@
 // src/pages/MaruonSerialPage.tsx
 import { useEffect, useMemo, useState } from "react";
 import { parseNameSerialToken } from "@/shared/lib/qr";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export default function MaruonSerialPage() {
     const { name, serial, token } = useMemo(() => parseNameSerialToken(), []);
-
+    const { i18n } = useTranslation("common");
     const API_BASE =
         import.meta.env.PROD
             ? ""
@@ -107,7 +107,9 @@ export default function MaruonSerialPage() {
                 </div>
 
                 {/* 문구 */}
-                <section className="mt-8 text-center text-[#eed49d] text-xl [text-wrap:balance] break-keep">
+                <section
+                    key={i18n.language}
+                    className="mt-8 text-center text-[#eed49d] text-xl [text-wrap:balance] break-keep">
                     <div>
                         <Trans
                             i18nKey="edition.registeredLine1"
@@ -152,6 +154,7 @@ export default function MaruonSerialPage() {
                             <Trans
                                 i18nKey="edition.date" // "Your product is scheduled to ship on <br /> <date/>."
                                 ns="common"
+                                key={`date-${i18n.language}`}
                                 components={{
                                     br: <br />,
                                     date: (
