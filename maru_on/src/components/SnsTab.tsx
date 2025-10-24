@@ -47,7 +47,14 @@ export default function SnsFab() {
                         { src: facebookSrc, alt: "Facebook", href: "https://business.facebook.com/latest/home?asset_id=497158466808108&business_id=947605954062309" }
                     ]
                         .map(({ src, alt, href }) => (
-                            <a key={alt} href={href} title={alt} tabIndex={open ? 0 : -1} className="inline-block">
+                            <a
+                                key={alt}
+                                href={href}
+                                title={alt}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                tabIndex={open ? 0 : -1}
+                                className="inline-block">
                                 <img src={src} alt={alt}
                                     className="
                                     w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 
