@@ -12,7 +12,7 @@ export default function SnsFab() {
     const wechatSrc = "/sns/wechat-main.png";
     const lineSrc = "/sns/line-main.png";
     const linkedinSrc = "/sns/linkedin-main.png";
-    //const facebookSrc = "/sns/facebook-main.png";
+    const facebookSrc = "/sns/facebook-main.png";
 
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
@@ -43,11 +43,18 @@ export default function SnsFab() {
                     {[
                         { src: wechatSrc, alt: "WeChat", href: "#" },
                         { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
-                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" }
-                        // { src: facebookSrc, alt: "Facebook", href: "#" }
+                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
+                        { src: facebookSrc, alt: "Facebook", href: "https://www.facebook.com/people/코아스/61568079908788/" }
                     ]
                         .map(({ src, alt, href }) => (
-                            <a key={alt} href={href} title={alt} tabIndex={open ? 0 : -1} className="inline-block">
+                            <a
+                                key={alt}
+                                href={href}
+                                title={alt}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                tabIndex={open ? 0 : -1}
+                                className="inline-block">
                                 <img src={src} alt={alt}
                                     className="
                                     w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 

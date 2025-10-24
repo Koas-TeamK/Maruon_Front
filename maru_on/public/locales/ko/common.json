@@ -23,7 +23,8 @@
         }
     },
     "edition": {
-        "registeredLine": "이 제품은 에디션 넘버<br/> <num/>번으로 <br/>등록되었습니다.",
+        "registeredLine1": "이 제품은 에디션 넘버<br/>",
+        "registeredLine2": "<num/>번으로 <br/>등록되었습니다.",
         "date": "귀하의 제품 출고 예정일은 <br /> <date/>입니다."
     }
 }

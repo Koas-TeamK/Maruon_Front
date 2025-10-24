@@ -5,7 +5,7 @@ export default function Footer_qr() {
     const wechatSrc = "/sns/wechat-gold.png";
     const lineSrc = "/sns/line-gold.png";
     const linkedinSrc = "/sns/linkedin-gold.png";
-    // const facebookSrc = "/sns/facebook-gold.png";
+    const facebookSrc = "/sns/facebook-gold.png";
     return (
         <footer className="w-screen relative z-10 px-4 py-6 bg-[#403736]">
             <div className="flex flex-col mt-2 justify-center items-center text-xs leading-5 sm:mt-4 sm:leading-normal">
@@ -17,12 +17,14 @@ export default function Footer_qr() {
                     {[
                         { src: wechatSrc, alt: "WeChat", href: "#" },
                         { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
-                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" }
-                        // { src: facebookSrc, alt: "Facebook", href: "#" }
+                        { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
+                        { src: facebookSrc, alt: "Facebook", href: "https://www.facebook.com/people/코아스/61568079908788/" }
                     ].map((it) => (
                         <a
                             key={it.alt}
                             href={it.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             aria-label={it.alt}
                             className="inline-flex items-center justify-center
                          rounded-full p-2 sm:p-2.5 md:p-3
