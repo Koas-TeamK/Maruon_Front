@@ -44,7 +44,7 @@ export default function SnsFab() {
                         { src: wechatSrc, alt: "WeChat", href: "#" },
                         { src: lineSrc, alt: "LINE", href: "https://line.me/R/ti/p/@761haror" },
                         { src: linkedinSrc, alt: "LinkedIn", href: "https://www.linkedin.com/company/koas/" },
-                        { src: facebookSrc, alt: "Facebook", href: "https://business.facebook.com/latest/home?asset_id=497158466808108&business_id=947605954062309" }
+                        { src: facebookSrc, alt: "Facebook", href: "https://www.facebook.com/people/코아스/61568079908788/" }
                     ]
                         .map(({ src, alt, href }) => (
                             <a
