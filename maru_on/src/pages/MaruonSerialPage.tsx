@@ -107,23 +107,31 @@ export default function MaruonSerialPage() {
                 </div>
 
                 {/* 문구 */}
-                <section className="mt-8 text-center text-[#eed49d] text-xl [text-wrap:balance] break-keep leading-[2.2]">
-                    <Trans
-                        i18nKey="edition.registeredLine"
-                        ns="common"
-                        components={{
-                            num: (
-                                <span
-                                    className="inline-block text-5xl md:text-6xl leading-none tracking-[0.02em]
+                <section className="mt-8 text-center text-[#eed49d] text-xl [text-wrap:balance] break-keep">
+                    <div>
+                        <Trans
+                            i18nKey="edition.registeredLine1"
+                            ns="common"
+                        />
+                    </div>
+                    <div className="mt-3">
+                        <Trans
+                            i18nKey="edition.registeredLine2"
+                            ns="common"
+                            components={{
+                                num: (
+                                    <span
+                                        className="inline-block text-5xl md:text-6xl leading-none tracking-[0.02em]
                              text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
                              [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                              [font-family:'Cinzel',serif]"
-                                >
-                                    {formatSerialKeepZeros(serialNum)}
-                                </span>
-                            ),
-                        }}
-                    />
+                                    >
+                                        {formatSerialKeepZeros(serialNum)}
+                                    </span>
+                                ),
+                            }}
+                        />
+                    </div>
                 </section>
 
                 {/* 의자: sticky → 하단 고정, 푸터 영역에서 자연스럽게 밀림 */}
@@ -140,7 +148,7 @@ export default function MaruonSerialPage() {
 
                     {/* 배송예정일 */}
                     {date && (
-                        <div className="text-center text-[#eed49d] text-xl mt-10 ">
+                        <div className="text-center text-[#eed49d] text-xl mt-10 mb-10 ">
                             <Trans
                                 i18nKey="edition.date" // "Your product is scheduled to ship on <br /> <date/>."
                                 ns="common"

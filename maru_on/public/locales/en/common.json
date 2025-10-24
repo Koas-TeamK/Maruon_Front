@@ -23,7 +23,8 @@
         }
     },
     "edition": {
-        "registeredLine": "Registered as<br/> Edition No.<num/>",
+        "registeredLine1": "Registered as<br/>",
+        "registeredLine2": "Edition No.<num/>",
         "date": "The scheduled shipping date for your product is <br /> <date/>."
     }
 }
