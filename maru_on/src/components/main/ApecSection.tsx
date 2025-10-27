@@ -71,7 +71,7 @@ export default function ApecSection() {
             <div
                 className={[
                     "absolute inset-0 pointer-events-none",
-                    "bg-[url('/img/koas-apec-hover.jpg')] bg-cover bg-center bg-no-repeat",
+                    "bg-[url('/img/koas-apec-hover.jpg')] bg-cover bg-[position:60%_50%] bg-no-repeat",
                     "opacity-0 transition-opacity duration-300",
                     revealed ? "opacity-100" : "opacity-0",
                     "md:group-hover:opacity-100",

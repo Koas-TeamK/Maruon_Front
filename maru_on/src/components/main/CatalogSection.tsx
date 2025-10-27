@@ -7,12 +7,18 @@ export default function CatalogSection() {
     const lang = i18n.resolvedLanguage || i18n.language || "en";
 
     const pdfHref = useMemo(() => {
-        const path =
-            lang.startsWith("ko")
-                ? "/catalog/maruon(ko).pdf"
-                : lang.startsWith("en")
-                    ? "/catalog/maruon(en).pdf"
-                    : "/catalog/maruon(ko).pdf";
+        // 언어 prefix → 파일 접미사 매핑
+        const map: Record<string, "(ko)" | "(en)" | "(zh)"> = {
+            ko: "(ko)",
+            en: "(en)",
+            zh: "(zh)", // zh-CN, zh-Hant 등은 모두 zh로 처리
+        };
+
+        // lang이 "en-US" 같은 형태여도 prefix만 사용
+        const prefix = lang?.toLowerCase().split("-")[0] || "en";
+        const suffix = map[prefix] ?? "(en)";
+
+        const path = `/catalog/maruon_catalog${suffix}.pdf`;
         return encodeURI(path);
     }, [lang]);
 
