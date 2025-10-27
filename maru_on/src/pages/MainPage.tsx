@@ -10,17 +10,28 @@ export default function MainPage() {
 
 
     return (
-        <main className="flex flex-col min-h-[100svh] bg-[#403736]">
+        <main className="
+            flex flex-col min-h-[100svh] bg-[#403736]
+            lg:grid lg:grid-cols-3 lg:auto-rows-[minmax(0,1fr)
+        ">
             {/* 1) vh → svh  2) 마진 콜랩스 방지: overflow-hidden (또는 pt-px) */}
-            <section className="h-[50svh] overflow-hidden [&_*]:m-0">
+            <section className="
+                h-[50svh] overflow-hidden [&_*]:m-0
+                lg:h-full lg:row-span-3
+            ">
                 <CatalogSection lang={lang} />
             </section>
 
-            <section className="h-[50svh] overflow-hidden [&_*]:m-0">
+            <section className="
+                h-[50svh] overflow-hidden [&_*]:m-0
+                lg:h-full lg:col-span-2 lg:row-span-2
+            ">
                 <ApecSection lang={lang} />
             </section>
-
-            <section className="h-[35svh] overflow-hidden [&_*]:m-0">
+            <section className="
+                h-[35svh] overflow-hidden [&_*]:m-0
+                lg:h-full lg:col-span-2
+            ">
                 <PurchaseSection />
             </section>
         </main>
