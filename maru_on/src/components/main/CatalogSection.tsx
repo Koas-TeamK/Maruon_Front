@@ -2,10 +2,10 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function CatalogSection() {
-    const { t, i18n } = useTranslation("common");
-    const lang = i18n.resolvedLanguage || i18n.language || "en";
+export default function CatalogSection({ lang }: { lang: string }) {
+    const { t } = useTranslation("common");
 
+    //언어별 pdf
     const pdfHref = useMemo(() => {
         // 언어 prefix → 파일 접미사 매핑
         const map: Record<string, "(ko)" | "(en)" | "(zh)"> = {
@@ -20,6 +20,14 @@ export default function CatalogSection() {
 
         const path = `/catalog/maruon_catalog${suffix}.pdf`;
         return encodeURI(path);
+    }, [lang]);
+
+    //언어별 이미지
+    const imgSrc = useMemo(() => {
+        const prefix = lang?.toLowerCase().split("-")[0] || "en";
+        const map: Record<string, "(ko)" | "(en)" | "(zh)"> = { ko: "(ko)", en: "(en)", zh: "(zh)" };
+        const suffix = map[prefix] ?? "(en)";
+        return encodeURI(`/img/catalog${suffix}.png`);
     }, [lang]);
 
     const [revealed, setRevealed] = useState(false);
@@ -68,10 +76,11 @@ export default function CatalogSection() {
         <section
             className="
           group relative w-full  h-full overflow-hidden
-          bg-[url('/img/catalog.png')] bg-cover bg-no-repeat
+          bg-cover bg-no-repeat
           bg-[position:50%_50%] transition-[background-position] duration-500
           hover:bg-[position:50%_30%] focus:bg-[position:50%_30%]
         "
+            style={{ backgroundImage: `url("${imgSrc}")` }}
             onMouseEnter={show}
             onMouseLeave={hide}
             onFocus={show}
