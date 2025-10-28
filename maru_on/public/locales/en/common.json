@@ -26,5 +26,11 @@
         "registeredLine1": "Registered as<br/>",
         "registeredLine2": "Edition No.<num/>",
         "date": "The scheduled shipping date for your product is <br /> <date/>."
+    },
+    "title": {
+        "title": "MARUON",
+        "desc": "Ergonomic Knee Tilt (20°)<br /> A gentle synchronized motion between the seat and backrest minimizes knee strain, offering smooth, enduring comfort for long hours of sitting.",
+        "descM": "Where elegance resides, grace reveals itself.",
+        "buy": "Buy Now"
     }
 }
