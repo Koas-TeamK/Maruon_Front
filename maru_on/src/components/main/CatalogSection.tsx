@@ -78,7 +78,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
           group relative w-full h-full overflow-hidden
           bg-cover bg-no-repeat
           bg-[position:50%_50%] transition-[background-position] duration-500
-          hover:bg-[position:50%_30%] focus:bg-[position:50%_30%] 
+          hover:bg-[position:50%_30%] focus:bg-[position:50%_80%] 
         "
             style={{ backgroundImage: `url("${imgSrc}")` }}
             onMouseEnter={show}
