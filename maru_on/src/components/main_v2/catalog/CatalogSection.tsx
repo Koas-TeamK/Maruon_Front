@@ -103,6 +103,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
                     className="
             flex flex-col lg:w-1/2 lg:h-full text-[#403736]
             justify-center items-center sm:items-start sm:ml-10
+            mt-5 lg:mt-10
           "
                     variants={container}
                     initial="hidden"
@@ -121,15 +122,15 @@ export default function CatalogSection({ lang }: { lang: string }) {
                         Catalog
                     </motion.h1>
 
-                    <motion.div variants={fadeUp} className="hidden sm:flex mt-10">
+                    <motion.div variants={fadeUp} className="hidden sm:flex mt-5">
                         <Trans ns="common" i18nKey="catalog.desc" components={{ br: <br /> }} />
                     </motion.div>
 
-                    <motion.div variants={fadeUp} className="md:hidden sm:mt-10 mt-5">
+                    <motion.div variants={fadeUp} className="md:hidden mt-5">
                         <Trans ns="common" i18nKey="catalog.descM" components={{ br: <br /> }} />
                     </motion.div>
 
-                    <motion.div variants={fadeUp} className="sm:mt-10 mt-5">
+                    <motion.div variants={fadeUp} className="mt-5">
                         <motion.button
                             whileTap={{ scale: 0.97 }}
                             whileHover={{ x: 2 }}
