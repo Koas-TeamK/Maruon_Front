@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import "./MainPage.css";
 import PurchaseSection from "@/components/main_v2/purchase/PurchaseSection";
 import CatalogSection from "@/components/main_v2/catalog/CatalogSection";
-import ApecSection from "@/components/main_v2/ApecSection";
+import ApecSection from "@/components/main_v2/apec/ApecSection";
 
 export default function MainPage() {
     const { i18n } = useTranslation("common");
@@ -23,7 +23,7 @@ export default function MainPage() {
         >
             {/* 섹션 1 */}
             <section className="snap-start snap-always h-[100svh] w-full">
-                <PurchaseSection lang={lang} />
+                <PurchaseSection />
             </section>
 
             {/* 섹션 2 */}

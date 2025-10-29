@@ -1,10 +1,10 @@
 // PurchaseSection.tsx
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
 import "./PurchaseSection.css";
 
-export default function PurchaseSection({ lang }: { lang: string }) {
+export default function PurchaseSection() {
     const { t } = useTranslation("common");
     const highChair = "/img/chair/high-chair.png";
     const midChair = "/img/chair/mid-chair.png";

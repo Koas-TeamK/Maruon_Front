@@ -77,6 +77,56 @@ export default function ApecSection({ lang }: { lang: string }) {
             onFocus={show}
             onBlur={hide}
         >
+            {/* BG 이미지 레이어 */}
+            <div
+                className={[
+                    "absolute inset-0 pointer-events-none",
+                    "bg-[url('/img/koas-apec-hover.jpg')] bg-cover bg-[position:60%_50%] bg-no-repeat",
+                    "opacity-0 transition-opacity duration-300",
+                    revealed ? "opacity-100" : "opacity-0",
+                    "md:group-hover:opacity-100",
+                ].join(" ")}
+            />
+
+            {/* 어둡게 레이어 */}
+            <div
+                className={[
+                    "absolute inset-0 pointer-events-none",
+                    "bg-black/60",
+                    "opacity-0 transition-opacity duration-300",
+                    revealed ? "opacity-100" : "opacity-0",
+                    "md:group-hover:opacity-100",
+                ].join(" ")}
+            />
+
+            {/* 모바일 토글 영역(같은 래퍼 안에서 절대배치) */}
+            <button
+                type="button"
+                aria-label={t("apec.showButton", "APEC 버튼 표시")}
+                className="md:hidden absolute inset-0 z-10 bg-transparent touch-manipulation"
+                onPointerDown={toggleReveal}
+            />
+
+            {/* CTA 버튼 */}
+            <button
+                type="button"
+                onClick={openSite}
+                className={[
+                    "absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+                    "inline-flex items-center gap-2 px-5 py-2 rounded",
+                    "text-[#eed49d] border border-white/30 bg-white/10 hover:bg-white/15",
+                    "text-sm md:text-base font-medium transition-opacity duration-200 select-none",
+                    revealed ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+                    "md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto",
+                ].join(" ")}
+            >
+                <span className="text-sm md:text-base text-center">
+                    <Trans ns="common" i18nKey="apec.button" components={{ br: <br /> }} />
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.172 12 8.222 7.05l1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
+                </svg>
+            </button>
         </section>
     );
 }
