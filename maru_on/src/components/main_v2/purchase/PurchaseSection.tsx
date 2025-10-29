@@ -12,10 +12,22 @@ export default function PurchaseSection() {
 
     // 이미지 전환 상태
     const [variant, setVariant] = useState<"high" | "mid">("high");
+
+    // 🔸 추가: 전환 방향 (→ = 1, ← = -1)
+    const [direction, setDirection] = useState<1 | -1>(1);
+
     const showHigh = useCallback(() => setVariant("high"), []);
     const showMid = useCallback(() => setVariant("mid"), []);
-    const next = useCallback(() => setVariant((v) => (v === "high" ? "mid" : "high")), []);
-    const prev = useCallback(() => setVariant((v) => (v === "mid" ? "high" : "mid")), []);
+
+    // 🔸 수정: next/prev에서 방향 먼저 설정
+    const next = useCallback(() => {
+        setDirection(1); // 오른쪽으로 들어오고 왼쪽으로 나가게
+        setVariant((v) => (v === "high" ? "mid" : "high"));
+    }, []);
+    const prev = useCallback(() => {
+        setDirection(-1); // 왼쪽으로 들어오고 오른쪽으로 나가게
+        setVariant((v) => (v === "mid" ? "high" : "mid"));
+    }, []);
 
     /* ===== 모션 설정(텍스트 스태거 + 부드러운 이징) ===== */
     const softEase: Transition = {
@@ -38,127 +50,166 @@ export default function PurchaseSection() {
         show: { opacity: 1, y: 0, transition: softEase },
     };
 
-    // 이미지 전환 모션(교차 페이드 + 살짝 슬라이드)
+    // 🔸 변경: 이미지 전환 모션(좌우 슬라이드 + 페이드) — direction에 따라 반대로
     const imgEnter: Variants = {
-        hidden: { opacity: 0, y: 12 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-        exit: { opacity: 0, y: -12, transition: { duration: 0.45, ease: "easeIn" } },
+        hidden: (dir: number) => ({ opacity: 0, x: 100 * dir }),
+        show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+        exit: (dir: number) => ({ opacity: 0, x: -100 * dir, transition: { duration: 0.45, ease: "easeIn" } }),
     };
 
     return (
         <section className="w-full h-full bg-[linear-gradient(to_bottom,white_0%,white_66%,#c8bdb6_66%,#c8bdb6_100%)]">
             {/* 내용 */}
             <div className="w-full h-full flex flex-col lg:flex-row">
-                {/* 왼쪽: 타이틀, 구매 버튼 */}
+                {/* 왼쪽: 타이틀, 버튼, 설명 */}
                 <div
                     className="
-            lg:w-1/3 lg:h-full w-full h-1/2
-            text-[#403736]
-            flex items-center justify-center sm:justify-start
-            text-center sm:text-left
-          "
-                >
-                    {/* 텍스트 블록: 스태거 모션 */}
-                    <motion.div
-                        className="
-              flex flex-col gap-2 justify-center
-              items-center sm:items-start
-              lg:mb-30
-              ml-0 sm:ml-10
-            "
-                        variants={container}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: false, amount: 0.35 }}  // 다시 들어올 때마다 재생
-                    >
-                        {/* 타이틀 */}
-                        <motion.div variants={fadeUp} className="w-full">
-                            <h1
-                                className="
-                  mb-3
-                  lg:text-8xl md:text-8xl text-6xl
-                  text-center sm:text-left
-                  font-JoseonSolidGothic
+                    lg:w-1/2 lg:h-full w-full h-1/2
+                    text-[#403736] tracking-[-0.02em]
+                    flex items-center justify-center sm:justify-start
+                    text-center sm:text-left
+                    mt-10
                 "
+                >
+                    {/* 세로 레이아웃 래퍼 */}
+                    <div className="
+                        w-full h-full flex flex-col justify-center
+                        relavite
+                        //border border-red-500    
+                    ">
+                        {/* 상단: 타이틀, 구매버튼 */}
+                        <div className="
+                        px-5 sm:pl-20 mb-30 mt-15 lg:mb-100
+                        //border border-red-500
+                        ">
+                            <motion.div
+                                className="
+                                flex flex-col gap-2 justify-center
+                                items-center sm:items-start
+                                "
+                                variants={container}
+                                initial="hidden"
+                                whileInView="show"
+                                viewport={{ once: false, amount: 0.35 }} // 다시 들어올 때마다 재생
                             >
-                                <Trans ns="common" i18nKey="title.title" components={{ br: <br /> }} />
-                            </h1>
-                        </motion.div>
+                                {/* 슬로건 (≥ sm) */}
+                                <motion.div variants={fadeUp} className="hidden sm:flex ml-3">
+                                    <div className="lg:text-1xl md:text-base text-sm text-left">
+                                        <Trans ns="common" i18nKey="title.slogan" components={{ br: <br /> }} />
+                                    </div>
+                                </motion.div>
 
-                        {/* 일반용 설명 (sm 이상) */}
-                        <motion.div variants={fadeUp} className="hidden sm:flex">
-                            <div className="mb-5 lg:text-1xl md:text-base text-sm text-left">
-                                <Trans ns="common" i18nKey="title.desc" components={{ br: <br /> }} />
-                            </div>
-                        </motion.div>
-
-                        {/* 모바일용 설명 (sm 미만) */}
-                        <motion.div variants={fadeUp} className="sm:hidden w-full">
-                            <div className="mb-5 lg:text-1xl md:text-base text-sm text-center">
-                                <Trans ns="common" i18nKey="title.descM" components={{ br: <br /> }} />
-                            </div>
-                        </motion.div>
-
-                        {/* 구매 버튼 */}
-                        <motion.div variants={fadeUp} className="w-full flex justify-center sm:justify-start">
-                            <a
-                                href={purchaseLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block"
-                                aria-label={t("title.buy")}
-                            >
-                                <motion.button
-                                    type="button"
-                                    className="buy-btn inline-flex items-center gap-2 bg-transparent"
-                                    whileTap={{ scale: 0.97 }}
-                                    whileHover={{ x: 2 }}
-                                >
-                                    <p data-text={t("title.buy")}>
-                                        <Trans ns="common" i18nKey="title.buy" components={{ br: <br /> }} />
-                                    </p>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-8 w-8"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth={4}
-                                        aria-hidden="true"
+                                {/* 타이틀 */}
+                                <motion.div variants={fadeUp} className="w-full">
+                                    <h1
+                                        className="
+                                        mb-3
+                                        lg:text-8xl md:text-8xl text-6xl
+                                        text-center sm:text-left
+                                        "
                                     >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </motion.button>
-                            </a>
+                                        <Trans ns="common" i18nKey="title.title" components={{ br: <br /> }} />
+                                    </h1>
+                                </motion.div>
+
+                                {/* 모바일용 설명 (sm 미만) */}
+                                <motion.div variants={fadeUp} className="sm:hidden w-full">
+                                    <div className="mb-5 lg:text-1xl md:text-base text-sm text-center">
+                                        <Trans ns="common" i18nKey="title.descM" components={{ br: <br /> }} />
+                                    </div>
+                                </motion.div>
+
+                                {/* 구매 버튼 */}
+                                <motion.div variants={fadeUp} className="w-full flex justify-center sm:justify-start">
+                                    <a
+                                        href={purchaseLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block"
+                                        aria-label={t("title.buy")}
+                                    >
+                                        <motion.button
+                                            type="button"
+                                            className="buy-btn inline-flex items-center gap-2 bg-transparent"
+                                            whileTap={{ scale: 0.97 }}
+                                            whileHover={{ x: 2 }}
+                                        >
+                                            <p data-text={t("title.buy")}>
+                                                <Trans ns="common" i18nKey="title.buy" components={{ br: <br /> }} />
+                                            </p>
+                                            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                                            </svg>
+                                        </motion.button>
+                                    </a>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+
+                        {/* 하단 설명 (데스크탑 전용) */}
+                        <motion.div
+                            className="
+                                
+                                absolute left-15
+                                2xl:bottom-30 lg:bottom-20 
+                                hidden lg:block
+                                px-5
+                                text-start text-white
+                                2xl:text-3xl xl:text-xl lg:text-base
+                                //border border-red-500
+                            "
+                            variants={container}
+                            initial="hidden"
+                            whileInView="show"
+                            viewport={{ once: false, amount: 0.30 }} // 스크롤로 25% 보이면 재생
+                        >
+                            <motion.div variants={fadeUp} className="w-full">
+                                <div className="mb-5">
+                                    <Trans ns="common" i18nKey="title.desc1" components={{ br: <br /> }} />
+                                </div>
+                            </motion.div>
+
+                            <motion.div variants={fadeUp} className="w-full">
+                                <div className="mb-5">
+                                    <Trans ns="common" i18nKey="title.desc2" components={{ br: <br /> }} />
+                                </div>
+                            </motion.div>
+
+                            <motion.div variants={fadeUp} className="w-full">
+                                <div className="mb-0">
+                                    <Trans ns="common" i18nKey="title.desc3" components={{ br: <br /> }} />
+                                </div>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* 오른쪽: 의자 이미지 (화살표/점 전환) */}
                 <div
                     className="
-            relative 
-            lg:w-2/3 lg:h-full w-full h-1/2
-            select-none
-          "
+                        relative 
+                        lg:w-1/2 lg:h-full w-full h-1/2
+                        select-none
+                    "
                     role="img"
                     aria-label={variant === "high" ? "High-back chair" : "Mid-back chair"}
                 >
-                    <AnimatePresence mode="wait" initial={false}>
+                    <AnimatePresence mode="wait" initial={false} custom={direction}>
                         {variant === "high" ? (
                             <motion.img
                                 key="high"
                                 src={highChair}
                                 alt="High-back chair"
                                 variants={imgEnter}
+                                custom={direction}
                                 initial="hidden"
                                 animate="show"
                                 exit="exit"
                                 className="
-                  absolute left-1/2 -translate-x-1/2 
-                  sm:bottom-20 bottom-10
-                  lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
-                "
+                                absolute left-1/2 -translate-x-1/2 
+                                sm:bottom-20 bottom-10
+                                2xl:w-[35rem] xl:w-[30rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[18rem] h-auto
+                                "
                                 draggable={false}
                             />
                         ) : (
@@ -167,14 +218,15 @@ export default function PurchaseSection() {
                                 src={midChair}
                                 alt="Mid-back chair"
                                 variants={imgEnter}
+                                custom={direction}
                                 initial="hidden"
                                 animate="show"
                                 exit="exit"
                                 className="
-                  absolute left-1/2 -translate-x-1/2 
-                  sm:bottom-20 bottom-10
-                  lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
-                "
+                                absolute left-1/2 -translate-x-1/2 
+                                sm:bottom-20 bottom-10
+                                xl:w-[32rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[18rem] h-auto
+                                "
                                 draggable={false}
                             />
                         )}
@@ -188,10 +240,10 @@ export default function PurchaseSection() {
                             onClick={prev}
                             aria-label="Previous image"
                             className="
-                p-2 sm:p-3 text-[#403736]
-                hover:opacity-80 active:opacity-70
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
-              "
+                                p-2 sm:p-3 text-[#403736]
+                                hover:opacity-80 active:opacity-70
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
+                            "
                         >
                             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -206,11 +258,11 @@ export default function PurchaseSection() {
                                 aria-pressed={variant === "high"}
                                 aria-label="Show high-back"
                                 className={`
-                  h-2.5 w-2.5 rounded-full
-                  ${variant === "high" ? "bg-[#403736]" : "bg-black/30"}
-                  ring-1 ring-black/10
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
-                `}
+                                h-2.5 w-2.5 rounded-full
+                                ${variant === "high" ? "bg-[#403736]" : "bg-black/30"}
+                                ring-1 ring-black/10
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
+                                `}
                             />
                             <button
                                 type="button"
@@ -218,11 +270,11 @@ export default function PurchaseSection() {
                                 aria-pressed={variant === "mid"}
                                 aria-label="Show mid-back"
                                 className={`
-                  h-2.5 w-2.5 rounded-full
-                  ${variant === "mid" ? "bg-[#403736]" : "bg-black/30"}
-                  ring-1 ring-black/10
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
-                `}
+                                h-2.5 w-2.5 rounded-full
+                                ${variant === "mid" ? "bg-[#403736]" : "bg-black/30"}
+                                ring-1 ring-black/10
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
+                                `}
                             />
                         </div>
 
@@ -232,10 +284,10 @@ export default function PurchaseSection() {
                             onClick={next}
                             aria-label="Next image"
                             className="
-                p-2 sm:p-3 text-[#403736]
-                hover:opacity-80 active:opacity-70
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
-              "
+                                p-2 sm:p-3 text-[#403736]
+                                hover:opacity-80 active:opacity-70
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#403736]/40
+                            "
                         >
                             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

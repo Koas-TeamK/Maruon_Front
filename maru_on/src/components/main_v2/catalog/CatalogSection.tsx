@@ -86,12 +86,12 @@ export default function CatalogSection({ lang }: { lang: string }) {
     return (
         <section className="w-full h-full">
             <div className="
-            group relative w-full h-full overflow-hidden z-0 
-            bg-cover bg-no-repeat 
-            lg:bg-[position:50%_50%] lg:transition-[background-position] duration-500 lg:bg-[length:100%] 
-            sm:bg-[position:85%_100%] sm:bg-size-[auto_600px] sm:bg-stone-200 
-            md:bg-size-[auto_700px] bg-[position:85%_100%] 
-            bg-size-[auto_500px] bg-stone-200 "
+                group relative w-full h-full overflow-hidden z-0 
+                bg-cover bg-no-repeat 
+                2xl:bg-[position:40%_50%]  lg:bg-[position:40%_50%] md:bg-[position:50%_30%] sm:bg-[position:50%_50%] bg-[position:50%_30%] 
+                2xl:bg-size-[auto_2800px] lg:bg-size-[auto_2400px] md:bg-size-[auto_2000px] sm:bg-size-[auto_1600px] bg-size-[auto_1200px] 
+                transition-[background-position] duration-500
+            "
                 style={{ backgroundImage: `url("${imgSrc}")` }}
                 onMouseEnter={show}
                 onMouseLeave={hide}
@@ -101,10 +101,12 @@ export default function CatalogSection({ lang }: { lang: string }) {
             >
                 <motion.div
                     className="
-            flex flex-col lg:w-1/2 lg:h-full text-[#403736]
-            justify-center items-center sm:items-start sm:ml-10
-            mt-5 lg:mt-10
-          "
+                    flex flex-col lg:w-1/2 lg:h-full text-[#403736]
+                    justify-center items-center sm:items-start 
+                    lg:ml-25 sm:ml-10
+                    mt-5 lg:mt-10
+                    //border border-red-500
+                "
                     variants={container}
                     initial="hidden"
                     whileInView="show"
@@ -113,16 +115,16 @@ export default function CatalogSection({ lang }: { lang: string }) {
                     <motion.h1
                         variants={fadeUp}
                         className="
-              lg:text-8xl md:text-8xl text-6xl
-              text-center sm:text-left
-              mt-20 lg:mt-0
-              font-JoseonSolidGothic
-            "
+                        lg:text-8xl md:text-8xl text-6xl
+                        text-center sm:text-left
+                        mt-20 lg:mt-0
+                        font-JoseonSolidGothic
+                        "
                     >
                         Catalog
                     </motion.h1>
 
-                    <motion.div variants={fadeUp} className="hidden sm:flex mt-5">
+                    <motion.div variants={fadeUp} className="hidden sm:flex mt-10">
                         <Trans ns="common" i18nKey="catalog.desc" components={{ br: <br /> }} />
                     </motion.div>
 
@@ -130,7 +132,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
                         <Trans ns="common" i18nKey="catalog.descM" components={{ br: <br /> }} />
                     </motion.div>
 
-                    <motion.div variants={fadeUp} className="mt-5">
+                    <motion.div variants={fadeUp} className="sm:mt-10 mt-5">
                         <motion.button
                             whileTap={{ scale: 0.97 }}
                             whileHover={{ x: 2 }}

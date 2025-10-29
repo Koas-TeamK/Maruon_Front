@@ -10,12 +10,9 @@ export default function Header() {
     const [langHint, setLangHint] = useState<string | null>(null);
     const { i18n, t } = useTranslation();
 
-    // 글라이더/라디오 순서와 동일해야 함 (silver → gold → platinum)
-    // silver=en, gold=ko, platinum=zh 로 매핑
     const LANG_ORDER = ["en", "ko", "zh"] as const;
     const LANG_LABEL: Record<string, string> = { en: "English", ko: "한국어", zh: "中文" };
 
-    // i18n.language 를 en/ko/zh 중 하나로 표준화
     const currentLang = useMemo<"en" | "ko" | "zh">(() => {
         const cur = i18n.language || "en";
         if (cur.startsWith("ko")) return "ko";
@@ -25,7 +22,6 @@ export default function Header() {
 
     const toHtmlLang = (lng: "en" | "ko" | "zh") => (lng === "zh" ? "zh-CN" : lng);
 
-    // 공통 언어 변경 함수 (라디오/모바일 버튼 모두 이 함수 사용)
     const setLanguage = useCallback(
         async (next: "en" | "ko" | "zh") => {
             await i18n.changeLanguage(next);
@@ -39,14 +35,12 @@ export default function Header() {
         [i18n]
     );
 
-    // 모바일: 다음 언어로 순환
     const toggleLang = useCallback(() => {
         const idx = LANG_ORDER.findIndex((l) => l === currentLang);
         const next = LANG_ORDER[(idx + 1) % LANG_ORDER.length];
         setLanguage(next);
     }, [currentLang, setLanguage]);
 
-    // 초기 진입 시 html lang/배지 동기화 → "처음부터 현재 언어" 표시
     useEffect(() => {
         document.documentElement.lang = toHtmlLang(currentLang);
         setLangHint(LANG_LABEL[currentLang]);
@@ -55,11 +49,29 @@ export default function Header() {
     }, [currentLang]);
 
     return (
-        <header className="fixed inset-x-0 top-0 z-[100] grid grid-cols-[1fr_auto_1fr] items-center p-3">
-            <div className="justify-self-start" />
+        <header
+            className={
+                [
+                    "fixed inset-x-0 top-0 z-[100]",
+                    // 모바일: [1fr auto 1fr] → 로고가 가운데로 정렬되도록
+                    // 데스크탑(md~): [auto 1fr auto] → 좌측 여백을 최소화해 로고를 왼쪽으로 붙일 수 있게
+                    "grid grid-cols-[1fr_auto_1fr] md:grid-cols-[auto_1fr_auto]",
+                    "items-center p-5",
+                ].join(" ")
+            }
+        >
+            {/* 왼쪽 스페이서: 모바일에선 유지(가운데 정렬 균형), 데스크탑에선 숨김 → 로고가 왼쪽으로 이동 */}
+            <div className="justify-self-start lg:hidden" />
 
-            {/* 중앙 로고 */}
-            <div className="justify-self-center">
+            {/* 중앙 로고 (모바일=가운데 / 데스크탑=왼쪽) */}
+            <div
+                className={
+                    [
+                        "justify-self-center", // 모바일: 가운데
+                        "md:justify-self-start", // 데스크탑: 왼쪽
+                    ].join(" ")
+                }
+            >
                 <img
                     src="/logo/maruon-logo.png"
                     alt="MARUON"
@@ -67,7 +79,7 @@ export default function Header() {
                 />
             </div>
 
-            {/* 오른쪽 컨트롤 */}
+            {/* 오른쪽 컨트롤 (그대로 유지) */}
             <div className="justify-self-end flex items-center gap-2">
                 {/* >= sm: 라디오(글래스 토글) — ★ ID는 CSS와 동일하게 유지 */}
                 <div className="hidden sm:block">
@@ -112,7 +124,10 @@ export default function Header() {
                     <button
                         type="button"
                         aria-label={t("changeLanguage", "Change language")}
-                        title={`${LANG_LABEL[currentLang]} → ${LANG_LABEL[LANG_ORDER[(LANG_ORDER.indexOf(currentLang) + 1) % LANG_ORDER.length]]
+                        title={`${LANG_LABEL[currentLang]
+                            } → ${LANG_LABEL[
+                            LANG_ORDER[(LANG_ORDER.indexOf(currentLang) + 1) % LANG_ORDER.length]
+                            ]
                             }`}
                         onClick={toggleLang}
                         className="relative p-2 hover:opacity-80 active:opacity-60"
@@ -137,8 +152,10 @@ export default function Header() {
             <div className="sr-only" aria-live="polite">
                 {langHint ? `언어가 ${langHint}로 변경되었습니다.` : ""}
             </div>
+
             {/* 
-            <Menu open={menuOpen} onClose={() => setMenuOpen(false)} /> */}
+      <Menu open={menuOpen} onClose={() => setMenuOpen(false)} /> 
+      */}
         </header>
     );
 }
