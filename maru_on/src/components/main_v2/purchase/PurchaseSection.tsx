@@ -1,6 +1,7 @@
 // PurchaseSection.tsx
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
 import "./PurchaseSection.css";
 
 export default function PurchaseSection({ lang }: { lang: string }) {
@@ -13,20 +14,39 @@ export default function PurchaseSection({ lang }: { lang: string }) {
     const [variant, setVariant] = useState<"high" | "mid">("high");
     const showHigh = useCallback(() => setVariant("high"), []);
     const showMid = useCallback(() => setVariant("mid"), []);
-    const next = useCallback(
-        () => setVariant((v) => (v === "high" ? "mid" : "high")),
-        []
-    );
-    const prev = useCallback(
-        () => setVariant((v) => (v === "mid" ? "high" : "mid")),
-        []
-    );
+    const next = useCallback(() => setVariant((v) => (v === "high" ? "mid" : "high")), []);
+    const prev = useCallback(() => setVariant((v) => (v === "mid" ? "high" : "mid")), []);
+
+    /* ===== 모션 설정(텍스트 스태거 + 부드러운 이징) ===== */
+    const softEase: Transition = {
+        duration: 1.1,
+        ease: "easeInOut", // 더 부드럽게 하려면: ease: [0.16, 1, 0.3, 1] as any
+    };
+
+    const container: Variants = {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.14,
+                delayChildren: 0.15,
+            },
+        },
+    };
+
+    const fadeUp: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0, transition: softEase },
+    };
+
+    // 이미지 전환 모션(교차 페이드 + 살짝 슬라이드)
+    const imgEnter: Variants = {
+        hidden: { opacity: 0, y: 12 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+        exit: { opacity: 0, y: -12, transition: { duration: 0.45, ease: "easeIn" } },
+    };
 
     return (
-        <section
-            className="w-full h-full
-      bg-[linear-gradient(to_bottom,white_0%,white_66%,#c8bdb6_66%,#c8bdb6_100%)]"
-        >
+        <section className="w-full h-full bg-[linear-gradient(to_bottom,white_0%,white_66%,#c8bdb6_66%,#c8bdb6_100%)]">
             {/* 내용 */}
             <div className="w-full h-full flex flex-col lg:flex-row">
                 {/* 왼쪽: 타이틀, 구매 버튼 */}
@@ -38,43 +58,49 @@ export default function PurchaseSection({ lang }: { lang: string }) {
             text-center sm:text-left
           "
                 >
-                    <div
+                    {/* 텍스트 블록: 스태거 모션 */}
+                    <motion.div
                         className="
               flex flex-col gap-2 justify-center
               items-center sm:items-start
               lg:mb-30
               ml-0 sm:ml-10
             "
+                        variants={container}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: false, amount: 0.35 }}  // 다시 들어올 때마다 재생
                     >
                         {/* 타이틀 */}
-                        <div className="w-full">
+                        <motion.div variants={fadeUp} className="w-full">
                             <h1
                                 className="
                   mb-3
                   lg:text-8xl md:text-8xl text-6xl
                   text-center sm:text-left
+                  font-JoseonSolidGothic
                 "
                             >
                                 <Trans ns="common" i18nKey="title.title" components={{ br: <br /> }} />
                             </h1>
-                        </div>
+                        </motion.div>
 
                         {/* 일반용 설명 (sm 이상) */}
-                        <div className="hidden sm:flex">
+                        <motion.div variants={fadeUp} className="hidden sm:flex">
                             <div className="mb-5 lg:text-1xl md:text-base text-sm text-left">
                                 <Trans ns="common" i18nKey="title.desc" components={{ br: <br /> }} />
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* 모바일용 설명 (sm 미만) */}
-                        <div className="sm:hidden w-full">
+                        <motion.div variants={fadeUp} className="sm:hidden w-full">
                             <div className="mb-5 lg:text-1xl md:text-base text-sm text-center">
                                 <Trans ns="common" i18nKey="title.descM" components={{ br: <br /> }} />
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* 구매 버튼: 새창 열기 */}
-                        <div className="w-full flex justify-center sm:justify-start">
+                        {/* 구매 버튼 */}
+                        <motion.div variants={fadeUp} className="w-full flex justify-center sm:justify-start">
                             <a
                                 href={purchaseLink}
                                 target="_blank"
@@ -82,9 +108,11 @@ export default function PurchaseSection({ lang }: { lang: string }) {
                                 className="inline-block"
                                 aria-label={t("title.buy")}
                             >
-                                <button
+                                <motion.button
                                     type="button"
                                     className="buy-btn inline-flex items-center gap-2 bg-transparent"
+                                    whileTap={{ scale: 0.97 }}
+                                    whileHover={{ x: 2 }}
                                 >
                                     <p data-text={t("title.buy")}>
                                         <Trans ns="common" i18nKey="title.buy" components={{ br: <br /> }} />
@@ -98,19 +126,15 @@ export default function PurchaseSection({ lang }: { lang: string }) {
                                         strokeWidth={4}
                                         aria-hidden="true"
                                     >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                        />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                     </svg>
-                                </button>
+                                </motion.button>
                             </a>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
 
-                {/* 오른쪽: 의자 이미지 (화살표/점 전환만) */}
+                {/* 오른쪽: 의자 이미지 (화살표/점 전환) */}
                 <div
                     className="
             relative 
@@ -120,37 +144,45 @@ export default function PurchaseSection({ lang }: { lang: string }) {
                     role="img"
                     aria-label={variant === "high" ? "High-back chair" : "Mid-back chair"}
                 >
-                    {/* high */}
-                    <img
-                        src={highChair}
-                        alt="High-back chair"
-                        className={`
-              absolute left-1/2 -translate-x-1/2 
-              sm:bottom-20 bottom-10  /* 모바일에서 점과 여백 확보 */
-              lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
-              transition-opacity duration-500 ease-out
-              ${variant === "high" ? "opacity-100" : "opacity-0"}
-            `}
-                        draggable={false}
-                    />
-
-                    {/* mid */}
-                    <img
-                        src={midChair}
-                        alt="Mid-back chair"
-                        className={`
-              absolute left-1/2 -translate-x-1/2 
-              sm:bottom-20 bottom-10
-              lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
-              transition-opacity duration-500 ease-out
-              ${variant === "mid" ? "opacity-100" : "opacity-0"}
-            `}
-                        draggable={false}
-                    />
+                    <AnimatePresence mode="wait" initial={false}>
+                        {variant === "high" ? (
+                            <motion.img
+                                key="high"
+                                src={highChair}
+                                alt="High-back chair"
+                                variants={imgEnter}
+                                initial="hidden"
+                                animate="show"
+                                exit="exit"
+                                className="
+                  absolute left-1/2 -translate-x-1/2 
+                  sm:bottom-20 bottom-10
+                  lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
+                "
+                                draggable={false}
+                            />
+                        ) : (
+                            <motion.img
+                                key="mid"
+                                src={midChair}
+                                alt="Mid-back chair"
+                                variants={imgEnter}
+                                initial="hidden"
+                                animate="show"
+                                exit="exit"
+                                className="
+                  absolute left-1/2 -translate-x-1/2 
+                  sm:bottom-20 bottom-10
+                  lg:w-[29rem] md:w-[29rem] sm:w-[24rem] w-[18rem] h-auto
+                "
+                                draggable={false}
+                            />
+                        )}
+                    </AnimatePresence>
 
                     {/* 전환 컨트롤: 화살표 + 점 (미니멀) */}
                     <div className="absolute left-1/2 -translate-x-1/2 bottom-2 sm:bottom-6 flex items-center gap-3 sm:gap-4">
-                        {/* prev 화살표 – 미니멀(투명 배경, 선만) */}
+                        {/* prev */}
                         <button
                             type="button"
                             onClick={prev}
@@ -194,7 +226,7 @@ export default function PurchaseSection({ lang }: { lang: string }) {
                             />
                         </div>
 
-                        {/* next 화살표 – 미니멀 */}
+                        {/* next */}
                         <button
                             type="button"
                             onClick={next}

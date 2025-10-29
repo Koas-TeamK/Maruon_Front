@@ -7,7 +7,7 @@ import SnsTab from "@/components/SnsTab";
 export default function AppLayout() {
     return (
         <div
-            className="min-h-dvh w-dvw flex flex-col overflow-x-hidden overflow-y-auto"
+            className="w-full h-full flex flex-col overflow-x-hidden overflow-y-auto"
             style={{ WebkitOverflowScrolling: "touch" }}
         >
             {/* 헤더가 fixed가 아니라면 shrink-0만 주면 됨 */}

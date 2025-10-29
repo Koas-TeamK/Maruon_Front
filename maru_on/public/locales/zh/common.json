@@ -1,7 +1,9 @@
 {
     "catalog": {
         "section": "产品目录",
-        "open": "查看目录"
+        "open": "查看目录",
+        "descM": "一眼感受 Maruon 的独特设计。",
+        "desc": "通过官方目录，一览 Maruon 的全貌。<br /> 亲身感受舒适、可持续与设计的和谐之美。"
     },
     "apec": {
         "section": "APEC 专区",

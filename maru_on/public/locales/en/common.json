@@ -1,7 +1,9 @@
 {
     "catalog": {
         "section": "Catalog Section",
-        "open": "View Catalog"
+        "open": "View Catalog",
+        "descM": "The essence of Maruon, at a glance.",
+        "desc": "Discover Maruon at a glance with our official catalog. <br /> Experience the harmony of comfort, sustainability, and design."
     },
     "apec": {
         "section": "Apec Section",

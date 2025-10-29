@@ -117,7 +117,7 @@ export default function Header() {
                         onClick={toggleLang}
                         className="relative p-2 hover:opacity-80 active:opacity-60"
                     >
-                        <LanguageIcon className="w-8 h-8 fill-[#403736]" />
+                        <LanguageIcon className="w-6 h-6 fill-[#403736]" />
                         {langHint && (
                             <span
                                 className="absolute top-full left-1/2 -translate-x-1/2 mt-1
