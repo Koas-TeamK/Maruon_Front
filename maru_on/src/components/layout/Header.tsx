@@ -1,12 +1,12 @@
 // components/layout/Header.tsx
 import { LanguageIcon } from "@heroicons/react/24/solid";
-import Menu from "@/components/menu/Menu";
+//import Menu from "@/components/menu/Menu";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import "./Header.css";
 
 export default function Header() {
-    const [menuOpen, setMenuOpen] = useState(false);
+    //const [menuOpen, setMenuOpen] = useState(false);
     const [langHint, setLangHint] = useState<string | null>(null);
     const { i18n, t } = useTranslation();
 
@@ -137,8 +137,8 @@ export default function Header() {
             <div className="sr-only" aria-live="polite">
                 {langHint ? `언어가 ${langHint}로 변경되었습니다.` : ""}
             </div>
-
-            <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
+            {/* 
+            <Menu open={menuOpen} onClose={() => setMenuOpen(false)} /> */}
         </header>
     );
 }
