@@ -1,8 +1,8 @@
 /* === Catalog 버튼: buy-btn 스타일 이식 버전 === */
-.catalog-button {
+.apec-button {
     /* tokens */
-    --primary-color: #403736;
-    --hovered-color: #a07c2d;
+    --primary-color: #f5f5f5;
+    --hovered-color: #eed49d;
     --dur: .35s;
     --dur-fast: .22s;
     --ease: cubic-bezier(.2, .8, .2, 1);
@@ -30,7 +30,7 @@
 }
 
 /* 텍스트 */
-.catalog-button p {
+.apec-button p {
     position: relative;
     margin: 0;
     font-size: 20px;
@@ -39,7 +39,7 @@
 }
 
 /* 밑줄: 좌우 패딩(40px)에 맞춤 */
-.catalog-button::after {
+.apec-button::after {
     content: "";
     position: absolute;
     left: 40px;
@@ -54,7 +54,7 @@
 }
 
 /* 텍스트 채우기 효과 */
-.catalog-button p::before {
+.apec-button p::before {
     content: attr(data-text);
     position: absolute;
     inset: 0;
@@ -68,7 +68,7 @@
 }
 
 /* 아이콘(선택) */
-.catalog-button svg {
+.apec-button svg {
     width: 20px;
     height: 20px;
     color: var(--primary-color);
@@ -80,39 +80,39 @@
 }
 
 /* 포커스(키보드 접근성) */
-.catalog-button:focus-visible {
+.apec-button:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--hovered-color) 35%, white);
 }
 
 /* 호버는 포인터 장치에서만 */
 @media (hover:hover) and (pointer:fine) {
-    .catalog-button:hover::after {
+    .apec-button:hover::after {
         transform: scaleX(1);
     }
 
-    .catalog-button:hover p::before {
+    .apec-button:hover p::before {
         transform: scaleX(1);
     }
 
-    .catalog-button:hover p {
+    .apec-button:hover p {
         color: var(--hovered-color);
     }
 
-    .catalog-button:hover svg {
+    .apec-button:hover svg {
         transform: translateX(var(--shift));
         color: var(--hovered-color);
     }
 }
 
 /* 눌림 */
-.catalog-button:active {
+.apec-button:active {
     transform: translateZ(0) scale(.98);
 }
 
 /* 비활성 */
-.catalog-button[aria-disabled="true"],
-.catalog-button:disabled {
+.apec-button[aria-disabled="true"],
+.apec-button:disabled {
     opacity: .55;
     cursor: not-allowed;
     pointer-events: none;
@@ -121,25 +121,29 @@
 /* 모션 최소화 */
 @media (prefers-reduced-motion: reduce) {
 
-    .catalog-button,
-    .catalog-button * {
+    .apec-button,
+    .apec-button * {
         transition: none !important;
         animation: none !important;
     }
 
-    .catalog-button:active {
+    .apec-button:active {
         transform: none;
     }
 }
 
 /* 다크 모드(선택) */
 @media (prefers-color-scheme: dark) {
-    .catalog-button {
+    .apec-button {
         --primary-color: #f5f2ef;
         border-color: #e6e0da33;
     }
 
-    .catalog-button p {
+    .apec-button p {
         color: var(--primary-color);
     }
+}
+
+.ApecSection {
+    background-color: #202B56;
 }

@@ -4,6 +4,8 @@ import "./MainPage.css";
 import PurchaseSection from "@/components/main_v2/purchase/PurchaseSection";
 import CatalogSection from "@/components/main_v2/catalog/CatalogSection";
 import ApecSection from "@/components/main_v2/apec/ApecSection";
+//import NewsSection from "@/components/main_v2/news/NewSection";
+//import NewsDetailSection from "@/components/main_v2/news/NewDetailSection";
 import { motion, type Variants } from "framer-motion";
 
 // 섹션 래퍼: 섹션 들어올 때 컨텐츠가 '딱' 등장
@@ -68,11 +70,6 @@ export default function MainPage() {
             {/* 섹션 3 */}
             <SnapSection>
                 <ApecSection lang={lang} />
-            </SnapSection>
-
-            {/* 섹션 4 (비워둔 자리) */}
-            <SnapSection>
-                <div className="h-full w-full" />
             </SnapSection>
         </main>
     );

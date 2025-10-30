@@ -118,7 +118,6 @@ export default function CatalogSection({ lang }: { lang: string }) {
                         lg:text-8xl md:text-8xl text-6xl
                         text-center sm:text-left
                         mt-20 lg:mt-0
-                        font-JoseonSolidGothic
                         "
                     >
                         Catalog

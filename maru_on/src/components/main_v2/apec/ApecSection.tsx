@@ -1,14 +1,14 @@
-// ApecSection.tsx
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+// src/components/main/ApecSection.tsx
+import { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import "./ApecSection.css";
 
 export default function ApecSection({ lang }: { lang: string }) {
-    //console.log("[lang]", lang);
     const HREF = "/leaflet/apec%20leaflet.pdf";
-    const { t } = useTranslation("common");
+    const { t } = useTranslation();
 
-    const [revealed, setRevealed] = useState(false);
-    const hideTimer = useRef<number | null>(null);
+    const [showMobileBtn, setShowMobileBtn] = useState(false);
+    const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const clearHideTimer = useCallback(() => {
         if (hideTimer.current) {
@@ -17,45 +17,28 @@ export default function ApecSection({ lang }: { lang: string }) {
         }
     }, []);
 
-    const armAutoHide = useCallback(() => {
-        clearHideTimer();
-        hideTimer.current = window.setTimeout(() => setRevealed(false), 2500);
-    }, [clearHideTimer]);
+    const isBelowLg = () => window.matchMedia("(max-width: 1023.98px)").matches;
 
-    const show = useCallback(() => {
-        setRevealed(true);
-        armAutoHide();
-    }, [armAutoHide]);
-
-    const hide = useCallback(() => {
-        clearHideTimer();
-        setRevealed(false);
-    }, [clearHideTimer]);
-
-    const toggleReveal = useCallback((e?: React.SyntheticEvent) => {
-        if (e) {
-            // 터치→클릭 중복 방지 + 부모로 버블링 방지
-            e.preventDefault?.();
-            e.stopPropagation?.();
-        }
-        setRevealed(prev => {
-            const next = !prev;
+    const onSectionClick = useCallback(() => {
+        if (!isBelowLg()) return;
+        if (showMobileBtn) {
             clearHideTimer();
-            if (next) armAutoHide();
-            return next;
-        });
-    }, [armAutoHide, clearHideTimer]);
+            setShowMobileBtn(false);
+        } else {
+            setShowMobileBtn(true);
+            clearHideTimer();
+            hideTimer.current = setTimeout(() => setShowMobileBtn(false), 2500);
+        }
+    }, [showMobileBtn, clearHideTimer]);
 
     const openSite = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         window.open(HREF, "_blank", "noopener,noreferrer");
-        setRevealed(false);
     }, []);
 
     useEffect(() => () => clearHideTimer(), [clearHideTimer]);
 
-    //언어별 이미지 변경
     const imgSrc = useMemo(() => {
         const prefix = lang?.toLowerCase().split("-")[0] || "en";
         const map: Record<string, "(ko)" | "(en)" | "(zh)"> = { ko: "(ko)", en: "(en)", zh: "(zh)" };
@@ -65,68 +48,70 @@ export default function ApecSection({ lang }: { lang: string }) {
 
     return (
         <section
+            onClick={onSectionClick}
             className={[
-                "group relative w-full h-full overflow-hidden",
-                "bg-no-repeat bg-cover",
-                "bg-[position:50%_50%] transition-[background-position] duration-500",
-                "hover:bg-[position:50%_30%] focus:bg-[position:50%_30%]"
+                "group w-full min-h-[100svh] overflow-hidden relative",
+                "bg-no-repeat bg-cover bg-[#1E2950]",
+                "transition-[background-position] duration-500",
+                "2xl:bg-size-[auto_1600px] xl:bg-size-[auto_1100px] lg:bg-size-[auto_800px] md:bg-size-[auto_1000px] sm:bg-size-[auto_2000px] bg-size-[auto_800px]",
+                "2xl:bg-[position:100%_50%] xl:bg-[position:100%_50%] lg:bg-[position:50%_100%] md:bg-[position:50%_10%] sm:bg-[position:50%_150%] bg-[position:50%_140%]",
             ].join(" ")}
-            style={{ backgroundImage: `url("${imgSrc}")` }}  //동적 URL은 inline style로
-            onMouseEnter={show}
-            onMouseLeave={hide}
-            onFocus={show}
-            onBlur={hide}
+            style={{ backgroundImage: `url("${imgSrc}")` }}
         >
-            {/* BG 이미지 레이어 */}
+            {/* 어둡게 오버레이 */}
+            {showMobileBtn && (
+                <div
+                    className="fixed inset-0 lg:hidden bg-black/60 z-40 transition-opacity duration-300"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        clearHideTimer();
+                        setShowMobileBtn(false);
+                    }}
+                />
+            )}
+
+            {/* 버튼 컨테이너 */}
             <div
-                className={[
-                    "absolute inset-0 pointer-events-none",
-                    "bg-[url('/img/koas-apec-hover.jpg')] bg-cover bg-[position:60%_50%] bg-no-repeat",
-                    "opacity-0 transition-opacity duration-300",
-                    revealed ? "opacity-100" : "opacity-0",
-                    "md:group-hover:opacity-100",
-                ].join(" ")}
-            />
-
-            {/* 어둡게 레이어 */}
-            <div
-                className={[
-                    "absolute inset-0 pointer-events-none",
-                    "bg-black/60",
-                    "opacity-0 transition-opacity duration-300",
-                    revealed ? "opacity-100" : "opacity-0",
-                    "md:group-hover:opacity-100",
-                ].join(" ")}
-            />
-
-            {/* 모바일 토글 영역(같은 래퍼 안에서 절대배치) */}
-            <button
-                type="button"
-                aria-label={t("apec.showButton", "APEC 버튼 표시")}
-                className="md:hidden absolute inset-0 z-10 bg-transparent touch-manipulation"
-                onPointerDown={toggleReveal}
-            />
-
-            {/* CTA 버튼 */}
-            <button
-                type="button"
-                onClick={openSite}
-                className={[
-                    "absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
-                    "inline-flex items-center gap-2 px-5 py-2 rounded",
-                    "text-[#eed49d] border border-white/30 bg-white/10 hover:bg-white/15",
-                    "text-sm md:text-base font-medium transition-opacity duration-200 select-none",
-                    revealed ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-                    "md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto",
-                ].join(" ")}
+                className="
+          absolute inset-x-0 lg:inset-auto
+          lg:right-70 lg:top-1/2 lg:-translate-y-1/2
+          flex flex-col items-center lg:items-end justify-center gap-4
+          z-50
+        "
             >
-                <span className="text-sm md:text-base text-center">
-                    <Trans ns="common" i18nKey="apec.button" components={{ br: <br /> }} />
-                </span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M13.172 12 8.222 7.05l1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
-                </svg>
-            </button>
+                {/* 데스크탑(>=lg) */}
+                <div className="hidden lg:block">
+                    <button type="button" onClick={openSite} className="apec-button flex">
+                        <p className="text-sm md:text-base text-center" data-text={t("apec.button", "View Leaflet")}>
+                            <Trans ns="common" i18nKey="apec.button" components={{ br: <br /> }} />
+                        </p>
+                        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* 모바일(<lg): 화면 중앙 */}
+                <div
+                    className={[
+                        "lg:hidden fixed inset-0 grid place-items-center transition-opacity duration-300",
+                        showMobileBtn ? "opacity-100 z-50" : "opacity-0 pointer-events-none",
+                    ].join(" ")}
+                >
+                    <button
+                        type="button"
+                        onClick={openSite}
+                        className="apec-button flex"
+                    >
+                        <p className="text-sm text-center" data-text={t("apec.button", "View Leaflet")}>
+                            <Trans ns="common" i18nKey="apec.button" />
+                        </p>
+                        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </section>
     );
 }

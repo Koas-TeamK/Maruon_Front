@@ -24,6 +24,7 @@
     "react-i18next": "^16.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.2",
+    "redux-saga": "^1.4.2",
     "svgr": "^1.10.0",
     "zod": "^4.1.11"
   },
