@@ -79,7 +79,7 @@ export default function PurchaseSection() {
                     ">
                         {/* 상단: 타이틀, 구매버튼 */}
                         <div className="
-                        px-5 sm:pl-20 mb-30 mt-15 lg:mb-100
+                        px-5 sm:pl-20 mb-30 mt-15 lg:mb-100 
                         //border border-red-500
                         ">
                             <motion.div
@@ -94,7 +94,7 @@ export default function PurchaseSection() {
                             >
                                 {/* 슬로건 (≥ sm) */}
                                 <motion.div variants={fadeUp} className="hidden sm:flex ml-3">
-                                    <div className="lg:text-1xl md:text-base text-sm text-left">
+                                    <div className="2xl:text-3xl lg:text-2xl md:text-xl text-base text-left">
                                         <Trans ns="common" i18nKey="title.slogan" components={{ br: <br /> }} />
                                     </div>
                                 </motion.div>
@@ -103,8 +103,8 @@ export default function PurchaseSection() {
                                 <motion.div variants={fadeUp} className="w-full">
                                     <h1
                                         className="
-                                        mb-3
-                                        lg:text-8xl md:text-8xl text-6xl
+                                        mb-3 font-bold
+                                        2xl:text-9xl lg:text-8xl md:text-8xl text-6xl
                                         text-center sm:text-left
                                         "
                                     >
@@ -149,13 +149,12 @@ export default function PurchaseSection() {
                         {/* 하단 설명 (데스크탑 전용) */}
                         <motion.div
                             className="
-                                
                                 absolute left-15
-                                2xl:bottom-30 lg:bottom-20 
+                                2xl:bottom-40 lg:bottom-20 
                                 hidden lg:block
                                 px-5
                                 text-start text-white
-                                2xl:text-3xl xl:text-xl lg:text-base
+                                2xl:text-2xl xl:text-lg lg:text-base
                                 //border border-red-500
                             "
                             variants={container}
@@ -165,19 +164,22 @@ export default function PurchaseSection() {
                         >
                             <motion.div variants={fadeUp} className="w-full">
                                 <div className="mb-5">
-                                    <Trans ns="common" i18nKey="title.desc1" components={{ br: <br /> }} />
+                                    <Trans ns="common" i18nKey="title.desc1"
+                                        components={{ br: <br />, strong: <strong className="font-bold" /> }} />
                                 </div>
                             </motion.div>
 
                             <motion.div variants={fadeUp} className="w-full">
                                 <div className="mb-5">
-                                    <Trans ns="common" i18nKey="title.desc2" components={{ br: <br /> }} />
+                                    <Trans ns="common" i18nKey="title.desc2"
+                                        components={{ br: <br />, strong: <strong className="font-bold" /> }} />
                                 </div>
                             </motion.div>
 
                             <motion.div variants={fadeUp} className="w-full">
                                 <div className="mb-0">
-                                    <Trans ns="common" i18nKey="title.desc3" components={{ br: <br /> }} />
+                                    <Trans ns="common" i18nKey="title.desc3"
+                                        components={{ br: <br />, strong: <strong className="font-bold" /> }} />
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -187,9 +189,10 @@ export default function PurchaseSection() {
                 {/* 오른쪽: 의자 이미지 (화살표/점 전환) */}
                 <div
                     className="
-                        relative 
+                        relative                         
                         lg:w-1/2 lg:h-full w-full h-1/2
                         select-none
+                        //border border-red-500
                     "
                     role="img"
                     aria-label={variant === "high" ? "High-back chair" : "Mid-back chair"}
@@ -207,8 +210,8 @@ export default function PurchaseSection() {
                                 exit="exit"
                                 className="
                                 absolute left-1/2 -translate-x-1/2 
-                                sm:bottom-20 bottom-10
-                                2xl:w-[35rem] xl:w-[30rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[18rem] h-auto
+                                bottom-14 sm:bottom-18 md:bottom-20 lg:bottom-22 xl:bottom-24 2xl:bottom-26
+                                2xl:w-[38rem] xl:w-[30rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[17rem] h-auto
                                 "
                                 draggable={false}
                             />
@@ -224,8 +227,8 @@ export default function PurchaseSection() {
                                 exit="exit"
                                 className="
                                 absolute left-1/2 -translate-x-1/2 
-                                sm:bottom-20 bottom-10
-                                xl:w-[32rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[18rem] h-auto
+                                bottom-14 sm:bottom-18 md:bottom-20 lg:bottom-22 xl:bottom-24 2xl:bottom-26
+                                2xl:w-[38rem] xl:w-[32rem] lg:w-[29rem] md:w-[27rem] sm:w-[24rem] w-[17rem] h-auto
                                 "
                                 draggable={false}
                             />
@@ -233,7 +236,9 @@ export default function PurchaseSection() {
                     </AnimatePresence>
 
                     {/* 전환 컨트롤: 화살표 + 점 (미니멀) */}
-                    <div className="absolute left-1/2 -translate-x-1/2 bottom-2 sm:bottom-6 flex items-center gap-3 sm:gap-4">
+                    <div className="absolute left-1/2 -translate-x-1/2 
+                    bottom-4 sm:bottom-8 md:bottom-10 lg:bottom-12 xl:bottom-14 2xl:bottom-16
+                    flex items-center gap-3 sm:gap-4">
                         {/* prev */}
                         <button
                             type="button"

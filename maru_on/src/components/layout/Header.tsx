@@ -3,12 +3,16 @@ import { LanguageIcon } from "@heroicons/react/24/solid";
 //import Menu from "@/components/menu/Menu";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { useSectionVisible } from "@/shared/hooks/useSectionVisible"; // ✅ APEC 섹션 감지 훅 추가
 import "./Header.css";
 
 export default function Header() {
     //const [menuOpen, setMenuOpen] = useState(false);
     const [langHint, setLangHint] = useState<string | null>(null);
     const { i18n, t } = useTranslation();
+
+    // APEC 섹션이 뷰포트에 보이는지 감지 (섹션 id: apec-section, threshold 0.4)
+    const isApecVisible = useSectionVisible("apec-section", 0.4);
 
     const LANG_ORDER = ["en", "ko", "zh"] as const;
     const LANG_LABEL: Record<string, string> = { en: "English", ko: "한국어", zh: "中文" };
@@ -48,6 +52,9 @@ export default function Header() {
         return () => window.clearTimeout(id);
     }, [currentLang]);
 
+    // APEC 가시성에 따라 로고 색상 전환
+    const logoSrc = isApecVisible ? "/logo/maruon-white.png" : "/logo/maruon-logo.png";
+
     return (
         <header
             className={
@@ -57,6 +64,7 @@ export default function Header() {
                     // 데스크탑(md~): [auto 1fr auto] → 좌측 여백을 최소화해 로고를 왼쪽으로 붙일 수 있게
                     "grid grid-cols-[1fr_auto_1fr] md:grid-cols-[auto_1fr_auto]",
                     "items-center p-5",
+                    "transition-all duration-300",
                 ].join(" ")
             }
         >
@@ -73,9 +81,9 @@ export default function Header() {
                 }
             >
                 <img
-                    src="/logo/maruon-logo.png"
+                    src={logoSrc}
                     alt="MARUON"
-                    className="w-11 h-auto max-h-full lg:w-18 mt-2"
+                    className="w-11 h-auto max-h-full lg:w-18 mt-2 transition-all duration-300"
                 />
             </div>
 
@@ -83,7 +91,12 @@ export default function Header() {
             <div className="justify-self-end flex items-center gap-2">
                 {/* >= sm: 라디오(글래스 토글) — ★ ID는 CSS와 동일하게 유지 */}
                 <div className="hidden sm:block">
-                    <div className="glass-radio-group">
+                    <div
+                        className={[
+                            "glass-radio-group",
+                            isApecVisible ? "apec" : "", // APEC이면 테마 변경
+                        ].join(" ")}
+                    >
                         {/* silver => English */}
                         <input
                             type="radio"
@@ -132,7 +145,8 @@ export default function Header() {
                         onClick={toggleLang}
                         className="relative p-2 hover:opacity-80 active:opacity-60"
                     >
-                        <LanguageIcon className="w-6 h-6 fill-[#403736]" />
+                        {/* APEC 가시성에 따라 아이콘 색상도 전환 */}
+                        <LanguageIcon className={`w-6 h-6 transition-colors duration-300 ${isApecVisible ? "fill-white" : "fill-[#403736]"}`} />
                         {langHint && (
                             <span
                                 className="absolute top-full left-1/2 -translate-x-1/2 mt-1

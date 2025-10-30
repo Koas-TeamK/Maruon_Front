@@ -116,7 +116,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
                         variants={fadeUp}
                         className="
                         lg:text-8xl md:text-8xl text-6xl
-                        text-center sm:text-left
+                        text-center sm:text-left font-bold
                         mt-20 lg:mt-0
                         "
                     >
