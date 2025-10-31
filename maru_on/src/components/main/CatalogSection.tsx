@@ -27,7 +27,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
         const prefix = lang?.toLowerCase().split("-")[0] || "en";
         const map: Record<string, "(ko)" | "(en)" | "(zh)"> = { ko: "(ko)", en: "(en)", zh: "(zh)" };
         const suffix = map[prefix] ?? "(en)";
-        return encodeURI(`/img/catalog${suffix}.png`);
+        return encodeURI(`/img/catalog/catalog${suffix}.png`);
     }, [lang]);
 
     const [revealed, setRevealed] = useState(false);
@@ -78,7 +78,7 @@ export default function CatalogSection({ lang }: { lang: string }) {
           group relative w-full h-full overflow-hidden
           bg-cover bg-no-repeat
           bg-[position:50%_50%] transition-[background-position] duration-500
-          hover:bg-[position:50%_30%] focus:bg-[position:50%_30%] 
+          hover:bg-[position:50%_30%] focus:bg-[position:50%_80%] 
         "
             style={{ backgroundImage: `url("${imgSrc}")` }}
             onMouseEnter={show}
