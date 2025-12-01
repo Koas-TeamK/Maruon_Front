@@ -12,6 +12,8 @@ function ProductModel({ url }: ProductModelProps) {
 }
 
 export default function ProductViewer() {
+    const modelUrl = 'https://j6wajg0oe8xjlsj8.public.blob.vercel-storage.com/CES.glb';
+
     return (
         <Canvas
             camera={{ position: [1, 0, 8], fov: 10 }}
@@ -29,7 +31,7 @@ export default function ProductViewer() {
 
                 <Environment preset="city" />
 
-                <ProductModel url="/calmStand/CES.glb" />
+                <ProductModel url={modelUrl} />
 
                 <OrbitControls enableZoom={true} />
             </Suspense>
