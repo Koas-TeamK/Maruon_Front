@@ -10,9 +10,8 @@ export default function RhythmSection() {
                 Sense
             </div>
 
-            <div style={{ width: '100%', height: '245px', margin: '20px 0px' }}>
-                <img src={rhythm} alt="About Calm Stand" />
-            </div >
+            <div className="w-full h-[300px] bg-[#a4a4a4] bg-cover bg-center bg-no-repeat my-10"
+                style={{ backgroundImage: `url(${rhythm})` }} />
 
             <div className='text-end'>
                 <div className={mainStyles.title}>

@@ -18,12 +18,12 @@ export default function FocusRelaxSection() {
             </div>
             {/* second image */}
             <div>
-                <div style={{ width: '250px', height: '160px' }}>
+                <div style={{ width: '300px', height: '160px' }}>
                     <img src={scent} alt="About Calm Stand" />
                 </div >
             </div>
             {/* third title */}
-            <div className='text-end'>
+            <div className='text-end mt-20'>
                 <div className={mainStyles.title}>
                     Relax <br />
                     through scent.

@@ -22,12 +22,12 @@ export default function AutoHeightSection() {
             </div>
             <div className="">
                 <div
-                    className="w-full h-[210px] bg-[#a4a4a4] bg-contain bg-bottom bg-no-repeat "
+                    className="w-full h-[230px] bg-[#a4a4a4] bg-contain lg:bg-cover bg-bottom bg-no-repeat "
                     style={{ backgroundImage: `url(${height_1})` }}
                 />
 
                 <div
-                    className="w-full h-[210px] bg-[#a4a4a4] bg-contain bg-bottom bg-no-repeat"
+                    className="w-full h-[250px] bg-[#a4a4a4] bg-contain lg:bg-cover bg-bottom bg-no-repeat "
                     style={{ backgroundImage: `url(${height_2})` }}
                 />
             </div>
