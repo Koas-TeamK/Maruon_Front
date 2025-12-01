@@ -1,0 +1,13 @@
+/* AutoHeightSection.module.css */
+
+.title {
+    font-size: xx-large;
+    font-weight: 800;
+    color: #111111;
+}
+
+.description {
+    font-size: medium;
+    font-weight: 200;
+    color: #111111;
+}

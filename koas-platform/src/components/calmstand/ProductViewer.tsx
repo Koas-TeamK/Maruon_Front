@@ -1,24 +1,22 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useGLTF, OrbitControls } from '@react-three/drei';
-import { Environment } from '@react-three/drei';
+import { useGLTF, OrbitControls, Environment } from '@react-three/drei';
 
 interface ProductModelProps {
     url: string;
 }
 
-// 3D 모델 로딩 컴포넌트
 function ProductModel({ url }: ProductModelProps) {
     const { scene } = useGLTF(url);
-    return <primitive object={scene} scale={1} />;
+    return <primitive object={scene} scale={0.7} />;
 }
 
 export default function ProductViewer() {
     return (
         <Canvas
-            // 카메라 위치 설정 (x, y, z)
-            camera={{ position: [2, 2, 2], fov: 10 }}
-            style={{ width: '100%', height: '500px', background: '#ffffffff' }}
+            camera={{ position: [1, 0, 8], fov: 10 }}
+            style={{ width: '100%', height: '100%', background: 'transparent' }}
+            gl={{ alpha: true }}
         >
             <Suspense fallback={
                 <mesh>
@@ -26,8 +24,7 @@ export default function ProductViewer() {
                     <meshBasicMaterial color="gray" />
                 </mesh>
             }>
-                <ambientLight intensity={0.3} />
-
+                <ambientLight intensity={0.5} />
                 <spotLight position={[5, 10, 5]} intensity={1} angle={0.3} penumbra={1} castShadow />
 
                 <Environment preset="city" />
@@ -35,7 +32,6 @@ export default function ProductViewer() {
                 <ProductModel url="/calmStand/CES.glb" />
 
                 <OrbitControls enableZoom={true} />
-
             </Suspense>
         </Canvas>
     );
