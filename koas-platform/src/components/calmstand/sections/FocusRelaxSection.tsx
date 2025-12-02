@@ -7,7 +7,7 @@ export default function FocusRelaxSection() {
         mt-20 p-5 flex flex-col gap-y-10">
             {/* first title */}
             <div>
-                <div className={mainStyles.title}>
+                <div className={`${mainStyles.title} leading-12 mb-3`}>
                     Focus <br />
                     through scent.
                 </div>
@@ -24,7 +24,7 @@ export default function FocusRelaxSection() {
             </div>
             {/* third title */}
             <div className='text-end mt-20'>
-                <div className={mainStyles.title}>
+                <div className={`${mainStyles.title} leading-12 mb-3`}>
                     Relax <br />
                     through scent.
                 </div>

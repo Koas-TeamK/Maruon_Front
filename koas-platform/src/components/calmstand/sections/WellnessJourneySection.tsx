@@ -3,14 +3,13 @@ import ProductViewer from '@/components/calmstand/ProductViewer'
 
 export default function WellnessJourneySection() {
 
-    const calmStandLogo = '/logo/calmStand/calmstand.png';
 
     return (
         <div className="lg:w-2/3 h-screen m-auto 
             text-center flex flex-col justify-around
             //border border-gray-300
         ">
-            <div className="mt-30 relative flex flex-col items-center justify-around">
+            <div className="relative flex flex-col items-center justify-around">
                 <div className={`relative z-10 ${mainStyles.viweTitle}`}>
                     Wellness Journey
                 </div>
@@ -23,7 +22,7 @@ export default function WellnessJourneySection() {
                         mb-[-200px]     /* 아래 텍스트와도 약간 겹치게 */
                     "
                 >
-                    <div className="inline-block w-[350px] h-[500px]">
+                    <div className="inline-block w-screen h-[500px]">
                         <ProductViewer />
                     </div>
                 </div>
@@ -36,10 +35,6 @@ export default function WellnessJourneySection() {
                         Move to explore.
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <img src={calmStandLogo} alt="CalmStand" className="m-auto mt-10" />
             </div>
         </div>
     )

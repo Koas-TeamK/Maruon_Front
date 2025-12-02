@@ -4,7 +4,7 @@ export default function AutoHeightSection() {
     const height_1 = '/img/calmStand/height_1.png';
     const height_2 = '/img/calmStand/height_2.png';
     return (
-        <div className="sm:w-2/3 md:w-1/2 m-auto mt-10">
+        <div className="sm:w-2/3 md:w-1/2 m-auto">
             <div className='p-5'>
                 <div className={mainStyles.title}>
                     Auto
