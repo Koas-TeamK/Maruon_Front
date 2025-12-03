@@ -1,10 +1,12 @@
 import mainStyles from '@/pages/calmstand/CalmStandPage.module.css';
+import { useRef } from 'react';
 
 export default function FocusRelaxSection() {
-    const scent = 'img/calmStand/scent.png';
+    const scent = 'https://j6wajg0oe8xjlsj8.public.blob.vercel-storage.com/scent-3.mp4';
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     return (
-        <div className="sm:w-2/3 md:w-1/2 m-auto 
-        mt-20 p-5 flex flex-col gap-y-10">
+        <section className="w-full h-full
+        p-5 flex flex-col gap-y-10">
             {/* first title */}
             <div>
                 <div className={`${mainStyles.title} leading-12 mb-3`}>
@@ -19,11 +21,19 @@ export default function FocusRelaxSection() {
             {/* second image */}
             <div>
                 <div style={{ width: '300px', height: '160px' }}>
-                    <img src={scent} alt="About Calm Stand" />
+                    <video
+                        ref={videoRef}
+                        src={scent}
+                        autoPlay
+                        playsInline
+                        muted
+                        loop
+                        className="w-full oberflow-hidden"
+                    />
                 </div >
             </div>
             {/* third title */}
-            <div className='text-end mt-20'>
+            <div className='text-end mt-20 mb-30'>
                 <div className={`${mainStyles.title} leading-12 mb-3`}>
                     Relax <br />
                     through scent.
@@ -32,6 +42,6 @@ export default function FocusRelaxSection() {
                     turning your desk into a personalized wellness environment.
                 </div>
             </div>
-        </div>
+        </section>
     )
 };

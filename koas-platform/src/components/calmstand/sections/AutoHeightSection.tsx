@@ -4,8 +4,8 @@ export default function AutoHeightSection() {
     const height_1 = '/img/calmStand/height_1.png';
     const height_2 = '/img/calmStand/height_2.png';
     return (
-        <div className="sm:w-2/3 md:w-1/2 m-auto">
-            <div className='p-5'>
+        <section className="w-full h-full">
+            <div className='p-3'>
                 <div className={mainStyles.title}>
                     Auto
                 </ div>
@@ -22,15 +22,15 @@ export default function AutoHeightSection() {
             </div>
             <div className="">
                 <div
-                    className="w-full h-[230px] bg-[#a4a4a4] bg-contain lg:bg-cover bg-bottom bg-no-repeat "
+                    className="w-full h-[230px] bg-[#a4a4a4] bg-contain sm:bg-cover bg-bottom bg-no-repeat "
                     style={{ backgroundImage: `url(${height_1})` }}
                 />
 
                 <div
-                    className="w-full h-[250px] bg-[#a4a4a4] bg-contain lg:bg-cover bg-bottom bg-no-repeat "
+                    className="w-full h-[250px] bg-[#a4a4a4] bg-contain sm:bg-cover bg-bottom bg-no-repeat "
                     style={{ backgroundImage: `url(${height_2})` }}
                 />
             </div>
-        </div>
+        </section>
     )
 };

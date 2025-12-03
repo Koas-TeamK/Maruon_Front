@@ -4,7 +4,7 @@ export default function RhythmSection() {
 
     const rhythm = '/img/calmStand/about_2.png';
     return (
-        <div className="sm:w-2/3 md:w-1/2 m-auto 
+        <section className="w-full h-full 
         mt-20 p-8">
             <div className={mainStyles.title}>
                 Sense
@@ -24,6 +24,6 @@ export default function RhythmSection() {
                     smarter ergonomic and wellness adjustments.
                 </div>
             </div>
-        </div >
+        </section >
     )
 };

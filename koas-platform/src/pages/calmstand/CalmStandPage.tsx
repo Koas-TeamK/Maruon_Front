@@ -1,80 +1,131 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import AboutSection from "@/components/calmstand/sections/AboutSection";
 import AutoHeightSection from "@/components/calmstand/sections/AutoHeightSection";
 import RhythmSection from "@/components/calmstand/sections/RhythmSection";
 import FocusRelaxSection from "@/components/calmstand/sections/FocusRelaxSection";
-import CatchPhrase from "@/components/calmstand/sections/Catchphrase";
+import CatchphraseSection from "@/components/calmstand/sections/CatchphraseSection";
 import WellnessJourneySection from "@/components/calmstand/sections/WellnessJourneySection";
 
+import { motion, type Variants } from "framer-motion";
+
+
+
 export default function CalmStandPage() {
-    const wellnessRef = useRef<HTMLDivElement | null>(null);
-    const [wellnessActive, setWellnessActive] = useState(false);
-    const hasSnappedRef = useRef(false);
+    const focusRef = useRef<HTMLDivElement | null>(null);
+    const catchRef = useRef<HTMLElement | null>(null);
+    const wellnessRef = useRef<HTMLElement | null>(null);
+    const snapZoneRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        if (!wellnessRef.current) return;
-
-        const target = wellnessRef.current;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                const ratio = entry.intersectionRatio;
-
-                // 애니메이션 on/off
-                if (ratio >= 0.2) {
-                    setWellnessActive(true);
-
-                    if (!hasSnappedRef.current) {
-                        hasSnappedRef.current = true;
-                        window.scrollTo({
-                            top: target.offsetTop,
-                            behavior: "smooth",
-                        });
-                    }
-                } else {
-                    setWellnessActive(false);
-
-                    if (ratio < 0.01) {
-                        hasSnappedRef.current = false;
-                    }
-                }
+    const sectionVariants: Variants = {
+        hidden: { opacity: 0, y: 36, filter: "blur(2px)" },
+        show: {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            transition: {
+                type: "tween",
+                duration: 2,
+                ease: [0.22, 1, 0.36, 1],
+                staggerChildren: 0.06,
+                delayChildren: 0.04,
             },
-            {
-                threshold: [0, 0.2, 1],
-            }
-        );
+        },
+    };
 
-        observer.observe(target);
+    const scrollToElement = (el: HTMLElement | null) => {
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
 
-        return () => observer.disconnect();
-    }, []);
+    //위 섹션으로 갈 때 스냅 영역 스크롤도 리셋
+    const goToFocusSection = () => {
+        if (snapZoneRef.current) {
+            snapZoneRef.current.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
+        scrollToElement(focusRef.current);
+    };
 
     return (
-        <div>
-            <AboutSection />
-            <div className="mt-20" />
+        <div
+            className="
+                w-screen sm:w-2/3 lg:w-1/3 m-auto
+                flex flex-col
+            "
+        >
+            <div className="w-full">
+                <AboutSection />
+            </div>
 
-            <AutoHeightSection />
-            <div className="mt-20" />
-
-            <RhythmSection />
-            <div className="mt-30" />
-
-            <FocusRelaxSection />
-
-            <CatchPhrase />
+            <div className="mt-[3rem] w-full">
+                <RhythmSection />
+            </div>
 
             <div
-                ref={wellnessRef}
-                className={`
-                    transition-all duration-700 ease-out
-                    ${wellnessActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-                `}
+                ref={focusRef}
+                className="mt-[5rem] w-full min-h-screen flex items-center"
             >
-                <WellnessJourneySection />
+                <FocusRelaxSection />
+            </div>
+
+            <div className="mt-[4rem] w-full">
+                <AutoHeightSection />
+            </div>
+            <div
+                ref={snapZoneRef}
+                className="
+                    h-[100dvh] w-full
+                    overflow-y-auto overflow-x-hidden [overflow:clip] max-w-[100vw]
+                    snap-y snap-mandatory
+                    overscroll-contain
+                    hide-scrollbar
+                "
+                style={{ WebkitOverflowScrolling: "touch" }}
+            >
+                {/* Catch 섹션 */}
+                <section
+                    ref={catchRef}
+                    className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
+                >
+                    <motion.div
+                        className="h-full w-full"
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ amount: 0.6, once: false }}
+                    >
+                        <CatchphraseSection
+                            onRequestPrevSection={goToFocusSection}
+                            onRequestNextSection={() =>
+                                scrollToElement(wellnessRef.current)
+                            }
+                        />
+                    </motion.div>
+                </section>
+
+                {/* Wellness 섹션 */}
+                <section
+                    ref={wellnessRef}
+                    className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
+                >
+                    <motion.div
+                        className="
+                            h-full w-full
+                            flex items-center justify-center
+                        "
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ amount: 0.6, once: false }}
+                    >
+                        <WellnessJourneySection />
+                    </motion.div>
+                </section>
             </div>
         </div>
     );

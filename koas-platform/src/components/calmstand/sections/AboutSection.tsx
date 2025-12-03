@@ -29,7 +29,7 @@ export default function AboutSection() {
     }, []);
 
     return (
-        <div className="sm:w-2/3 md:w-1/2 m-auto">
+        <section className="w-full h-full">
             <div>
                 <img
                     src={calmStandLogo}
@@ -49,12 +49,12 @@ export default function AboutSection() {
             />
 
             <div
-                className={`${mainStyles.description} ${styles.text1} text-center`}
+                className={`${mainStyles.description} ${styles.text1} text-center mt-3`}
             >
                 Engineered calm. Built to last.
             </div>
 
-            <div className="mt-20" />
+            <div className="mt-[3rem]" />
 
             {/* about */}
             <div className="flex flex-col gap-5">
@@ -66,18 +66,23 @@ export default function AboutSection() {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <div style={{ width: "290px", height: "185px" }}>
-                        <img
-                            src={about_1}
-                            alt="About Calm Stand"
-                            className="bg-[#C7C7C7] mt-10"
-                        />
-                    </div>
+                    <div
+                        className="
+                            mt-[3rem] 
+                            bg-[#C7C7C7]
+                            bg-cover bg-center bg-no-repeat
+                        "
+                        style={{
+                            width: "290px",
+                            height: "185px",
+                            backgroundImage: `url(${about_1})`,
+                        }}
+                    />
                 </div>
             </div>
 
             {/* calmStand */}
-            <div className="mt-30">
+            <div className="mt-[3rem]">
                 <div className="text-end pr-6">
                     <div
                         className={`${mainStyles.title} ${mainStyles.gradientText}`}
@@ -91,6 +96,6 @@ export default function AboutSection() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
