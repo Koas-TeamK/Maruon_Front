@@ -3,7 +3,7 @@ import styles from "./AboutSection.module.css";
 import mainStyles from "@/pages/calmstand/CalmStandPage.module.css";
 
 export default function AboutSection() {
-    const about_1 = "/img/calmStand/about_1.png";
+    const about_1 = "https://j6wajg0oe8xjlsj8.public.blob.vercel-storage.com/about1.PNG";
     const videoUrl =
         "https://j6wajg0oe8xjlsj8.public.blob.vercel-storage.com/calmStand-1.mp4";
     const calmStandLogo = "/logo/calmStand/calmstand.png";
@@ -68,12 +68,11 @@ export default function AboutSection() {
                 <div className="flex justify-end">
                     <div
                         className="
-                            mt-[3rem] 
-                            bg-[#C7C7C7]
+                            mt-[3rem]
                             bg-cover bg-center bg-no-repeat
                         "
                         style={{
-                            width: "290px",
+                            width: "300px",
                             height: "185px",
                             backgroundImage: `url(${about_1})`,
                         }}
