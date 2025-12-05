@@ -1,0 +1,59 @@
+body {
+    font-family: pretendard;
+    letter-spacing: -0.03em;
+}
+
+.mainTitle {
+    font-size: 3em;
+    font-weight: 900;
+    color: #111111;
+}
+
+.title {
+    font-size: 3em;
+    font-weight: 800;
+    color: #111111;
+}
+
+.description {
+    font-size: 0.9em;
+    font-weight: 200;
+    color: #111111;
+}
+
+.catchphrase {
+    font-size: 2.3em;
+    font-weight: 800;
+    color: #000000;
+    opacity: 0.2;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.active {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+.viweTitle {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #111111;
+}
+
+.viweDescription {
+    font-size: 1em;
+    font-weight: 200;
+    color: #111111;
+}
+
+.gradientText {
+    background-image: linear-gradient(to right, #0095A2, #00798A, #0E355B);
+
+    /* 배경을 텍스트 모양으로 자름 */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* 원래 글자색을 투명하게 만듦 */
+    color: transparent;
+}
