@@ -11,9 +11,12 @@ import WellnessJourneySection from "@/components/calmstand/sections/WellnessJour
 
 import { motion, type Variants } from "framer-motion";
 
+import { usePageTitle } from "@/shared/hooks/usePageTitle";
 
 
 export default function CalmStandPage() {
+    usePageTitle("Calm Stand");
+
     const focusRef = useRef<HTMLDivElement | null>(null);
     const catchRef = useRef<HTMLElement | null>(null);
     const wellnessRef = useRef<HTMLElement | null>(null);

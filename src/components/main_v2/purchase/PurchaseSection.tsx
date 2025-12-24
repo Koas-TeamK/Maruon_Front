@@ -32,7 +32,7 @@ export default function PurchaseSection() {
     /* ===== 모션 설정(텍스트 스태거 + 부드러운 이징) ===== */
     const softEase: Transition = {
         duration: 1.1,
-        ease: "easeInOut", // 더 부드럽게 하려면: ease: [0.16, 1, 0.3, 1] as any
+        ease: "easeInOut",
     };
 
     const container: Variants = {
@@ -50,7 +50,6 @@ export default function PurchaseSection() {
         show: { opacity: 1, y: 0, transition: softEase },
     };
 
-    // 🔸 변경: 이미지 전환 모션(좌우 슬라이드 + 페이드) — direction에 따라 반대로
     const imgEnter: Variants = {
         hidden: (dir: number) => ({ opacity: 0, x: 100 * dir }),
         show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
