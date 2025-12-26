@@ -149,7 +149,7 @@ export default function PurchaseSection() {
                         <motion.div
                             className="
                                 absolute left-15
-                                2xl:bottom-40 lg:bottom-20 
+                                2xl:bottom-35 lg:bottom-20
                                 hidden lg:block
                                 px-5
                                 text-start text-white

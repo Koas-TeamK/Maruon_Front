@@ -56,120 +56,118 @@ export default function Header() {
     const logoSrc = isApecVisible ? "/logo/maruon-white.png" : "/logo/maruon-logo.png";
 
     return (
-        <header
-            className={
-                [
-                    "fixed inset-x-0 top-0 z-[100]",
-                    // 모바일: [1fr auto 1fr] → 로고가 가운데로 정렬되도록
-                    // 데스크탑(md~): [auto 1fr auto] → 좌측 여백을 최소화해 로고를 왼쪽으로 붙일 수 있게
+        <header className="fixed top-0 left-0 w-full z-[100]">
+            <div
+                className={[
+                    "max-w-[1920px] mx-auto w-full",
                     "grid grid-cols-[1fr_auto_1fr] md:grid-cols-[auto_1fr_auto]",
                     "items-center p-5",
                     "transition-all duration-300",
-                ].join(" ")
-            }
-        >
-            {/* 왼쪽 스페이서: 모바일에선 유지(가운데 정렬 균형), 데스크탑에선 숨김 → 로고가 왼쪽으로 이동 */}
-            <div className="justify-self-start lg:hidden" />
-
-            {/* 중앙 로고 (모바일=가운데 / 데스크탑=왼쪽) */}
-            <div
-                className={
-                    [
-                        "justify-self-center", // 모바일: 가운데
-                        "md:justify-self-start", // 데스크탑: 왼쪽
-                    ].join(" ")
-                }
+                ].join(" ")}
             >
-                <img
-                    src={logoSrc}
-                    alt="MARUON"
-                    className="w-11 h-auto max-h-full lg:w-18 mt-2 transition-all duration-300"
-                />
-            </div>
+                {/* 왼쪽 스페이서: 모바일에선 유지(가운데 정렬 균형), 데스크탑에선 숨김 → 로고가 왼쪽으로 이동 */}
+                <div className="justify-self-start lg:hidden" />
 
-            {/* 오른쪽 컨트롤 (그대로 유지) */}
-            <div className="justify-self-end flex items-center gap-2">
-                {/* >= sm: 라디오(글래스 토글) — ★ ID는 CSS와 동일하게 유지 */}
-                <div className="hidden sm:block">
-                    <div
-                        className={[
-                            "glass-radio-group",
-                            isApecVisible ? "apec" : "", // APEC이면 테마 변경
-                        ].join(" ")}
-                    >
-                        {/* silver => English */}
-                        <input
-                            type="radio"
-                            name="lang"
-                            id="glass-silver"
-                            checked={currentLang === "en"}
-                            onChange={() => setLanguage("en")}
-                        />
-                        <label htmlFor="glass-silver">English</label>
-
-                        {/* gold => 한국어 */}
-                        <input
-                            type="radio"
-                            name="lang"
-                            id="glass-gold"
-                            checked={currentLang === "ko"}
-                            onChange={() => setLanguage("ko")}
-                        />
-                        <label htmlFor="glass-gold">한국어</label>
-
-                        {/* platinum => 中文 */}
-                        <input
-                            type="radio"
-                            name="lang"
-                            id="glass-platinum"
-                            checked={currentLang === "zh"}
-                            onChange={() => setLanguage("zh")}
-                        />
-                        <label htmlFor="glass-platinum">中文</label>
-
-                        {/* 글라이더: 반드시 마지막 형제여야 함 */}
-                        <div className="glass-glider" />
-                    </div>
+                {/* 중앙 로고 (모바일=가운데 / 데스크탑=왼쪽) */}
+                <div
+                    className={
+                        [
+                            "justify-self-center", // 모바일: 가운데
+                            "md:justify-self-start", // 데스크탑: 왼쪽
+                        ].join(" ")
+                    }
+                >
+                    <img
+                        src={logoSrc}
+                        alt="MARUON"
+                        className="w-11 h-auto max-h-full lg:w-18 mt-2 transition-all duration-300"
+                    />
                 </div>
 
-                {/* < sm: 아이콘 버튼(순환) */}
-                <div className="relative flex justify-end items-center gap-1 sm:hidden">
-                    <button
-                        type="button"
-                        aria-label={t("changeLanguage", "Change language")}
-                        title={`${LANG_LABEL[currentLang]
-                            } → ${LANG_LABEL[
-                            LANG_ORDER[(LANG_ORDER.indexOf(currentLang) + 1) % LANG_ORDER.length]
-                            ]
-                            }`}
-                        onClick={toggleLang}
-                        className="relative p-2 hover:opacity-80 active:opacity-60"
-                    >
-                        {/* APEC 가시성에 따라 아이콘 색상도 전환 */}
-                        <LanguageIcon className={`w-6 h-6 transition-colors duration-300 ${isApecVisible ? "fill-white" : "fill-[#403736]"}`} />
-                        {langHint && (
-                            <span
-                                className="absolute top-full left-1/2 -translate-x-1/2 mt-1
+                {/* 오른쪽 컨트롤 (그대로 유지) */}
+                <div className="justify-self-end flex items-center gap-2">
+                    {/* >= sm: 라디오(글래스 토글) — ★ ID는 CSS와 동일하게 유지 */}
+                    <div className="hidden sm:block">
+                        <div
+                            className={[
+                                "glass-radio-group",
+                                isApecVisible ? "apec" : "", // APEC이면 테마 변경
+                            ].join(" ")}
+                        >
+                            {/* silver => English */}
+                            <input
+                                type="radio"
+                                name="lang"
+                                id="glass-silver"
+                                checked={currentLang === "en"}
+                                onChange={() => setLanguage("en")}
+                            />
+                            <label htmlFor="glass-silver">English</label>
+
+                            {/* gold => 한국어 */}
+                            <input
+                                type="radio"
+                                name="lang"
+                                id="glass-gold"
+                                checked={currentLang === "ko"}
+                                onChange={() => setLanguage("ko")}
+                            />
+                            <label htmlFor="glass-gold">한국어</label>
+
+                            {/* platinum => 中文 */}
+                            <input
+                                type="radio"
+                                name="lang"
+                                id="glass-platinum"
+                                checked={currentLang === "zh"}
+                                onChange={() => setLanguage("zh")}
+                            />
+                            <label htmlFor="glass-platinum">中文</label>
+
+                            {/* 글라이더: 반드시 마지막 형제여야 함 */}
+                            <div className="glass-glider" />
+                        </div>
+                    </div>
+
+                    {/* < sm: 아이콘 버튼(순환) */}
+                    <div className="relative flex justify-end items-center gap-1 sm:hidden">
+                        <button
+                            type="button"
+                            aria-label={t("changeLanguage", "Change language")}
+                            title={`${LANG_LABEL[currentLang]
+                                } → ${LANG_LABEL[
+                                LANG_ORDER[(LANG_ORDER.indexOf(currentLang) + 1) % LANG_ORDER.length]
+                                ]
+                                }`}
+                            onClick={toggleLang}
+                            className="relative p-2 hover:opacity-80 active:opacity-60"
+                        >
+                            {/* APEC 가시성에 따라 아이콘 색상도 전환 */}
+                            <LanguageIcon className={`w-6 h-6 transition-colors duration-300 ${isApecVisible ? "fill-white" : "fill-[#403736]"}`} />
+                            {langHint && (
+                                <span
+                                    className="absolute top-full left-1/2 -translate-x-1/2 mt-1
                            inline-block pointer-events-none z-50
                            whitespace-nowrap [word-break:keep-all]
                            text-center leading-none rounded-full px-2 py-0.5 text-xs font-medium
                            bg-black/80 text-white shadow"
-                            >
-                                {langHint}
-                            </span>
-                        )}
-                    </button>
+                                >
+                                    {langHint}
+                                </span>
+                            )}
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            {/* 스크린리더 알림 */}
-            <div className="sr-only" aria-live="polite">
-                {langHint ? `언어가 ${langHint}로 변경되었습니다.` : ""}
-            </div>
+                {/* 스크린리더 알림 */}
+                <div className="sr-only" aria-live="polite">
+                    {langHint ? `언어가 ${langHint}로 변경되었습니다.` : ""}
+                </div>
 
-            {/* 
-      <Menu open={menuOpen} onClose={() => setMenuOpen(false)} /> 
-      */}
+                {/* 
+                <Menu open={menuOpen} onClose={() => setMenuOpen(false)} /> 
+                */}
+            </div>
         </header>
     );
 }
