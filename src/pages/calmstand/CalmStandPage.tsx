@@ -85,7 +85,7 @@ export default function CalmStandPage() {
                 className="
                     h-[100dvh] w-full
                     overflow-y-auto overflow-x-hidden [overflow:clip] max-w-[100vw]
-                    snap-y snap-mandatory
+                    snap-y snap-proximity
                     overscroll-contain
                     hide-scrollbar
                 "
@@ -111,29 +111,29 @@ export default function CalmStandPage() {
                         />
                     </motion.div>
                 </section>
-
-            </div>
-            {/* Wellness 섹션 */}
-            <section
-                ref={wellnessRef}
-                className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
-            >
-                <motion.div
-                    className="
+                {/* Wellness 섹션 */}
+                <section
+                    ref={wellnessRef}
+                    className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
+                >
+                    <motion.div
+                        className="
                             h-full w-full
                             flex items-center justify-center
                         "
-                    variants={sectionVariants}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ amount: 0.6, once: false }}
-                >
-                    <WellnessJourneySection />
-                </motion.div>
-            </section>
-            <footer>
-                <CalmStandFooter />
-            </footer>
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ amount: 0.6, once: false }}
+                    >
+                        <WellnessJourneySection />
+                    </motion.div>
+                </section>
+                {/* Footer */}
+                <footer className="snap-none min-h-[40vh]">
+                    <CalmStandFooter />
+                </footer>
+            </div>
         </div>
     );
 }
