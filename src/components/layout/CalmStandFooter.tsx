@@ -3,7 +3,7 @@ export default function CalmStandFooter() {
     const imgsrc = "/img/calmStand/hiy.png";
 
     return (
-        <div className="w-full bg-[#F8FAFF] text-black px-5 pt-7 pb-20 flex justify-center flex-col items-center gap-3">
+        <div className="w-full px-5 pt-7 pb-20 flex justify-center flex-col items-center gap-3">
             <div className="rounded-full  w-15 h-15 overflow-hidden">
                 <img
                     src={imgsrc}
