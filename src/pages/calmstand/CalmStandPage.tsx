@@ -12,6 +12,7 @@ import WellnessJourneySection from "@/components/calmstand/sections/WellnessJour
 import { motion, type Variants } from "framer-motion";
 
 import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import CalmStandFooter from "@/components/layout/CalmStandFooter";
 
 
 export default function CalmStandPage() {
@@ -111,25 +112,28 @@ export default function CalmStandPage() {
                     </motion.div>
                 </section>
 
-                {/* Wellness 섹션 */}
-                <section
-                    ref={wellnessRef}
-                    className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
-                >
-                    <motion.div
-                        className="
+            </div>
+            {/* Wellness 섹션 */}
+            <section
+                ref={wellnessRef}
+                className="snap-start snap-always h-[100dvh] w-full overflow-x-hidden [overflow:clip]"
+            >
+                <motion.div
+                    className="
                             h-full w-full
                             flex items-center justify-center
                         "
-                        variants={sectionVariants}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ amount: 0.6, once: false }}
-                    >
-                        <WellnessJourneySection />
-                    </motion.div>
-                </section>
-            </div>
+                    variants={sectionVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ amount: 0.6, once: false }}
+                >
+                    <WellnessJourneySection />
+                </motion.div>
+            </section>
+            <footer>
+                <CalmStandFooter />
+            </footer>
         </div>
     );
 }
