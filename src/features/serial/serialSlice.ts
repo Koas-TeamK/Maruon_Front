@@ -44,6 +44,7 @@ const serialSlice = createSlice({
             state.loading = false;
             state.data = action.payload;
             state.error = null;
+            //console.log("[qrCheckSuccess] qr data: ", state.data);
         },
         qrCheckFailure(state, action: PayloadAction<string>) {
             state.loading = false;

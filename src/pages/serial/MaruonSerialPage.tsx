@@ -15,7 +15,7 @@ export default function MaruonSerialPage() {
     const dispatch = useDispatch();
     const { loading, data } = useSelector((s: RootState) => s.serial);
 
-    // QR 정도 가져오기
+    // QR 정보 가져오기
     useEffect(() => {
         if (!name || !serial || !token) return;
         dispatch(qrCheckRequest({ name, serial, token }));

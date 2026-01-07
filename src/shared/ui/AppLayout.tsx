@@ -7,7 +7,7 @@ import SnsTab from "@/components/SnsTab";
 export default function AppLayout() {
     return (
         <div
-            className="w-full h-full flex flex-col overflow-x-hidden overflow-y-auto max-w-[1920px] m-auto"
+            className="w-full h-full flex flex-col overflow-x-hidden overflow-y-auto m-auto"
             style={{ WebkitOverflowScrolling: "touch" }}
         >
             <Header />
