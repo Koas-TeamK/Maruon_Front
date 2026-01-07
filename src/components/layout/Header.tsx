@@ -59,7 +59,7 @@ export default function Header() {
         <header className="fixed top-0 left-0 w-full z-[100]">
             <div
                 className={[
-                    "max-w-[1920px] mx-auto w-full",
+                    "mx-auto w-full",
                     "grid grid-cols-[1fr_auto_1fr] md:grid-cols-[auto_1fr_auto]",
                     "items-center p-5",
                     "transition-all duration-300",
