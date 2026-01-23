@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from '@vercel/analytics/react';
 import AppLayout from "@/shared/ui/AppLayout";
 import AppLayout_QR from "@/shared/ui/AppLayout_QR";
-import MainPage from "@/pages/main/MainPage";
-import MaruonSerialPage from "@/pages/serial/MaruonSerialPage";
-import CalmStandPage from "@/pages/calmstand/CalmStandPage";
+import MainPage from "@/features/main/pages/MainPage";
+import MaruonSerialPage from "@/features/serial/pages/MaruonSerialPage";
+import CalmStandPage from "@/features/calmstand/pages/CalmStandPage";
 
 export default function AppRoutes() {
     return (
