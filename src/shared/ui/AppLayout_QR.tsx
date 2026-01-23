@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "@/components/layout_qr/Header_qr";
-import Footer from "@/components/layout_qr/Footer_qr";
+import Header from "@/shared/ui/Header_qr";
+import Footer from "@/shared/ui/Footer_qr";
 
 export default function AppLayout_QR() {
     return (

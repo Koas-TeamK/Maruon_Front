@@ -1,8 +1,8 @@
 // AppLayout.tsx
 import { Outlet } from "react-router-dom";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import SnsTab from "@/components/SnsTab";
+import Header from "@/shared/ui/Header";
+import Footer from "@/shared/ui/Footer";
+import SnsTab from "@/shared/components/SnsTab";
 
 export default function AppLayout() {
     return (
