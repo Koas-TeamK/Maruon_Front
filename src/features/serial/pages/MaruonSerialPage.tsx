@@ -69,7 +69,7 @@ export default function MaruonSerialPage() {
                             onClick={() => toggleMessageShow()}>
                             {isMessageShow && hasMessage ? (
                                 <>
-                                    <div className="text-xl font-kyobo-handwriting whitespace-pre-wrap">
+                                    <div className="text-2xl font-kyobo-handwriting whitespace-pre-wrap">
                                         {data?.message.replace(/\\n/g, '\n')}
                                     </div>
                                 </>
