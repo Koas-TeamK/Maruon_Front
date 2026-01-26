@@ -54,7 +54,7 @@ export default function MaruonSerialPage() {
                     {/* 번역 토글 */}
                     <div className='w-full h-[70px]' />
                     {/* 컨텐츠 */}
-                    <section className={`w-full px-6 pb-1 flex flex-col justify-center items-center ${isMessageShow && hasMessage ? 'gap-12' : 'gap-10'}`}>
+                    <section className={`w-full px-6 pb-1 flex flex-col justify-center items-center ${isMessageShow && hasMessage ? 'gap-12' : 'gap-16'}`}>
                         {/* 로고 */}
                         <img
                             src={logoUrl}
