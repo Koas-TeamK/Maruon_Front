@@ -52,9 +52,9 @@ export default function MaruonSerialPage() {
             <div className="pointer-events-none w-full h-full bg-[url('/img/background/background-log.png')] bg-no-repeat bg-top bg-[length:280px_auto] md:bg-[length:320px_auto]">
                 <div className='max-w-[500px] mx-auto'>
                     {/* 번역 토글 */}
-                    <div className='w-full h-[80px]' />
+                    <div className='w-full h-[70px]' />
                     {/* 컨텐츠 */}
-                    <section className={`w-full px-6 py-1 flex flex-col justify-center items-center ${isMessageShow && hasMessage ? 'gap-12' : 'gap-10'}`}>
+                    <section className={`w-full px-6 pb-1 flex flex-col justify-center items-center ${isMessageShow && hasMessage ? 'gap-12' : 'gap-10'}`}>
                         {/* 로고 */}
                         <img
                             src={logoUrl}
