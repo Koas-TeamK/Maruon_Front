@@ -55,9 +55,9 @@ export default function Header_qr() {
                     aria-label={t("changeLanguage")}
                     title={i18n.language.startsWith("ko") ? "한국어 → English" : "English → 한국어"}
                     onClick={toggleLang}
-                    className="relative p-2 hover:opacity-80 active:opacity-60"
+                    className="relative p-2 pt-3 hover:opacity-80 active:opacity-60 "
                 >
-                    <LanguageIcon className="w-8 h-8 fill-[#eed49d]" />
+                    <LanguageIcon className="w-7 h-7 fill-[#eed49d]" />
                     {/* 배지(클릭 즉시 현재 언어 표시) */}
                     {langHint && (
                         <span
@@ -71,16 +71,6 @@ export default function Header_qr() {
                         </span>
                     )}
                 </button>
-
-                {/* 메뉴 토글 */}
-                {/* <button
-                    type="button"
-                    aria-label={t("menu")}
-                    onClick={() => setMenuOpen(true)}
-                    className="p-2 hover:opacity-80 active:opacity-60"
-                >
-                    <Bars3Icon className="w-8 h-8 fill-[#403736]" />
-                </button> */}
             </div>
 
             {/* 스크린리더용 라이브 리전(시각적 표시는 없음) */}

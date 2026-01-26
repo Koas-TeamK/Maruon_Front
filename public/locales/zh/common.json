@@ -26,7 +26,7 @@
     },
     "edition": {
         "registeredLine1": "已登记为<br/>",
-        "registeredLine2": "限量编号 <num/>",
+        "registeredLine2": "限量编号 <br /> No.<num/>",
         "date": "您的产品预计发货日期为<br /><date/>。"
     },
     "title": {
