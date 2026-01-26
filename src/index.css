@@ -82,6 +82,14 @@
   font-display: swap;
 }
 
+/* 손편지 */
+@font-face {
+    font-family: 'KyoboHandwriting2020ParkDoYeon';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/KyoboHandwriting2020A.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
 
 
 
@@ -138,4 +146,14 @@ body,
 /* 사파리에서 깔끔한 가로 클립 */
 .overflow-clip {
   overflow-x: clip;
+}
+
+@layer components {
+  .font-kyobo-handwriting {
+    font-family: 'KyoboHandwriting2020ParkDoYeon', sans-serif;
+    text-decoration : underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 10px;
+    line-height: 1.8;
+  }
 }

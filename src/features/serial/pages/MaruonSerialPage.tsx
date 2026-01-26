@@ -1,10 +1,11 @@
 // src/pages/MaruonSerialPage.tsx
 import './MaruonSerialPage.module.css'
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { parseNameSerialToken } from "@/shared/lib/qr";
 import { Trans, useTranslation } from "react-i18next";
 import { usePageTheme } from "@/shared/hooks/usePageTheme";
 import { useSerialStore } from '@/stores/useSerialStore';
+import MaruonSerialErrorPage from './MaruonSerialErrorPage';
 
 export default function MaruonSerialPage() {
     usePageTheme("#403736");
@@ -12,14 +13,24 @@ export default function MaruonSerialPage() {
     const { i18n } = useTranslation("common");
     const qrCheckRequest = useSerialStore((s) => s.checkQr);
     const loading = useSerialStore((s) => s.loading);
+    const error = useSerialStore((s) => s.error);
     const data = useSerialStore((s) => s.data);
 
     const logoUrl = "/logo/maruon/maruon-gold.png";
+    const chairUrl = "/img/chair/high-chair.png";
+
+    // message exist or not
+    const hasMessage = !!data?.message;
+    const [isMessageShow, setIsMessageShow] = useState(true);
+    const toggleMessageShow = () => {
+        setIsMessageShow(!isMessageShow);
+    }
 
     // QR 정보 가져오기
     useEffect(() => {
         if (!name || !serial || !token) return;
         qrCheckRequest({ name, serial, token });
+
     }, [name, serial, token, qrCheckRequest]);
 
     // Num 정규화
@@ -32,59 +43,83 @@ export default function MaruonSerialPage() {
         return m ? m[0] : "—";
     }
 
-    if (loading) {
-        return;
+    if (loading || error) {
+        return <MaruonSerialErrorPage />;
     }
 
     return (
         <div className="bg-[url('/img/background/background.png')] bg-[length:390px_844px] bg-repeat -mt-20 md:-mt-24 lg:-mt-28">
-            <div className="pointer-events-none w-full h-full bg-[url('/img/background/background-log.png')] bg-no-repeat bg-top bg-[length:280px_auto] md:bg-[length:320px_auto] lg:bg-[length:360px_auto]">
-                <div className='w-full h-[60px]' />
-                <section className="w-full min-h-[80svh] px-6 grid justify-items-center items-center grid-rows-[auto_1fr_auto_1fr_auto]">
+            <div className="pointer-events-none w-full h-full bg-[url('/img/background/background-log.png')] bg-no-repeat bg-top bg-[length:280px_auto] md:bg-[length:320px_auto]">
+                <div className='max-w-[500px] mx-auto'>
+                    {/* 번역 토글 */}
+                    <div className='w-full h-[80px]' />
+                    {/* 컨텐츠 */}
+                    <section className={`w-full px-6 py-1 flex flex-col justify-center items-center ${isMessageShow && hasMessage ? 'gap-8' : 'gap-12'}`}>
+                        {/* 로고 */}
+                        <img
+                            src={logoUrl}
+                            alt="Maruon"
+                            className="w-24 md:w-36 select-none"
+                            decoding="async"
+                            loading="lazy"
+                        />
 
-                    {/* 로고 */}
-                    <img
-                        src={logoUrl}
-                        alt="Maruon"
-                        className="w-30 md:w-40 lg:w-54 select-none mb-10"
-                        decoding="async"
-                        loading="lazy"
-                    />
-
-                    {/* 문구 */}
-                    <div key={i18n.language} className="text-center text-[#eed49d] text-xl">
-                        <div>
-                            <Trans i18nKey="edition.registeredLine1" ns="common" />
-                        </div>
-                        <div className="mt-3">
-                            <Trans
-                                i18nKey="edition.registeredLine2"
-                                ns="common"
-                                components={{
-                                    num: (
-                                        <span
-                                            className="inline-block text-5xl md:text-6xl leading-none tracking-[0.02em]
+                        {/* 문구 */}
+                        <div key={i18n.language} className="text-center text-[#eed49d] pointer-events-auto"
+                            onClick={() => toggleMessageShow()}>
+                            {isMessageShow && hasMessage ? (
+                                <>
+                                    <div className="text-md font-kyobo-handwriting whitespace-pre-wrap">
+                                        {data?.message.replace(/\\n/g, '\n')}
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="text-[1rem]">
+                                    <div>
+                                        <Trans i18nKey="edition.registeredLine1" ns="common" />
+                                    </div>
+                                    <div className="mt-1">
+                                        <Trans
+                                            i18nKey="edition.registeredLine2"
+                                            ns="common"
+                                            components={{
+                                                br: <br />,
+                                                num: (
+                                                    <span
+                                                        className="inline-block text-[2.5rem] leading-[3rem] tracking-[0.02em]
                                                 text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
                                                 [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                                                 [font-family:'Cinzel',serif]"
-                                        >
-                                            {formatSerialKeepZeros(data?.serial)}
-                                        </span>
-                                    ),
-                                }}
+                                                    >
+                                                        {formatSerialKeepZeros(data?.serial)}
+                                                    </span>
+                                                ),
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* 의자 */}
+                        <div>
+                            {isMessageShow && hasMessage && (
+                                <div className="text-center text-sm text-[#eed49d] pointer-events-auto [font-family:'Cinzel',serif]">
+                                    <div className="mb-3">
+                                        <p> No.<span className='text-2xl'>{data?.serial}</span></p>
+                                    </div>
+                                </div>
+                            )}
+                            <img
+                                src={chairUrl}
+                                alt="Maruon Chair"
+                                className="w-[260px] md:w-[300px] lg:w-[340px] select-none pointer-events-none"
+                                decoding="async"
+                                loading="lazy"
                             />
                         </div>
-                    </div>
-
-                    {/* 의자 */}
-                    <img
-                        src="/img/chair/high-chair.png"
-                        alt="Maruon Chair"
-                        className="w-[260px] md:w-[300px] lg:w-[340px] select-none pointer-events-none"
-                        decoding="async"
-                        loading="lazy"
-                    />
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
     );
