@@ -59,7 +59,7 @@ export default function MaruonSerialPage() {
                         <img
                             src={logoUrl}
                             alt="Maruon"
-                            className="w-24 md:w-36 select-none"
+                            className="w-26 md:w-36 select-none"
                             decoding="async"
                             loading="lazy"
                         />
@@ -69,12 +69,12 @@ export default function MaruonSerialPage() {
                             onClick={() => toggleMessageShow()}>
                             {isMessageShow && hasMessage ? (
                                 <>
-                                    <div className="text-md font-kyobo-handwriting whitespace-pre-wrap">
+                                    <div className="text-lg font-kyobo-handwriting whitespace-pre-wrap">
                                         {data?.message.replace(/\\n/g, '\n')}
                                     </div>
                                 </>
                             ) : (
-                                <div className="text-[1rem]">
+                                <div className="text-[1.5rem]">
                                     <div>
                                         <Trans i18nKey="edition.registeredLine1" ns="common" />
                                     </div>
@@ -86,7 +86,7 @@ export default function MaruonSerialPage() {
                                                 br: <br />,
                                                 num: (
                                                     <span
-                                                        className="inline-block text-[2.5rem] leading-[3rem] tracking-[0.02em]
+                                                        className="inline-block text-[3rem] leading-[3rem] tracking-[0.02em]
                                                 text-transparent bg-clip-text [text-shadow:0_0_0_#e6c981]
                                                 [-webkit-text-stroke:1px_rgba(0,0,0,.18)]
                                                 [font-family:'Cinzel',serif]"
