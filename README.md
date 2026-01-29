@@ -93,19 +93,7 @@ VITE_SNS_FACEBOOK=https://www.facebook.com/people/코아스/61568079908788/
 VITE_ASSET_BASE_URL=https://j6wajg0oe8xjlsj8.public.blob.vercel-storage.com
 ```
 
-## 코드 스타일 및 린팅
 
-```bash
-# ESLint 실행
-npm run lint
-```
-
-프로젝트는 다음 규칙을 따릅니다:
-
-- **TypeScript**: 엄격한 타입 체킹 활성화
-- **ESLint**: JavaScript/TypeScript 코드 품질 관리
-- **Prettier**: 코드 포맷팅 (자동 적용)
-- **Tailwind CSS**: 유틸리티 클래스 기반 스타일링
 
 ## 배포
 
